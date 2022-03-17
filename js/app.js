@@ -96,7 +96,18 @@ class Promotor {
 
 
       addClient(newClient) {  //Quiero que al crearse un cliente este se una al array clientes de ese promotor
-        newClient = new Client()
+        newClient = new Client();
+        clientes.push(newClient);
+    }
+
+    mostrarClientes() {
+        for (const cliente of clientes) {
+            console.log(`El cliente ${cliente} se ha cargado correctamente`)
+        }        
+    }
+
+    eliminarCLiente(){
+        //Realizar codigo para eliminar un cliente de un array.
     }
 };
 
