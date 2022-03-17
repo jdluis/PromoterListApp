@@ -24,10 +24,43 @@ function signInAdmin() {
 ///CLASES//////
 **************/
 
-/* Me gustaria incluir que exista un Admin Global que al logearse si es un admin aparecera
-como tal en la pagina y con sus funciones, en vez de la de un promotor, ademas  el cual sea el que cree los promotores que se necesite y les de un nombre y una constraseña, 
-que pueda eliminarlos tambien y modificar sus clientes o añadir otros, tambien sera el que cambie el estado dee cada cliente de Pendiente a Confirmado o Cancelado.*/
+//Creo que existia el extend pero no lo entiendo del todo aun, ya que si lo extiendo a la clase promotor, no estoy seguro de si todos los metodos se me pasan directamente
+// O si en el caso de que fuera asi como podria impedir que se pasen algunos metodos.
+class Admin {
+    constructor(userName,password) {
+        this.userName = userName;
+        this.password = password;
+    }
 
+    Login() {
+        let userName = prompt("Introduzca su nombre");
+        let password = prompt("Introduzca su contraseña");
+      
+        if (this.userName == userName && this.password  == password) {
+          console.log("Login realizado correctamente");
+          alert("Bienvenido " + userName);
+          return (promotorLog = true);
+        } else {
+          alert("No se ha podido logear, consulte el log");
+          console.log(
+            "Los datos introducidos no corresponden con ningun Administrador"
+          );
+          return (promotorLog = false);
+        }
+      }
+      
+      //Simplemente uniendolo a un boton o algo funcionaria para cambiar el estado de log
+       Logout() {
+        alert("Te has deslogeado correctamente");
+        console.log("Admin " + userName + " deslogeado");
+        return (promotorLog = false);
+      }
+
+      
+      addPromotor(newPromotor) {  //Quiero que al crearse un cliente este se una al array clientes de ese promotor
+        newPromotor = new Client()
+    }
+}
 
 class Promotor {
 
