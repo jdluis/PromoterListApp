@@ -23,8 +23,11 @@ Aplicación para cualquier tipo de eventos que tenga promotores.
 En este caso de ejemplo se pretende crear dicha app en relación con un festival que vende mediante promotores ticket del evento.
 
 Funciones de la aplicación:
+
 -Registro de Admin de Evento: Nombre Admin, Correo, Contraseña y nombre del evento.
+
 -Login y LogOut de admin y promotores.
+
 -Lista de Eventos, con descriocion breve del evento creada por el Admin del evento y boton de solicitar ser promotor de este evento.
 -Funciones del Admin: 
  -Crear Promotores, eliminar y modificar
