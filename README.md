@@ -22,7 +22,7 @@ In this example case, the intention is to create said app in relation to a festi
 Aplicación para cualquier tipo de eventos que tenga promotores. 
 En este caso de ejemplo se pretende crear dicha app en relación con un festival que vende mediante promotores ticket del evento.
 
-Funciones de la aplicación:
+## Funciones de la aplicación:
 
 - Registro de Admin de Evento: Nombre Admin, Correo, Contraseña y nombre del evento.  
 - Login y LogOut de admin y promotores.
