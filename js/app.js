@@ -6,13 +6,18 @@ let promotorLog;
 //DOM
 let submitAdmin = document.getElementById('submitForm');
 let loginUser = document.getElementById('loginForm');
-
+let clientForm = document.getElementById('clientFormSubmit');
+let adminPanel = document.getElementById('adminPanel');
+let promotorPanel = document.getElementById('promotorPanel');
 
 
 /*ARRAYS*/
 const admins =[];
 const promotores = [];
 const clientes = [];
+
+/*REGLAS PARA VISUALIZAR CADA SECTION O PAGINA*/
+
 
 
 
@@ -34,6 +39,7 @@ const clientes = [];
      console.log(`Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}, y su pass: ${newAdmin.password}`)
     }    
 
+
 /*************
  ///CLASES////// 
  **************/
@@ -50,27 +56,32 @@ class Admin {
     }    
 
     Login() {
-      let userName = prompt("Introduzca su nombre");
-      let password = prompt("Introduzca su contraseña");
+      event.preventDefault();
+      userName = loginUser[0].value;
+      password = loginUser[1].value;
       
       if (this.userName == userName && this.password  == password) {
+        adminPanel.classList.remove('none');  
         console.log("Login realizado correctamente");
         alert("Bienvenido " + userName);
-        return (promotorLog = true);
+        return (adminLog = true);
       } else {
         alert("No se ha podido logear, consulte el log");
         console.log(
           "Los datos introducidos no corresponden con ningun Administrador"
           );  
-          return (promotorLog = false);
+          return (adminLog = false);
         }  
       }  
       
       //Simplemente uniendolo a un boton o algo funcionaria para cambiar el estado de log
       Logout() {
+        event.preventDefault();
         alert("Te has deslogeado correctamente"); 
+        adminLog = false;
         console.log("Admin " + userName + " deslogeado");
-        return (promotorLog = false);
+        adminPanel.classList.add('none');
+        alert("Admin " + userName + " deslogeado");
       }  
       
       
@@ -155,6 +166,8 @@ class Admin {
     /*Datos provicionales del administrador principal*/
     let adminName = "007";
     let adminPass = "2211";
+
+    let newAdmin = new Admin('dani', '123');
 
     /*CONSOLE PARA TESTING*/ 
     console.log("Testing App List PROM by jdluis");

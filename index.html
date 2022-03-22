@@ -23,7 +23,7 @@
                 <input type="text" id="userName" value="User Name" required>
                 <label for="password">Password</label>
                 <input type="password" id="password" required>
-                <button type="submit">Login</button>
+                <button type="submit" onclick="newAdmin.Login()">Login</button>
             </form>
         </div>
         <div class="container-form">
@@ -42,8 +42,12 @@
         </div>
     </main>
 
-    <!--FORMULARIO DE REGISTRO DE CLIENTES (solo sera visible una vez logeado un promotor o accediendo con el admin a una ficha de promotor)--> 
-    <div>
+     <!--Panel de Administrador una vez logeado-->
+    <section id="adminPanel" class="none">
+        <button onclick="newAdmin.Logout()">Log Out</button>
+        <div></div>
+          <!--FORMULARIO DE REGISTRO DE CLIENTES (solo sera visible una vez logeado un promotor o accediendo con el admin a una ficha de promotor)--> 
+    <div id="clientFormSubmit" class="none">
         <h2>Add New Client</h2>
         <form action="">
             <input type="text" value="Name">
@@ -52,6 +56,23 @@
             <button type="submit">Sign In</button>
         </form>
     </div>
+    </section>
+
+    <!--Panel de Promotor una vez logeado-->
+    <section id="promotorPanel" class="none">
+        <div></div>
+          <!--FORMULARIO DE REGISTRO DE CLIENTES (solo sera visible una vez logeado un promotor o accediendo con el admin a una ficha de promotor)--> 
+    <div id="clientFormSubmit" class="none">
+        <h2>Add New Client</h2>
+        <form action="">
+            <input type="text" value="Name">
+            <input type="email">
+            <input type="number">
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+    </section>
+
     <script src="js/app.js"></script>
 </body>
 </html>

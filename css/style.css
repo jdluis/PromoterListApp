@@ -12,6 +12,9 @@ body {
     border: 1px solid black;
 }
 
+.none {
+    display: none;
+}
 main {
     text-align: center;
     box-shadow: 1px 2px 1px 2px;
@@ -34,3 +37,4 @@ main .form label {
 .container-form {
     margin: 4em 0;
 }
+
