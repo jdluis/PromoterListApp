@@ -16,19 +16,30 @@
 
     <!--FORMULARIO DE LOGIN PARA LOS PROMOTORES O ADMINS-->
     <main>
-        <h2>LOGIN FOR ADMIN OR PROMOTER</h2>
-        <form class="form">
-            <label for="userName">Nombre de Usuario</label>
-            <input type="text" id="userName" value="User Name">
-            <label for="password">Contraseña</label>
-            <input type="password" id="password">
-            <label for="mail">Correo</label>
-            <input type="email" id="mail">
-            <label for="eventName">Nombre del Evento</label>
-            <input type="text" id="eventName">
-            
-            <button type="submit">Login</button>
-        </form>
+        <div class="container-form">
+            <h2>LOGIN FOR ADMIN OR PROMOTER</h2>
+            <form class="form" id="loginForm">
+                <label for="userName">UserName</label>
+                <input type="text" id="userName" value="User Name" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div class="container-form">
+            <h2>SUBMIT FOR ADMIN</h2>
+            <form class="form" id="submitForm">
+                <label for="adminName">User Name</label>
+                <input type="text" id="adminName" value="User Name" required>
+                <label for="adminPassword">Password</label>
+                <input type="password" id="adminPassword" required>
+                <label for="adminMail">Mail</label>
+                <input type="email" id="adminMail" required>
+                <label for="eventName">Nombre del Evento</label>
+                <input type="text" id="eventName" required>
+                <button type="submit" onclick="signInAdmin()">Submit</button>
+            </form>
+        </div>
     </main>
 
     <!--FORMULARIO DE REGISTRO DE CLIENTES (solo sera visible una vez logeado un promotor o accediendo con el admin a una ficha de promotor)--> 

@@ -1,7 +1,11 @@
+
 //Declaracion de variables
 let adminLog;
 let promotorLog;
 
+//DOM
+let submitAdmin = document.getElementById('submitForm');
+let loginUser = document.getElementById('loginForm');
 
 
 
@@ -17,11 +21,12 @@ const clientes = [];
  **************/
     /*Permite registrar un nuevo admin */
    function signInAdmin() {
+     event.preventDefault(); //Previene que se recargue la pagina, por ahora para evitar que se pierdan datos
      let newAdmin = new Admin(
-      prompt("Indique el nombre de usuario que deseé"),
-      prompt("Indique una constraseña"),
-      prompt("Indique el nombre de su evento"),
-      prompt("Indique el correo"),
+      submitAdmin[0].value,
+      submitAdmin[1].value,
+      submitAdmin[2].value,
+      submitAdmin[3].value,
      );
      admins.push(newAdmin);
 
@@ -146,7 +151,7 @@ class Admin {
     /*********************************
      * DATOS TEMPORALES/DEMOS/PRUEBAS *
      * ******************************/
-    
+
     /*Datos provicionales del administrador principal*/
     let adminName = "007";
     let adminPass = "2211";

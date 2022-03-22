@@ -30,3 +30,7 @@ main .form {
 main .form label {
     text-align: left;
 }
+
+.container-form {
+    margin: 4em 0;
+}
