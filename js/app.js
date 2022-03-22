@@ -68,17 +68,15 @@ logOutBtn.addEventListener("click", () => {
       submitAdmin[3].value,
      );
 
-     for (let i = 0; i < admins.length; i++) {
-      if (submitAdmin[0].value == admins[i].userName) {
+      if ( admins.find(element => element.userName == newAdmin.userName)) {
         console.log("Elige otro nombre de usuario");
-        break;
-      }
-    }  
+      } else { 
       admins.push(newAdmin);
        alert("Admin registrado sadisfactoriamente"),
-       console.log(`Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}, y su pass: ${newAdmin.password}`)
+       console.log(`Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}`);
      submitAdmin.reset();
-    }    
+      }
+    }      
 
 /*************
  ///CLASES////// 
@@ -96,8 +94,8 @@ class Admin {
     }    
 
     Login() {
-      userName = loginUser[0].value;
-      password = loginUser[1].value;
+      let userName = loginUser[0].value;
+      let password = loginUser[1].value;
       
       if (this.userName == userName && this.password  == password) {
         adminPanel.classList.remove('none');  
@@ -119,9 +117,9 @@ class Admin {
         event.preventDefault();
         alert("Te has deslogeado correctamente"); 
         adminLog = false;
-        console.log("Admin " + userName + " deslogeado");
+        console.log("Admin " + this.userName + " deslogeado");
         adminPanel.classList.add('none');
-        alert("Admin " + userName + " deslogeado");
+        alert("Admin " + this.userName + " deslogeado");
       }  
       
       
