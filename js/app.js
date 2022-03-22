@@ -4,17 +4,52 @@ let adminLog;
 let promotorLog;
 
 //DOM
-let submitAdmin = document.getElementById('submitForm');
+let submitAdmin = document.getElementById('signinForm');
 let loginUser = document.getElementById('loginForm');
 let clientForm = document.getElementById('clientFormSubmit');
 let adminPanel = document.getElementById('adminPanel');
 let promotorPanel = document.getElementById('promotorPanel');
-
+let submitLoginBtn = document.getElementById('submitLoginBtn');
+let signInAdminBtn = document.getElementById('signInAdminBtn');
+let logOutBtn = document.getElementById('logOutBtn');
 
 /*ARRAYS*/
 const admins =[];
 const promotores = [];
 const clientes = [];
+
+/*EVENTOS*/ 
+//Activa el evento cuando damos click en el boton de Login
+submitLoginBtn.addEventListener("click", () => {
+  event.preventDefault();
+
+  for (let i = 0; i < admins.length; i++) {
+    if (adminLog == true || promotorLog == true) {
+      console.log("Error de inicio de sesion, ya existe un usuario logeado, deslogeate primero");
+    } else {
+      admins[i].Login();
+    }
+  }
+} );
+
+//Llama a la funcion registro cuando damos click en el boton de Registro
+signInAdminBtn.addEventListener("click", () => {
+  event.preventDefault(); //Previene que se recargue la pagina, por ahora para evitar que se pierdan datos
+  return signInAdmin();
+});
+
+//Nos Deslogea cuando damos click en el boton de logOut
+logOutBtn.addEventListener("click", () => {
+  event.preventDefault();
+
+  for (let i = 0; i < admins.length; i++) {
+    if (adminLog == false || promotorLog == false) {
+      console.log("No hay ningun usuario logeado");
+    } else {
+      admins[i].Logout();
+    }
+  }
+} );
 
 /*REGLAS PARA VISUALIZAR CADA SECTION O PAGINA*/
 
@@ -26,19 +61,24 @@ const clientes = [];
  **************/
     /*Permite registrar un nuevo admin */
    function signInAdmin() {
-     event.preventDefault(); //Previene que se recargue la pagina, por ahora para evitar que se pierdan datos
      let newAdmin = new Admin(
       submitAdmin[0].value,
       submitAdmin[1].value,
       submitAdmin[2].value,
       submitAdmin[3].value,
      );
-     admins.push(newAdmin);
 
-     alert("Admin registrado sadisfactoriamente"),
-     console.log(`Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}, y su pass: ${newAdmin.password}`)
+     for (let i = 0; i < admins.length; i++) {
+      if (submitAdmin[0].value == admins[i].userName) {
+        console.log("Elige otro nombre de usuario");
+        break;
+      }
+    }  
+      admins.push(newAdmin);
+       alert("Admin registrado sadisfactoriamente"),
+       console.log(`Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}, y su pass: ${newAdmin.password}`)
+     submitAdmin.reset();
     }    
-
 
 /*************
  ///CLASES////// 
@@ -56,7 +96,6 @@ class Admin {
     }    
 
     Login() {
-      event.preventDefault();
       userName = loginUser[0].value;
       password = loginUser[1].value;
       
@@ -64,6 +103,7 @@ class Admin {
         adminPanel.classList.remove('none');  
         console.log("Login realizado correctamente");
         alert("Bienvenido " + userName);
+        loginUser.reset(); //Limpia el formulario despues de haber logeado
         return (adminLog = true);
       } else {
         alert("No se ha podido logear, consulte el log");
@@ -167,7 +207,6 @@ class Admin {
     let adminName = "007";
     let adminPass = "2211";
 
-    let newAdmin = new Admin('dani', '123');
 
     /*CONSOLE PARA TESTING*/ 
     console.log("Testing App List PROM by jdluis");
