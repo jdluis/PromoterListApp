@@ -1,5 +1,8 @@
 
-//Declaracion de variables
+/* ************************** *
+ * *START---DECLARACION DE VARIABLES* *
+ * ****************************/
+//Booleanos User Logs
 let adminLog;
 let promotorLog;
 
@@ -12,31 +15,37 @@ let promotorPanel = document.getElementById('promotorPanel');
 let submitLoginBtn = document.getElementById('submitLoginBtn');
 let signInAdminBtn = document.getElementById('signInAdminBtn');
 let logOutBtn = document.getElementById('logOutBtn');
+let signInErrorOrSuccessMessage = document.getElementById('signInErrorOrSuccessMessage');
+let loginErrorOrSuccessMessage =document.getElementById('loginErrorOrSuccessMessage');
 
 /*ARRAYS*/
 const admins =[];
 const promotores = [];
 const clientes = [];
 
+/* ************************** *
+ * *FINISH---DECLARACION DE VARIABLES* *
+ * ****************************/
+
 /*EVENTOS*/ 
-//Activa el evento cuando damos click en el boton de Login
-submitLoginBtn.addEventListener("click", () => {
-  event.preventDefault();
-
-  for (let i = 0; i < admins.length; i++) {
-    if (adminLog == true || promotorLog == true) {
-      console.log("Error de inicio de sesion, ya existe un usuario logeado, deslogeate primero");
-    } else {
-      admins[i].Login();
-    }
-  }
-} );
-
 //Llama a la funcion registro cuando damos click en el boton de Registro
 signInAdminBtn.addEventListener("click", () => {
   event.preventDefault(); //Previene que se recargue la pagina, por ahora para evitar que se pierdan datos
   return signInAdmin();
 });
+
+
+//Activa el evento User Login cuando damos click en el boton de Login
+submitLoginBtn.addEventListener("click", () => {
+  event.preventDefault();
+  for (let i = 0; i < admins.length; i++) {
+    if (adminLog == true || promotorLog == true) {
+      console.log("Error de inicio de sesion, ya existe un usuario logeado, deslogeate primero");
+    } else
+      admins[i].Login();
+  }
+} );
+
 
 //Nos Deslogea cuando damos click en el boton de logOut
 logOutBtn.addEventListener("click", () => {
@@ -59,10 +68,19 @@ logOutBtn.addEventListener("click", () => {
 /*************
  ///FUNCIONES////// 
  **************/
-    /*Permite registrar un nuevo admin */
-   function signInAdmin() {
+//Mensajes de Validacion
+function displayErrorOrSuccessMessage (message) {
+  signInErrorOrSuccessMessage.innerText = message;
+}
+
+function displayLoginMessage (message) {
+  loginErrorOrSuccessMessage.innerText = message;
+}
+
+/*Permite registrar un nuevo admin */
+function signInAdmin() {
      let newAdmin = new Admin(
-      submitAdmin[0].value,
+       submitAdmin[0].value,
       submitAdmin[1].value,
       submitAdmin[2].value,
       submitAdmin[3].value,
@@ -70,14 +88,15 @@ logOutBtn.addEventListener("click", () => {
 
       if ( admins.find(element => element.userName == newAdmin.userName)) {
         console.log("Elige otro nombre de usuario");
+        displayErrorOrSuccessMessage('Este Admin Ya esta registrado, pruebe con otro nombre');
       } else { 
-      admins.push(newAdmin);
-       alert("Admin registrado sadisfactoriamente"),
-       console.log(`Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}`);
-     submitAdmin.reset();
+        admins.push(newAdmin);
+        console.log(`Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}`);
+        displayErrorOrSuccessMessage('Se ha registrado correctamente.');
+        submitAdmin.reset();
       }
     }      
-
+    
 /*************
  ///CLASES////// 
  **************/
@@ -100,13 +119,13 @@ class Admin {
       if (this.userName == userName && this.password  == password) {
         adminPanel.classList.remove('none');  
         console.log("Login realizado correctamente");
-        alert("Bienvenido " + userName);
+        displayLoginMessage("Bienvenido " + userName);
         loginUser.reset(); //Limpia el formulario despues de haber logeado
         return (adminLog = true);
       } else {
-        alert("No se ha podido logear, consulte el log");
+        displayLoginMessage("No se ha podido logear, vuelva a intentarlo.");
         console.log(
-          "Los datos introducidos no corresponden con ningun Administrador"
+          "Los datos introducidos no corresponden con ningun Administrador o No ha introducido los datos correctamernte"
           );  
           return (adminLog = false);
         }  
@@ -115,7 +134,6 @@ class Admin {
       //Simplemente uniendolo a un boton o algo funcionaria para cambiar el estado de log
       Logout() {
         event.preventDefault();
-        alert("Te has deslogeado correctamente"); 
         adminLog = false;
         console.log("Admin " + this.userName + " deslogeado");
         adminPanel.classList.add('none');
