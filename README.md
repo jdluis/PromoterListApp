@@ -15,6 +15,35 @@ In this example case, the intention is to create said app in relation to a festi
 - Status of the new client to review by the Admin.
 - Table with: Full Name, email, phone number, status (Pending, Denied or Confirmed).
 
+## Version Alpha:
+
+- Allows to register new admins correctly
+- You can connect without problems when loading the new local Storage
+- Disconnect correct
+- It does not allow to register with the same name
+- Does not allow you to connect if you are already connected
+- Added error and confirmation messages.
+
+
+
+### TESTING/LOG:
+
+- Login: correct;
+- Login: correct;
+- Registration: correct;
+- Prevent user from registering with the same name: correct;
+
+### ERRORS:
+
+- Some error messages are not well configured.
+-
+
+### SOLUTION IDEAS:
+
+- Make the program load the data outside the server and not in an array, since it would cause a security flaw when being able to see the passwords and users;
+- Add exposure time to correct login messages, or registered user, in the future it is intended to change the page or load dynamic content and the message disappears, perhaps a log can be created on one side of the app for it and go disappear
+
+
 
 
 
@@ -42,3 +71,35 @@ En este caso de ejemplo se pretende crear dicha app en relación con un festival
 > (La aplicación en modo fácil seria, que al entrar si eres un organizador de x eventos te tuvieras que registrar como tal (nombre de admin, email, contraseña y nombre del evento…(en el futuro quiero añadir que puedan digamos ponerle un fondo personalizado a la página e incluso tablas personalizadas por ellos para sus promotores)). Una vez hecho esto, este mismo podría crear, modificar y eliminar promotores. Dichos promotores podrán rellenar un formulario con los datos de los clientes que vayan consiguiendo, estos datos serian: nombre completo, correo, móvil y estado del trámite del ticket o fullpass (este estará en: Pendiente, Completado o Anulado, dependiendo de si ya pago, pero no ha recibido el ticket o si ya pago y tiene el ticket o si paso algo y se tuvo que anular).
 
 > El promotor una vez creado el perfil del cliente solo podrá modificar datos, solicitando al administrador que lo haga (quizás pueda pensar alguna función para ello), el administrador sera el que verifique que el pago se ha tramitado y que ha enviado el fullpass, cambiando el mismo los estados pendiente a completado. El promotor solo podrá cambiar a anulado en el caso de que siga pendiente, para ponerlo en anulado una vez ya estuviera completado tendría que contactar con el admin del evento.)
+
+
+
+## Version Alpha:
+
+- Permite registrar nuevos admins correctamente
+- Puedes conectarte sin problemas al cargar el nuevo local Storage
+- Desconectarte correcto
+- No permite registrarse con mismo nombre
+- No permite que te conectes si ya lo estás
+- Se añadieron mensajes de error y de confirmación. 
+
+
+
+### TESTING/LOG:
+
+- Login: correcto;
+- Deslogin: correcto;
+- Registro: correcto;
+- Impedir que se registre usuario con mismo name: correcto;
+
+### ERRORES:
+
+- Algunos mensajes de error no están bien configurados.
+- 
+
+### IDEAS SOLUCIÓN:
+
+- Hacer que el programa cargue los datos por fuera del servidor y no en un array, ya que ocasionaría un fallo de seguridad al poder ver las contraseñas y usuarios;
+- Añadir tiempo de exposición a mensajes de login correcto, o usuario registrado, en el futuro se pretende que cambie de página o cargue contenido dinámico y desaparezca el mensaje, quizás se puede crear un log en un lado de la app para ello y que vaya desaparecien.
+
+
