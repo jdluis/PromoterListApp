@@ -1,6 +1,6 @@
 # PromoterListApp
 ## Ticket sales app by promoters | By jdluisdev --> https://jdluis.com/
-### last update: 17 mar 2022
+### last update: 25 mar 2022
                 /*ENGLISH*/
 
 Application for any type of event that has promoters.
