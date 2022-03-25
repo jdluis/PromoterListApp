@@ -31,7 +31,10 @@ const clientes = [];
  * *FINISH---DECLARACION DE VARIABLES* *
  * ****************************/
 
-/*EVENTOS*/
+/* ************************** *
+ * *START---EVENTOS* *
+ * ****************************/
+
 //Llama a la funcion registro cuando damos click en el boton de Registro
 signInAdminBtn.addEventListener("click", () => {
   event.preventDefault(); //Previene que se recargue la pagina, por ahora para evitar que se pierdan datos
@@ -52,19 +55,13 @@ logOutBtn.addEventListener("click", (e) => {
 
 /*REGLAS PARA VISUALIZAR CADA SECTION O PAGINA*/
 
+/* ************************** *
+ * *FINISH---EVENTOS* *
+ * ****************************/
+
 /*************
  ///FUNCIONES////// 
  **************/
-
- /*Crea un ID Unico cada vez que se llama-Esta funcion fue sacada de internet, ya que no veia como hacerlo*/
- let uniqueId = (() => {
-  let counter = 0
-  return function() {
-      return counter++
-  }
-})();
-
-
 
 //Mensajes de Validacion
 function displayErrorOrSuccessMessage(message) {
@@ -91,7 +88,7 @@ function signInAdmin() {
     );
   } else {
     localStorage.setItem(newAdmin.userName, JSON.stringify(newAdmin)); //para guardar en localStorge
-   // admins.push(newAdmin); //Esto es para guardar en arraya
+    // admins.push(newAdmin); //Esto es para guardar en arraya
     console.log(
       `Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}`
     );
@@ -100,7 +97,7 @@ function signInAdmin() {
   }
 }
 
-//login 
+//login TENGO QUE AJUSTARLA AL LOCALSTORAGE
 function login() {
   let userName = loginUser[0].value;
   let password = loginUser[1].value;
@@ -128,6 +125,11 @@ function logOut() {
   adminPanel.classList.add("none");
   alert("Admin " + userFound.userName + " deslogeado");
 }
+
+function loadLocalData() {
+  let llamar = localStorage.getItem();
+  console.log(llamar);
+}
 /*************
  ///CLASES////// 
  **************/
@@ -136,13 +138,13 @@ function logOut() {
 // O si en el caso de que fuera asi como podria impedir que se pasen algunos metodos.
 
 class Admin {
-
   constructor(userName, password, mail, eventName) {
-    this.id = uniqueId(); //Llama a la funcion para crear un numero distinto cada vez
+   // this.id = uniqueId(); //Llama a la funcion para crear un numero distinto cada vez/ Desactivado hasta que funcione correctamente lo demas.
     this.userName = userName;
     this.password = password;
     this.mail = mail;
     this.eventName = eventName;
+   // this.promotores = signInPromotors(); Creare una funcion para guardar aqui los datos de los promotores
   }
 
   addPromotor() {
