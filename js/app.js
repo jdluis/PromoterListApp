@@ -2,8 +2,8 @@
  * *START---DECLARACION DE VARIABLES* *
  * ****************************/
 //Booleanos User Logs
-let adminLog;
-let promotorLog;
+let adminLog = false;
+let promotorLog = false;
 
 //DOM
 let submitAdmin = document.getElementById("signinForm");
@@ -97,7 +97,7 @@ function signInAdmin() {
   }
 }
 
-//login TENGO QUE AJUSTARLA AL LOCALSTORAGE
+//login TENGO QUE AJUSTARLA AL LOCALSTORAGE(por ahora ajuste el localstorage al array, en vez de conectar las funciones al local)
 function login() {
   let userName = loginUser[0].value;
   let password = loginUser[1].value;
@@ -106,14 +106,17 @@ function login() {
       userFound = admin;
     }
   }
-  if (userFound.userName == userName && userFound.password == password) {
+  if (userFound.userName == userName && userFound.password == password && adminLog == false) {
     console.log(`Admin encontrado ${userFound.userName}`);
     adminPanel.classList.remove("none");
     console.log("Login realizado correctamente");
     displayLoginMessage("Bienvenido " + userName);
     loginUser.reset(); //Limpia el formulario despues de haber logeado
     adminLog = true;
-  } else {
+  } else if (adminLog == true) {
+    displayLoginMessage("Ya estas logeado");
+  }
+  else {
     console.log("Vuelva a intentarlo");
     displayLoginMessage("No se ha podido logear, vuelva a intentarlo.");
   }
@@ -126,10 +129,19 @@ function logOut() {
   alert("Admin " + userFound.userName + " deslogeado");
 }
 
-function loadLocalData() {
-  let llamar = localStorage.getItem();
-  console.log(llamar);
+
+//Carga el contenido de todo el local Storagw y lo guarda en el array admins
+function allStorage() { 
+      keys = Object.keys(localStorage),
+      i = keys.length;
+
+  while ( i-- ) {
+      admins.push( JSON.parse(localStorage.getItem(keys[i])) );
+  }
+  return admins;
 }
+
+
 /*************
  ///CLASES////// 
  **************/
