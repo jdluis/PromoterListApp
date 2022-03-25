@@ -55,6 +55,17 @@ logOutBtn.addEventListener("click", (e) => {
 /*************
  ///FUNCIONES////// 
  **************/
+
+ /*Crea un ID Unico cada vez que se llama-Esta funcion fue sacada de internet, ya que no veia como hacerlo*/
+ let uniqueId = (() => {
+  let counter = 0
+  return function() {
+      return counter++
+  }
+})();
+
+
+
 //Mensajes de Validacion
 function displayErrorOrSuccessMessage(message) {
   signInErrorOrSuccessMessage.innerText = message;
@@ -79,7 +90,8 @@ function signInAdmin() {
       "Este Admin Ya esta registrado, pruebe con otro nombre"
     );
   } else {
-    admins.push(newAdmin);
+    localStorage.setItem(newAdmin.userName, JSON.stringify(newAdmin)); //para guardar en localStorge
+   // admins.push(newAdmin); //Esto es para guardar en arraya
     console.log(
       `Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}`
     );
@@ -88,7 +100,7 @@ function signInAdmin() {
   }
 }
 
-//login Testeado
+//login 
 function login() {
   let userName = loginUser[0].value;
   let password = loginUser[1].value;
@@ -124,7 +136,9 @@ function logOut() {
 // O si en el caso de que fuera asi como podria impedir que se pasen algunos metodos.
 
 class Admin {
+
   constructor(userName, password, mail, eventName) {
+    this.id = uniqueId(); //Llama a la funcion para crear un numero distinto cada vez
     this.userName = userName;
     this.password = password;
     this.mail = mail;
