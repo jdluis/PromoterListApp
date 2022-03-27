@@ -13,7 +13,6 @@ let adminPanel = document.getElementById("adminPanel");
 let promotorPanel = document.getElementById("promotorPanel");
 let submitLoginBtn = document.getElementById("submitLoginBtn");
 let signInAdminBtn = document.getElementById("signInAdminBtn");
-let logOutBtn = document.getElementById("logOutBtn");
 let signInErrorOrSuccessMessage = document.getElementById(
   "signInErrorOrSuccessMessage"
 );
@@ -21,6 +20,12 @@ let loginErrorOrSuccessMessage = document.getElementById(
   "loginErrorOrSuccessMessage"
 );
 let userFound;
+
+let linkToLogin = document.getElementById('linkToLogin');
+let loginContainer = document.getElementById('loginContainer');
+let singinContainer = document.getElementById('singinContainer');
+let linkToSingin = document.getElementById('linkToSingin');
+
 
 /*ARRAYS*/
 const admins = [];
@@ -35,6 +40,18 @@ const clientes = [];
  * *START---EVENTOS* *
  * ****************************/
 
+linkToLogin.addEventListener("click", (e) => {
+  loginContainer.classList.remove("none");
+  singinContainer.classList.add("none");
+});
+
+linkToSingin.addEventListener("click", (e) => {
+  loginContainer.classList.add("none");
+  singinContainer.classList.remove("none");
+});
+
+
+
 //Llama a la funcion registro cuando damos click en el boton de Registro
 signInAdminBtn.addEventListener("click", () => {
   event.preventDefault(); //Previene que se recargue la pagina, por ahora para evitar que se pierdan datos
@@ -47,11 +64,7 @@ submitLoginBtn.addEventListener("click", (e) => {
   login();
 });
 
-//Nos Deslogea cuando damos click en el boton de logOut
-logOutBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  logOut();
-});
+
 
 /*REGLAS PARA VISUALIZAR CADA SECTION O PAGINA*/
 
@@ -62,6 +75,37 @@ logOutBtn.addEventListener("click", (e) => {
 /*************
  ///FUNCIONES////// 
  **************/
+
+ //Acceder al Panel Administrador
+
+ function showAdminPanel () {
+   
+   adminPanel.innerHTML = `
+   <section id="adminPanel">
+   <div> 
+   <button id="logOutBtn">Log Out</button>
+   <h2>${userFound.eventName} </h2>
+   <h3> ${userFound.userName}</h3>
+   </div>
+   
+   <div id="clientFormSubmit" class="none">
+   <h2>Add New Client</h2>
+   <form action="">
+   <input type="text" value="Name">
+   <input type="email">
+   <input type="number">
+   <button type="submit">Sign In</button>
+   </form>
+   </div>
+   </section>
+   `
+   let logOutBtn = document.getElementById("logOutBtn");
+    //Nos Deslogea cuando damos click en el boton de logOut
+  logOutBtn.addEventListener("click", (e) => {
+   e.preventDefault();
+   logOut();
+ });
+ };
 
 //Mensajes de Validacion
 function displayErrorOrSuccessMessage(message) {
@@ -94,6 +138,7 @@ function signInAdmin() {
     );
     displayErrorOrSuccessMessage("Se ha registrado correctamente.");
     submitAdmin.reset();
+    allStorage();
   }
 }
 
@@ -113,6 +158,9 @@ function login() {
     displayLoginMessage("Bienvenido " + userName);
     loginUser.reset(); //Limpia el formulario despues de haber logeado
     adminLog = true;
+
+    showAdminPanel();
+    loginContainer.classList.add("none");
   } else if (adminLog == true) {
     displayLoginMessage("Ya estas logeado");
   }
@@ -127,6 +175,7 @@ function logOut() {
   adminLog = false;
   adminPanel.classList.add("none");
   alert("Admin " + userFound.userName + " deslogeado");
+  singinContainer.classList.remove("none");
 }
 
 
