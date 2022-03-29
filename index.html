@@ -7,58 +7,56 @@
     <title>Promotor List App</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tableList.css">
+    <script
+    src="https://kit.fontawesome.com/3ffbeed2f4.js"
+    crossorigin="anonymous"
+  ></script>
 </head>
 <body onload="allStorage()">
     <!--HEADER-->
-    <div>
-        <h1>Promotor List</h1>
-    </div>
+    <header>
+        <div>
+            <h1 id="headerTitle">Your Promotor List</h1>
+        </div>
+    </header>
 
     <!--FORMULARIO DE LOGIN PARA LOS PROMOTORES O ADMINS-->
-    <main>
-        <div class="container-form">
-            <h2>LOGIN FOR ADMIN OR PROMOTER</h2>
-            <form class="form" id="loginForm">
-                <label for="userName">UserName</label>
-                <input type="text" id="userName" value="User Name" required>
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
-                <button type="submit" id="submitLoginBtn">Login</button>
-            </form>
-            <span id="loginErrorOrSuccessMessage"></span>
-        </div>
-        <div class="container-form">
-            <h2>SIGN IN FOR ADMIN</h2>
+    <main id="">
+        <div class="form-container" id="singinContainer">
+            <h2 class="form-title">Sing In Your Event!</h2>
             <form class="form" id="signinForm">
-                <label for="adminName">User Name</label>
-                <input type="text" id="adminName" value="User Name" required>
-                <label for="adminPassword">Password</label>
-                <input type="password" id="adminPassword" required>
+                <label for="eventName">Event Name</label>
+                <input class="form__input" type="text" id="eventName" required>
+                <label for="adminName">User</label>
+                <input class="form__input" type="text" id="adminName" required>
                 <label for="adminMail">Mail</label>
-                <input type="email" id="adminMail" required>
-                <label for="eventName">Nombre del Evento</label>
-                <input type="text" id="eventName" required>
-                <button type="submit" id="signInAdminBtn">Sign In</button>
+                <input class="form__input" type="email" id="adminMail" required>
+                <label for="adminPassword">Password</label>
+                <input class="form__input" type="password" id="adminPassword" required>
+                <button class="btn btn-on" type="submit" id="signInAdminBtn">Sign In</button>
             </form>
             <span id="signInErrorOrSuccessMessage"></span>
+            <a class="link btn btn-off" id="linkToLogin">You already have it? Click Here</a>
+        </div>
+        
+        <div class="form-container none" id="loginContainer">
+            <h2 class="form-title">LOGIN</h2>
+            <form class="form" id="loginForm">
+                <label for="userName">UserName</label>
+                <input class="form__input" type="text" id="userName"required>
+                <label for="password">Password</label>
+                <input class="form__input" type="password" id="password" required>
+                <button class="btn btn-on" type="submit" id="submitLoginBtn">Login</button>
+            </form>
+            <span id="loginErrorOrSuccessMessage"></span>
+            <a class="link btn btn-off" id="linkToSingin">¿New User? Click Here</a>
         </div>
     </main>
 
-     <!--Panel de Administrador una vez logeado-->
-    <section id="adminPanel" class="none">
-        <button id="logOutBtn">Log Out</button>
-        <div></div>
-          <!--FORMULARIO DE REGISTRO DE CLIENTES (solo sera visible una vez logeado un promotor o accediendo con el admin a una ficha de promotor)--> 
-    <div id="clientFormSubmit" class="none">
-        <h2>Add New Client</h2>
-        <form action="">
-            <input type="text" value="Name">
-            <input type="email">
-            <input type="number">
-            <button type="submit">Sign In</button>
-        </form>
+      <!--Panel de ADMINISTRADOR una vez logeado-->
+    <div id="adminPanel">
     </div>
-    </section>
 
     <!--Panel de Promotor una vez logeado-->
     <section id="promotorPanel" class="none">
@@ -74,6 +72,10 @@
         </form>
     </div>
     </section>
+
+    <footer class="footer-container">
+        <h4>Copyright: jdluis.com</h4>
+    </footer>
 
     <script src="js/app.js"></script>
 </body>
