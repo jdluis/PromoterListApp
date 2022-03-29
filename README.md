@@ -1,6 +1,6 @@
 # PromoterListApp
 ## Ticket sales app by promoters | By jdluisdev --> https://jdluis.com/
-### last update: 25 mar 2022
+### last update: 29 mar 2022
                 /*ENGLISH*/
 
 Application for any type of event that has promoters.
@@ -23,6 +23,7 @@ In this example case, the intention is to create said app in relation to a festi
 - It does not allow to register with the same name
 - Does not allow you to connect if you are already connected
 - Added error and confirmation messages.
+- The Administrator Panel (Alpha) is displayed when logging in.
 
 
 
@@ -82,6 +83,7 @@ En este caso de ejemplo se pretende crear dicha app en relación con un festival
 - No permite registrarse con mismo nombre
 - No permite que te conectes si ya lo estás
 - Se añadieron mensajes de error y de confirmación. 
+- Se muestra al logear el Panel de Administrador (Alpha)
 
 
 
