@@ -7,48 +7,54 @@
     <title>Promotor List App</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tableList.css">
+    <script
+    src="https://kit.fontawesome.com/3ffbeed2f4.js"
+    crossorigin="anonymous"
+  ></script>
 </head>
 <body onload="allStorage()">
     <!--HEADER-->
     <header>
         <div>
-            <h1>Your Promotor List</h1>
+            <h1 id="headerTitle">Your Promotor List</h1>
         </div>
     </header>
 
     <!--FORMULARIO DE LOGIN PARA LOS PROMOTORES O ADMINS-->
-    <main>
-        <div class="container-form" id="singinContainer">
+    <main id="">
+        <div class="form-container" id="singinContainer">
             <h2 class="form-title">Sing In Your Event!</h2>
             <form class="form" id="signinForm">
-                <label for="adminName">User Name</label>
-                <input type="text" id="adminName" required>
-                <label for="adminPassword">Password</label>
-                <input type="password" id="adminPassword" required>
+                <label for="eventName">Event Name</label>
+                <input class="form__input" type="text" id="eventName" required>
+                <label for="adminName">User</label>
+                <input class="form__input" type="text" id="adminName" required>
                 <label for="adminMail">Mail</label>
-                <input type="email" id="adminMail" required>
-                <label for="eventName">Nombre del Evento</label>
-                <input type="text" id="eventName" required>
-                <button type="submit" id="signInAdminBtn">Sign In</button>
+                <input class="form__input" type="email" id="adminMail" required>
+                <label for="adminPassword">Password</label>
+                <input class="form__input" type="password" id="adminPassword" required>
+                <button class="btn btn-on" type="submit" id="signInAdminBtn">Sign In</button>
             </form>
             <span id="signInErrorOrSuccessMessage"></span>
-            <a class="link" id="linkToLogin">You already have it? Click Here</a>
+            <a class="link btn btn-off" id="linkToLogin">You already have it? Click Here</a>
         </div>
         
-        <div class="container-form none" id="loginContainer">
+        <div class="form-container none" id="loginContainer">
             <h2 class="form-title">LOGIN</h2>
             <form class="form" id="loginForm">
                 <label for="userName">UserName</label>
-                <input type="text" id="userName"required>
+                <input class="form__input" type="text" id="userName"required>
                 <label for="password">Password</label>
-                <input type="password" id="password" required>
-                <button type="submit" id="submitLoginBtn">Login</button>
+                <input class="form__input" type="password" id="password" required>
+                <button class="btn btn-on" type="submit" id="submitLoginBtn">Login</button>
             </form>
             <span id="loginErrorOrSuccessMessage"></span>
-            <a class="link" id="linkToSingin">¿New User? Click Here</a>
+            <a class="link btn btn-off" id="linkToSingin">¿New User? Click Here</a>
         </div>
     </main>
 
+      <!--Panel de ADMINISTRADOR una vez logeado-->
     <div id="adminPanel">
     </div>
 

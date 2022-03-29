@@ -21,11 +21,12 @@ let loginErrorOrSuccessMessage = document.getElementById(
 );
 let userFound;
 
-let linkToLogin = document.getElementById('linkToLogin');
-let loginContainer = document.getElementById('loginContainer');
-let singinContainer = document.getElementById('singinContainer');
-let linkToSingin = document.getElementById('linkToSingin');
+let linkToLogin = document.getElementById("linkToLogin");
+let loginContainer = document.getElementById("loginContainer");
+let singinContainer = document.getElementById("singinContainer");
+let linkToSingin = document.getElementById("linkToSingin");
 
+let headerTitle = document.getElementById("headerTitle");
 
 /*ARRAYS*/
 const admins = [];
@@ -53,8 +54,8 @@ linkToSingin.addEventListener("click", (e) => {
 
 
 //Llama a la funcion registro cuando damos click en el boton de Registro
-signInAdminBtn.addEventListener("click", () => {
-  event.preventDefault(); //Previene que se recargue la pagina, por ahora para evitar que se pierdan datos
+signInAdminBtn.addEventListener("click", (e) => {
+  e.preventDefault(); //Previene que se recargue la pagina, por ahora para evitar que se pierdan datos
   return signInAdmin();
 });
 
@@ -64,10 +65,6 @@ submitLoginBtn.addEventListener("click", (e) => {
   login();
 });
 
-
-
-/*REGLAS PARA VISUALIZAR CADA SECTION O PAGINA*/
-
 /* ************************** *
  * *FINISH---EVENTOS* *
  * ****************************/
@@ -76,36 +73,127 @@ submitLoginBtn.addEventListener("click", (e) => {
  ///FUNCIONES////// 
  **************/
 
- //Acceder al Panel Administrador
+//Acceder al Panel Administrador
 
- function showAdminPanel () {
-   
-   adminPanel.innerHTML = `
-   <section id="adminPanel">
-   <div> 
-   <button id="logOutBtn">Log Out</button>
-   <h2>${userFound.eventName} </h2>
-   <h3> ${userFound.userName}</h3>
-   </div>
-   
-   <div id="clientFormSubmit" class="none">
-   <h2>Add New Client</h2>
-   <form action="">
-   <input type="text" value="Name">
-   <input type="email">
-   <input type="number">
-   <button type="submit">Sign In</button>
-   </form>
-   </div>
-   </section>
-   `
-   let logOutBtn = document.getElementById("logOutBtn");
-    //Nos Deslogea cuando damos click en el boton de logOut
+function showAdminPanel() {
+  //HTML ADMIN PANEL
+  adminPanel.innerHTML = `
+    <div class="container">
+      <section class="adminPanel-container" id="adminPanel">
+        <div class="adminPanel-header">
+          <div class="adminPanel-header__info">
+            <h3>Admin: ${userFound.userName}</h3>
+            <h3>Mail: ${userFound.mail} </h3>
+          </div>
+          <div class="adminPanel-config__buttons">
+            <button class="btn-2 btn-2_on">
+              <i class="fa-solid fa-wrench"></i>
+            </button>
+            <button class="btn-2 btn-2_off" width="44.8px" id="logOutBtn">
+              X
+            </button>
+          </div>
+        </div>
+        <div>
+          <h2 class="title"> ${userFound.eventName}</h2>
+        </div>
+
+        <div id="clientFormSubmit" class="">
+          <div class="container-flex flex-2">
+            <h2 class="subtitle">Promoters</h2>
+            <button class="btn btn-add" id="showAddPromotorFormBtn">ADD</button>
+          </div>
+
+          <div>
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Mail</th>
+                <th>Phone</th>
+                <th>Code</th>
+                <th>Clients</th>
+              </tr>
+              <tr>
+                <td>Dani De Luis</td>
+                <td class="table_item">josedanieldeluis@gmail.com</td>
+                <td>+34 608995547</td>
+                <td>5474KJ</td>
+                <th>2</th>
+              </tr>
+              <tr>
+                <td>Ylenia Di Charm</td>
+                <td class="table_item">yleniadicharm@gmail.com</td>
+                <td>+34 608995547</td>
+                <td>5646FG</td>
+                <th>5</th>
+              </tr>
+            </table>
+          </div>
+
+          <!--HACER QUE SE ABRA EN UN MODAL TIPO ALERT AL PULSAR EN ADD-->
+          <div class="form-container form-modal none" id="singinPromotorContainer">
+            <h2 class="form-title">Create a Promotor</h2>
+            <form class="form" id="addPromotorForm">
+              <input
+                class="form__input"
+                type="text"
+                id="promotorName"
+                placeholder="Name"
+                required
+              />
+              <input
+                class="form__input"
+                type="email"
+                id="promotorMail"
+                placeholder="Mail"
+                required
+              />
+              <input
+                class="form__input"
+                type="text"
+                id="promotorPhone"
+                placeholder="Phone"
+                required
+              />
+              <input
+                class="form__input"
+                type="password"
+                id="promotorPassword"
+                placeholder="Password"
+                required
+              />
+              <input
+                class="form__input"
+                type="password"
+                id="promotorPasswordConfirm"
+                placeholder="Confirm Password"
+                required
+              />
+              <button class="btn btn-on form-button" type="submit" id="addPromotorBtn">
+                Continue
+              </button>
+            </form>
+            <span id="signInErrorOrSuccessMessage"></span>
+          </div>
+        </div>
+      </section>
+    </div>
+   `;
+  let logOutBtn = document.getElementById("logOutBtn");
+  let showAddPromotorFormBtn = document.getElementById("showAddPromotorFormBtn");
+  let singinPromotorContainer = document.getElementById("singinPromotorContainer");
+  //Nos Deslogea cuando damos click en el boton de logOut
+  
   logOutBtn.addEventListener("click", (e) => {
-   e.preventDefault();
-   logOut();
- });
- };
+    e.preventDefault();
+    logOut();
+  });
+
+  //Muestra el panel de administrador
+  showAddPromotorFormBtn.addEventListener("click", (e) => {
+  singinPromotorContainer.classList.remove("none");
+});
+}
 
 //Mensajes de Validacion
 function displayErrorOrSuccessMessage(message) {
@@ -131,7 +219,7 @@ function signInAdmin() {
       "Este Admin Ya esta registrado, pruebe con otro nombre"
     );
   } else {
-    localStorage.setItem(newAdmin.userName, JSON.stringify(newAdmin)); //para guardar en localStorge
+    localStorage.setItem(newAdmin.eventName, JSON.stringify(newAdmin)); //para guardar en localStorge
     // admins.push(newAdmin); //Esto es para guardar en arraya
     console.log(
       `Se ha registrado correctamente. Su Nombre para ingresar es: ${newAdmin.userName}, el nombre de su evento es: ${newAdmin.eventName}`
@@ -142,7 +230,7 @@ function signInAdmin() {
   }
 }
 
-//login TENGO QUE AJUSTARLA AL LOCALSTORAGE(por ahora ajuste el localstorage al array, en vez de conectar las funciones al local)
+//login
 function login() {
   let userName = loginUser[0].value;
   let password = loginUser[1].value;
@@ -151,7 +239,11 @@ function login() {
       userFound = admin;
     }
   }
-  if (userFound.userName == userName && userFound.password == password && adminLog == false) {
+  if (
+    userFound.userName == userName &&
+    userFound.password == password &&
+    adminLog == false
+  ) {
     console.log(`Admin encontrado ${userFound.userName}`);
     adminPanel.classList.remove("none");
     console.log("Login realizado correctamente");
@@ -161,10 +253,10 @@ function login() {
 
     showAdminPanel();
     loginContainer.classList.add("none");
+    headerTitle.innerText = "Admin Panel";
   } else if (adminLog == true) {
     displayLoginMessage("Ya estas logeado");
-  }
-  else {
+  } else {
     console.log("Vuelva a intentarlo");
     displayLoginMessage("No se ha podido logear, vuelva a intentarlo.");
   }
@@ -174,22 +266,19 @@ function login() {
 function logOut() {
   adminLog = false;
   adminPanel.classList.add("none");
-  alert("Admin " + userFound.userName + " deslogeado");
+  console.log("Admin " + userFound.userName + " deslogeado");
   singinContainer.classList.remove("none");
 }
 
-
 //Carga el contenido de todo el local Storagw y lo guarda en el array admins
-function allStorage() { 
-      keys = Object.keys(localStorage),
-      i = keys.length;
+function allStorage() {
+  (keys = Object.keys(localStorage)), (i = keys.length);
 
-  while ( i-- ) {
-      admins.push( JSON.parse(localStorage.getItem(keys[i])) );
+  while (i--) {
+    admins.push(JSON.parse(localStorage.getItem(keys[i])));
   }
   return admins;
 }
-
 
 /*************
  ///CLASES////// 
@@ -199,13 +288,13 @@ function allStorage() {
 // O si en el caso de que fuera asi como podria impedir que se pasen algunos metodos.
 
 class Admin {
-  constructor(userName, password, mail, eventName) {
-   // this.id = uniqueId(); //Llama a la funcion para crear un numero distinto cada vez/ Desactivado hasta que funcione correctamente lo demas.
-    this.userName = userName;
-    this.password = password;
-    this.mail = mail;
+  constructor(eventName, userName, mail, password) {
+    // this.id = uniqueId(); //Llama a la funcion para crear un numero distinto cada vez/ Desactivado hasta que funcione correctamente lo demas.
     this.eventName = eventName;
-   // this.promotores = signInPromotors(); Creare una funcion para guardar aqui los datos de los promotores
+    this.userName = userName;
+    this.mail = mail;
+    this.password = password;
+    // this.promotores = signInPromotors(); Creare una funcion para guardar aqui los datos de los promotores
   }
 
   addPromotor() {
