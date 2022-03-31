@@ -7,17 +7,97 @@
     <title>Promotor List App</title>
 
     <link rel="shortcut icon" href="media/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/tableList.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://kit.fontawesome.com/3ffbeed2f4.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body id="bgHeroSlide">
+
+
+    <header class="header">
+        <div>
+          <p>Promotor Event</p>   
+        </div>
+        <div>
+            <button class="btn">Login</button>
+        </div>
+    </header>
+
+    <section class="container-about">
+        <div>
+            <h2>New Event</h2>
+        </div>
+        <div>
+            <p>Build your own Event without signing in and sharing it with your friends and promoters.</p>
+        </div>
+        <div>
+            <button>Create</button>
+        </div>
+        <div class="container-icons">
+            <div class="flex-item">
+                <i class="fa-solid fa-gauge-high"></i>
+                <h3>Fast</h3>
+            </div>
+            <div class="flex-item">
+                <i class="fa-solid fa-handshake-simple"></i>
+                <h3>Easy</h3>
+            </div>
+            <div class="flex-item">
+                <i class="fa-solid fa-shield"></i>
+                <h3>Safe</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="form">
+        <form class="form-container" id="">
+            <div class="form-input_container">
+                <label for="eventName">Event Name:</label>
+                <input class="form-input" id="eventName" type="text" placeholder="Promotor List">
+            </div>
+            <div class="form-input_container">
+                <label for="dateOfEvent">Date of the Event:</label>
+                <input class="form-input" id="dateOfEvent" type="date" placeholder="Date of Event">
+            </div>
+            <!--Radio for Categorys-->
+            <p>Category:</p>
+            <div class="form-input_container">
+                <label for="dance">Dance</label>
+                <input class="form-input" type="radio" id="dance" name="category" value="dance" >
+                <label for="sport">Sport</label>
+                <input class="form-input" type="radio" id="sport" name="category" value="sport" >
+                <label for="family">Family</label>
+                <input class="form-input" type="radio" id="family" name="category" value="family">
+                <label for="others">Others</label>
+                <input class="form-input" type="radio" id="others" name="category" value="others" >
+            </div>
+         
+            <div class="form-input_container">
+                <label for="totalTikets">Total Tikets</label>
+                <input class="form-input" id="totalTikets" type="number" placeholder="0">
+            </div>
+            <div class="form-input_container">
+                <label for="">Cartel: </label>
+                <input class="form-input" id="cartel" type="text" placeholder="url to the img">
+            </div>
+            <div class="form-input_container">
+                <label for="description">Description</label>
+                <textarea name="" id="description" cols="30" rows="5"></textarea>
+            </div>
+        </form>
+    </section>
+
+
  
 
-    <footer class="footer-container">
-        <h4>Copyright: jdluis.com</h4>
-    </footer>
 
-    <script src="js/main.js" type="modal"></script>
+    <footer class="footer-container">
+        <ul class="list">
+            <li class="list_item">Copyright: jdluis.com</li>
+            <li>--</li>
+            <li class="list_item">All Reserved</li>
+        </ul>
+    </footer>
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>

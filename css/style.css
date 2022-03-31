@@ -1,1 +1,79 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import './tableList.css';
+@import './form.css';
+@import './buttons.css';
+
+:root {
+  --color-primary_blanco:#fff;
+  --color-primary_negro:rgb(0, 0, 0);
+  --color-primary_azul:rgb(56, 1, 255);
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+}
+
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  background-color: rgb(255, 241, 49);
+  padding: 0 10px;
+}
+
+.container-about {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+.footer-container  {
+  position: absolute;
+  bottom: 0;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+}
+
+.container-icons {
+  display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-template-rows:  1fr;
+grid-column-gap:10vw;
+grid-row-gap: 0px; 
+}
+
+.container-icons .flex-item {
+  padding: 10px;
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* HERO-SLIDE-BG */
+
+#bgHeroSlide {
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: 1000ms ease-in;
+}
