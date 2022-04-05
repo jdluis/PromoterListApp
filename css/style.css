@@ -4,12 +4,26 @@
 @import './buttons.css';
 @import './eventPanel.css';
 
-/* Z-INDEX Leyend:
-btn : 2;
-modal_offcanvas: 3
-*/
+/* Z-INDEX Leyend:  */
+.btn {z-index: 2;}
+.configEventForm {z-index: 2;}
+.modal_offcanvas {z-index: 3;} 
+a {z-index: 4;} 
+
+/*Social Media*/
 
 
+.github:hover {
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.linkedin:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+/*Variables*/
 :root {
   --color-primary:#161515;
   --color-secundary:#575652;
@@ -66,6 +80,14 @@ p {
   font-size: 1.5rem;
 }
 
+a {
+  color: #fff;
+  z-index: 4;
+}
+a:hover {
+  cursor: pointer;
+}
+
 
 
 .container-icons {
@@ -85,13 +107,18 @@ p {
 
 /*Footer*/
 .footer-container  {
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  background-color: var(--color-text-primary);
+  width: 100%;
+  display: flex;
 }
 
 .list {
   display: flex;
   list-style: none;
+  justify-content: space-around;
+  flex-wrap: nowrap;
 }
 
 .list-colum {
@@ -109,7 +136,7 @@ p {
   background: linear-gradient(to bottom, rgba(18,42, 66, .65), rgba(18,42, 66, .65)), url(/media/bg-dance.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;  
+  height: 100%;  
 }
 
 

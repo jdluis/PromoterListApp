@@ -10,8 +10,9 @@
   top: 0;
   left: 0;
   background-color:  rgba(0, 0, 0, 0.803);
-  z-index: 3;
 }
+
+
 .form-container {
   margin:10px auto 5px auto;
   height: 98%;
@@ -22,6 +23,7 @@
   justify-content: center;
   box-shadow: 2px 1px 20px 1px var(--color-terciary);
 }
+
 
 
 fieldset {

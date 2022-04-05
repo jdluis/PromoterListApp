@@ -1,9 +1,17 @@
 .container-panelEvent {
-    height: auto;
+    height: 100vh;
     background-color: #000;
     padding-top: 2em;
+    padding-bottom: 5em;
 }
 
+.event-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    max-width: 400px;
+    margin: auto;
+}
 
 .logo {
     position: absolute;
@@ -16,13 +24,13 @@
     position: absolute;
     top: 5px;
     right: 0;
+    margin: .5em;
 }
 .panel-img_container {
-    min-width: 250px;
-    max-width: 400px;
     margin: auto 3em;
     border: 1px solid black;
     box-shadow: 2px 1px 5px 1px #000;
+    z-index: 7;
 }
 
 
@@ -39,12 +47,14 @@
 .eventInfo-container {
     display: flex;
     flex-direction: column;
+    
 }
 
 .description-container {
-    border: 1px double rgb(233, 210, 210);
+    border-top: 1px solid rgb(233, 210, 210);
+    width: 70%;
     padding: 1em;
-    margin: .5em;
+    margin: auto;
 }
 
 .text-descrip {
