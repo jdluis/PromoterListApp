@@ -1,16 +1,115 @@
 export const testEvent = console.log("Event File Loaded");
+//Variables & Array
+export const events = []; //contiene los eventos
+export let eventLog = false;
+export let eventFound;
 
-export default  class Evento {
-    constructor(eventName, date, category, country, totalTickets, cartelOfEvent, description, promoters, clients) {
-      this.eventName = eventName;
-      this.date = date;
-      this.category = category;
-      this.country = country;
-      this.totalTickets = totalTickets;
-      this.cartelOfEvent = cartelOfEvent;
-      this.description = description;
-      this.promoters = promoters;
-      this.clients = clients; //¿DEBERIA PONERLO AQUI O POR FUERA?
-    }
+//Main Class
+export default class Event {
+  constructor(
+    eventName,
+    mail,
+    category,
+    date,
+    totalTickets,
+    cartelOfEvent,
+    description,
+    password
+  ) {
+    this.eventName = eventName;
+    this.mail = mail;
+    this.date = date;
+    this.category = category;
+    this.totalTickets = totalTickets;
+    this.cartelOfEvent = cartelOfEvent;
+    this.description = description;
+    this.password = randomPassword();
+    // this.promoters = promoters;
+    // this.clients = clients; //¿DEBERIA PONERLO AQUI O POR FUERA?
   }
-  
+}
+
+function randomPassword() {
+  //Funcion Copiada, intentar ENTENDER.
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return "_" + Math.random().toString(36).substr(2, 9);
+}
+
+//Event and Init create New Event.
+export function signInNewEvent() {
+  let btnCreateEvent = document.getElementById("btnCreateEvent");
+  btnCreateEvent.addEventListener("click", (e) => {
+    e.preventDefault();
+    createNewEvent();
+  });
+}
+
+//New Object Event Creation
+export function createNewEvent() {
+  let newEventForm = document.getElementById("newEventForm");
+  let newEvent = new Event(
+    newEventForm.eventName.value,
+    newEventForm.eventEmail.value,
+    newEventForm.category.value,
+    newEventForm.dateOfEvent.value,
+    newEventForm.totalTikets.value,
+    newEventForm.cartel.value,
+    newEventForm.description.value
+  );
+
+  if (events.find((element) => element.eventName == newEvent.eventName)) {
+    console.log("Elige otro nombre para tu Evento");
+    console.log("Este Admin Ya esta registrado, pruebe con otro nombre");
+  } else {
+    localStorage.setItem(newEvent.eventName, JSON.stringify(newEvent)); //para guardar en localStorge
+    events.push(newEvent); //Esto es para guardar en array
+    console.log(
+      `Se ha registrado correctamente. Su Nombre para ingresar es: ${newEvent.eventName},su contraseña es ${newEvent.password}`
+    );
+    console.log("Se ha registrado correctamente.");
+    return true;
+  }
+}
+
+export function loginToEvent() {
+  let loginForm = document.getElementById("loginForm");
+  let btnLogin = document.getElementById("btnLogin");
+
+  let user = loginForm.name.value;
+  let password = loginForm.password.value;
+
+  btnLogin.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    for (const event of events) {
+      if (event.userName == user && event.password == password) {
+        eventFound = event;
+      }
+    }
+    if (
+      eventFound.eventName == eventName &&
+      eventFound.password == password &&
+      eventLog == false
+    ) {
+      console.log(`Evento encontrado ${eventFound.eventName}`);
+      openForm(btnLogin, eventPanelSection, loginForm);
+      console.log("Login realizado correctamente");
+      console.log("Bienvenido " + eventName);
+      loginUser.reset(); //Limpia el formulario despues de haber logeado
+      eventLog = true;
+    } else if (eventLog == true) {
+      console.log("Ya estas logeado");
+    } else {
+      console.log("Vuelva a intentarlo");
+      console.log("No se ha podido logear, vuelva a intentarlo.");
+    }
+  });
+}
+
+//Deslogeo Testeado
+export function logOut() {
+  adminLog = false;
+  openForm();
+}
