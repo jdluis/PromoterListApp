@@ -1,6 +1,6 @@
 /*HERO BACKGORUND SLIDER AUTO*/
 
-export function CambiarCG() {
+export function CambiarBG() {
   const BGIMGS = [
     "url(/media/bg-family.png)",
     "url(/media/bg-sport.jpg)",
