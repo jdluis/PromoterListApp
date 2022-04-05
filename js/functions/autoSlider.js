@@ -2,10 +2,10 @@
 
 export function CambiarBG() {
   const BGIMGS = [
-    "url(/media/bg-family.png)",
-    "url(/media/bg-sport.jpg)",
-    "url(/media/bg-others.jpg)",
-    "url(/media/bg-dance.jpg)",
+    "url(media/bg-family.png)",
+    "url(media/bg-sport.jpg)",
+    "url(media/bg-others.jpg)",
+    "url(media/bg-dance.jpg)",
   ];
 
   let bgSliderStyles = document.getElementById("bgHeroSlide").style;
