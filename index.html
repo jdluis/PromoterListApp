@@ -16,18 +16,171 @@
   </head>
   <body id="bgHeroSlide">
     <!--HEADER Main Page-->
-    <header class="header none">
+    <header class="header">
       <div>
-        <p class="h1 none">Promotor Event</p>
+        <p class="h1">Promotor Event</p>
         <!--CAMBIARA CON JS-->
       </div>
       <div>
-        <button id="login" class="btn btn-primary">LogIn</button>
+        <button id="btnToLoginSection" class="btn btn-primary">LogIn</button>
       </div>
     </header>
 
+    <!-- About-Main Page -->
+    <section class="container-about" id="aboutSection">
+      <div>
+        <h2>New Event</h2>
+      </div>
+      <div>
+        <p>
+          Build your own Event without signing in and sharing it with your
+          friends and promoters.
+        </p>
+      </div>
+      <div>
+        <button class="btn btn-primary" id="btnOpenFormNewEvent">Create</button>
+      </div>
+      <div class="container-icons">
+        <div class="flex-item">
+          <i class="fa-solid fa-gauge-high"></i>
+          <h3>Fast</h3>
+        </div>
+        <div class="flex-item">
+          <i class="fa-solid fa-handshake-simple"></i>
+          <h3>Easy</h3>
+        </div>
+        <div class="flex-item">
+          <i class="fa-solid fa-shield"></i>
+          <h3>Safe</h3>
+        </div>
+      </div>
+    </section>
+
+      <!--SIGN IN FORM-->
+      <section class="container modal_offcanvas none" id="newEventSection">
+        <form class="form-container" id="newEventForm">
+          <h2 class="form-title">Create Event</h2>
+          <fieldset>
+            <legend>Login Info</legend>
+            <div class="form-input_container">
+              <div>
+                <label class="form-label" for="eventName">Name</label>
+                <input
+                  class="form-input"
+                  name="eventName"
+                  type="text"
+                  placeholder="Event Name"
+                />
+              </div>
+            </div>
+            <div class="form-input_container">
+              <div>
+                <label class="form-label" for="eventEmail">Mail</label>
+                <input
+                  class="form-input"
+                  name="eventEmail"
+                  type="email"
+                  placeholder="Mail"
+                />
+              </div>
+            </div>
+          </fieldset>
+          <!--Radio for Categorys-->
+          <fieldset class="ml">
+            <legend>Category</legend>
+            <div class="form-input_container radio_container">
+              <div>
+                <label class="form-label" for="dance">Dance:</label>
+                <input
+                  class="form-input"
+                  type="radio"
+                  id="dance"
+                  name="category"
+                  value="dance"
+                />
+              </div>
+              <div>
+                <label class="form-label" for="sport">Sport:</label>
+                <input
+                  class="form-input"
+                  type="radio"
+                  id="sport"
+                  name="category"
+                  value="sport"
+                />
+              </div>
+              <div>
+                <label class="form-label" for="family">Family:</label>
+                <input
+                  class="form-input"
+                  type="radio"
+                  id="family"
+                  name="category"
+                  value="family"
+                />
+              </div>
+              <div>
+                <label class="form-label" for="other">Other:</label>
+                <input
+                  class="form-input"
+                  type="radio"
+                  id="other"
+                  name="category"
+                  value="other"
+                />
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Event Settings</legend>
+            <div class="form-input_container">
+              <label class="form-label" for="dateOfEvent">Date</label>
+              <input
+                class="form-input input_date"
+                name="dateOfEvent"
+                type="date"
+                placeholder="Date of Event"
+              />
+            </div>
+            <div class="form-input_container">
+              <label class="form-label" for="totalTikets">Tikets</label>
+              <input
+                class="form-input input_number"
+                name="totalTikets"
+                type="number"
+                placeholder="0"
+              />
+            </div>
+            <div class="form-input_container">
+              <label class="form-label" for="cartel">Cartel</label>
+              <input
+                class="form-input"
+                name="cartel"
+                type="text"
+                placeholder="url to the img"
+              />
+            </div>
+            <div class="form-input_container container_texarea">
+              <label class="form-label" for="description">Description</label>
+              <textarea
+                name="description"
+                maxlength="400"
+                minlength="100"
+                cols="25"
+                aria-expanded="true"
+                rows="8"
+              ></textarea>
+            </div>
+          </fieldset>
+          <div class="form-group_center">
+            <button class="btn btn-secundary" id="btnBackToAbout">Back</button>
+            <button class="btn btn-primary" id="btnCreateEvent">Continue</button>
+          </div>
+        </form>
+      </section>
+
     <!--Event Panel-->
-    <section class="container-panelEvent none">
+    <section class="container-panelEvent none" id="eventPanelSection">
       <div>
         <p class="logo">PromoList</p>
         <div class="fixed">
@@ -69,8 +222,9 @@
         </div>
       </div>
     </section>
+
     <!--Event Panel CONFIGURATION-->
-    <section class="container-panelEvent none">
+    <section class="container-panelEvent none" id="eventPanelConfig">
       <div>
         <p class="logo">PromoList</p>
         <div class="fixed">
@@ -158,169 +312,20 @@
             </div>
           </fieldset>
           <div class="form-group_center">
-            <button class="btn btn-secundary" id="btnBackEventPanel">Back</button>
+            <button class="btn btn-secundary" id="btnBackEventPanel">
+              Back
+            </button>
             <button class="btn btn-primary" id="btnSaveConfig">Save</button>
           </div>
         </form>
       </div>
     </section>
+  
 
-    <!-- About-Main Page -->
-    <section class="container-about none">
-      <div>
-        <h2>New Event</h2>
-      </div>
-      <div>
-        <p>
-          Build your own Event without signing in and sharing it with your
-          friends and promoters.
-        </p>
-      </div>
-      <div>
-        <button class="btn btn-primary">Create</button>
-      </div>
-      <div class="container-icons">
-        <div class="flex-item">
-          <i class="fa-solid fa-gauge-high"></i>
-          <h3>Fast</h3>
-        </div>
-        <div class="flex-item">
-          <i class="fa-solid fa-handshake-simple"></i>
-          <h3>Easy</h3>
-        </div>
-        <div class="flex-item">
-          <i class="fa-solid fa-shield"></i>
-          <h3>Safe</h3>
-        </div>
-      </div>
-    </section>
-
-    <!--SIGN IN FORM-->
-    <section class="container modal_offcanvas none" id="form">
-      <form class="form-container" id="">
-        <h2 class="form-title">Create Event</h2>
-        <fieldset>
-          <legend>Login Info</legend>
-          <div class="form-input_container">
-            <div>
-              <label class="form-label" for="eventName">Name</label>
-              <input
-                class="form-input"
-                id="eventName"
-                type="text"
-                placeholder="Event Name"
-              />
-            </div>
-          </div>
-          <div class="form-input_container">
-            <div>
-              <label class="form-label" for="eventEmail">Mail</label>
-              <input
-                class="form-input"
-                id="eventEmail"
-                type="email"
-                placeholder="Mail"
-              />
-            </div>
-          </div>
-        </fieldset>
-        <!--Radio for Categorys-->
-        <fieldset class="ml">
-          <legend>Category</legend>
-          <div class="form-input_container radio_container">
-            <div>
-              <label class="form-label" for="dance">Dance:</label>
-              <input
-                class="form-input"
-                type="radio"
-                id="dance"
-                name="category"
-                value="dance"
-              />
-            </div>
-            <div>
-              <label class="form-label" for="sport">Sport:</label>
-              <input
-                class="form-input"
-                type="radio"
-                id="sport"
-                name="category"
-                value="sport"
-              />
-            </div>
-            <div>
-              <label class="form-label" for="family">Family:</label>
-              <input
-                class="form-input"
-                type="radio"
-                id="family"
-                name="category"
-                value="family"
-              />
-            </div>
-            <div>
-              <label class="form-label" for="other">Other:</label>
-              <input
-                class="form-input"
-                type="radio"
-                id="other"
-                name="category"
-                value="other"
-              />
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Event Settings</legend>
-          <div class="form-input_container">
-            <label class="form-label" for="dateOfEvent">Date</label>
-            <input
-              class="form-input input_date"
-              id="dateOfEvent"
-              type="date"
-              placeholder="Date of Event"
-            />
-          </div>
-          <div class="form-input_container">
-            <label class="form-label" for="totalTikets">Tikets</label>
-            <input
-              class="form-input input_number"
-              id="totalTikets"
-              type="number"
-              placeholder="0"
-            />
-          </div>
-          <div class="form-input_container">
-            <label class="form-label" for="cartel">Cartel</label>
-            <input
-              class="form-input"
-              id="cartel"
-              type="text"
-              placeholder="url to the img"
-            />
-          </div>
-          <div class="form-input_container container_texarea">
-            <label class="form-label" for="description">Description</label>
-            <textarea
-              id="description"
-              maxlength="400"
-              minlength="100"
-              cols="25"
-              aria-expanded="true"
-              rows="8"
-            ></textarea>
-          </div>
-        </fieldset>
-        <div class="form-group_center">
-          <button class="btn btn-secundary">Back</button>
-          <button class="btn btn-primary">Continue</button>
-        </div>
-      </form>
-    </section>
 
     <!--LOGIN FORM-->
-    <section class="container modal_offcanvas none" id="form">
-      <form class="form-container" id="">
+    <section class="container modal_offcanvas none" id="loginSection">
+      <form class="form-container" id="loginForm">
         <fieldset>
           <legend><h2 class="form-title">Login</h2></legend>
           <div class="form-input_container">
@@ -329,6 +334,7 @@
               <input
                 class="form-input"
                 id="userName/Mail"
+                name="user"
                 type="text"
                 placeholder="Name/Mail"
               />
@@ -340,6 +346,7 @@
               <input
                 class="form-input"
                 id="eventPassword"
+                name="password"
                 type="password"
                 placeholder="Password"
               />
@@ -347,8 +354,8 @@
           </div>
         </fieldset>
         <div class="form-group_center">
-          <button class="btn btn-secundary">Back</button>
-          <button class="btn btn-primary">Continue</button>
+          <button class="btn btn-secundary" id="btnBackToAboutFromLogin">Back</button>
+          <button class="btn btn-primary" id="btnLogin">Continue</button>
         </div>
       </form>
     </section>
