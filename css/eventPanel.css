@@ -1,0 +1,52 @@
+.container-panelEvent {
+    height: auto;
+    background-color: #000;
+    padding-top: 2em;
+}
+
+
+.logo {
+    position: absolute;
+    top: 10px;
+    margin: 0;
+    left: 5px;
+}
+
+.fixed {
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+.panel-img_container {
+    min-width: 250px;
+    max-width: 400px;
+    margin: auto 3em;
+    border: 1px solid black;
+    box-shadow: 2px 1px 5px 1px #000;
+}
+
+
+.event-title {
+    font-size: 2em;
+    text-align: center;
+}
+
+
+.panel-img_container img {
+    width:100%;
+}
+
+.eventInfo-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.description-container {
+    border: 1px double rgb(233, 210, 210);
+    padding: 1em;
+    margin: .5em;
+}
+
+.text-descrip {
+    font-size: 1rem;
+}

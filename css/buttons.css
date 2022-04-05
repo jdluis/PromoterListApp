@@ -1,12 +1,36 @@
 .btn {
     padding: 8px;
     cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: 500ms;
+    border: none;
+    box-shadow: 2px 2px 2px 2px #000;
 }
 
-.btn:focus {
-    background-color: aquamarine;
+.btn-primary {
+    background-color: var(--color-terciary);
+    font-style: italic;
+    font-weight: 700;
 }
 
-.btn:hover {
-    background-color: rgb(160, 224, 8);
+.btn-primary:hover {
+    background-color: rgb(8, 238, 0);
 }
+.btn-secundary {
+    background-color: var(--color-secundary);
+}
+
+.btn-secundary:hover {
+    background-color: rgb(224, 17, 17);
+    color: rgb(255, 250, 240);
+}
+.btn-other {
+    background-color: var(--color-primary);
+}
+
+.btn-other:hover {
+    background-color: #000;
+    color: rgb(255, 250, 240);
+}
+
