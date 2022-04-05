@@ -1,31 +1,18 @@
-import Evento, {testEvent} from "./Event.js";
-import Promotor, {testPromotor} from "./Promotor.js";
-import Client, {testClient} from "./Client.js";
-
-
+import Evento, { testEvent } from "./Class/Event.js";
+import Promotor, { testPromotor } from "./Class/Promotor.js";
+import Client, { testClient } from "./Class/Client.js";
+import {CambiarCG} from "./functions/autoSlider.js";
 
 /*CONSOLE PARA TESTING*/
 console.log("Testing App List PROM by jdluis");
 
 
 
-
-/*HEVO BACKGORUND SLIDER AUTO*/
-
-
-
- const COLORS = ["#000", "#146", "#564", "#712"];
-let i = 0;
-function changeColor() {
-  document.getElementById("bgHeroSlide").style.backgroundColor = COLORS[i];
-  i++
-  if (i > COLORS.length) {
-    i = 0
-  };
-   setInterval('changeColor()',4000);
-
-}
+//INIT FUNCTIONS
+CambiarCG();
 
 
-changeColor();
-
+/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+particlesJS.load('particles-js', 'assets/particles.json', function() {
+    console.log('callback - particles.js config loaded');
+  });
