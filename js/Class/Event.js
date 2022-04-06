@@ -74,29 +74,34 @@ export function createNewEvent() {
 }
 
 export function loginToEvent() {
+ 
   let loginForm = document.getElementById("loginForm");
   let btnLogin = document.getElementById("btnLogin");
 
   let user = loginForm.name.value;
   let password = loginForm.password.value;
+  
 
   btnLogin.addEventListener("click", (e) => {
     e.preventDefault();
 
     for (const event of events) {
       if (event.userName == user && event.password == password) {
-        eventFound = event;
+        eventFound = event; //ME DA ERROR DICE QUE NO SE ENCUENTRA..
+      } else {
+        console.log("NO ES POSIBLE CONECTAR")
+        break;
       }
     }
     if (
-      eventFound.eventName == eventName &&
+      eventFound.eventName == user &&
       eventFound.password == password &&
       eventLog == false
     ) {
       console.log(`Evento encontrado ${eventFound.eventName}`);
       openForm(btnLogin, eventPanelSection, loginForm);
       console.log("Login realizado correctamente");
-      console.log("Bienvenido " + eventName);
+      console.log("Bienvenido " + user);
       loginUser.reset(); //Limpia el formulario despues de haber logeado
       eventLog = true;
     } else if (eventLog == true) {

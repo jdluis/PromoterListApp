@@ -1,4 +1,4 @@
-import Event, {events, testEvent, signInNewEvent, createNewEvent,eventFound,loginToEvent, logOut } from "./Class/Event.js";
+import Event, {eventFound, events, testEvent, signInNewEvent, createNewEvent,loginToEvent, logOut } from "./Class/Event.js";
 import Promotor, { testPromotor } from "./Class/Promotor.js";
 import Client, { testClient } from "./Class/Client.js";
 import { CambiarBG } from "./functions/autoSlider.js";
