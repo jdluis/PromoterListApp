@@ -1,5 +1,5 @@
   //Funtion for open and close sections
-  export function openForm(btn, sectionToOpen, sectionToClose) {
+  export function openSection(btn, sectionToOpen, sectionToClose) {
     //DOM--All BTN & Section.
     let btnOpenFormNewEvent = document.getElementById("btnOpenFormNewEvent");
     let newEventSection = document.getElementById("newEventSection");
@@ -12,6 +12,7 @@
     );
     let eventPanelSection = document.getElementById('eventPanelSection');
     let eventPanelConfig = document.getElementById('eventPanelConfig');
+    let btnLogout = document.getElementById('btnLogout');
   
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -24,3 +25,4 @@
     });
   }
   
+

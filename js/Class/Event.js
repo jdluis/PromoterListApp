@@ -73,12 +73,14 @@ export function createNewEvent() {
   }
 }
 
+/*Funcion Logeo, falla el userfound
+
 export function loginToEvent() {
  
   let loginForm = document.getElementById("loginForm");
   let btnLogin = document.getElementById("btnLogin");
 
-  let user = loginForm.name.value;
+  let user = loginForm.user.value;
   let password = loginForm.password.value;
   
 
@@ -99,7 +101,7 @@ export function loginToEvent() {
       eventLog == false
     ) {
       console.log(`Evento encontrado ${eventFound.eventName}`);
-      openForm(btnLogin, eventPanelSection, loginForm);
+      openSection(btnLogin, eventPanelSection, loginForm);
       console.log("Login realizado correctamente");
       console.log("Bienvenido " + user);
       loginUser.reset(); //Limpia el formulario despues de haber logeado
@@ -112,9 +114,47 @@ export function loginToEvent() {
     }
   });
 }
+*/
 
 //Deslogeo Testeado
-export function logOut() {
-  adminLog = false;
-  openForm();
+export function logOut(openSection) {
+  btnLogout.addEventListener("click", () => {
+    eventLog = false;
+    openSection (btnLogout,aboutSection ,eventPanelSection);
+    openSection (btnLogout, mainHeader ,eventPanelSection);
+    alert("Deslogeo Completado");
+  });
 }
+
+
+//logeo temporal
+
+export function logear() {
+  const superUser = "dani";
+  const superPassword = "123";
+  let loginForm = document.getElementById("loginForm");
+  let btnLogin = document.getElementById("btnLogin");
+  let mainHeader = document.getElementById('mainHeader');
+
+  let user = loginForm.user.value;
+  let password = loginForm.password.value;
+  let eventPanelSection = document.getElementById('eventPanelSection');
+ // let loginSection = document.getElementById('loginSection');
+
+    if (user == superUser && password == superPassword) {
+      console.log("LOGEO TEST SIN PROBLEMAS");
+      
+      eventPanelSection.classList.remove("none");
+      loginSection.classList.add("none");
+      mainHeader.classList.add("none");
+      
+    } else {
+      alert("Vuelva a Intentarlo");
+     
+    }
+}
+
+export let eventForLog = btnLogin.addEventListener("click", (e) => {
+  e.preventDefault();
+logear();
+});
