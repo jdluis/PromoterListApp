@@ -1,9 +1,9 @@
 .container-panelEvent {
-    height: 100vh;
+    min-height: 100vh;
     width: auto;
     background-color: #000;
     padding-top: 2em;
-    padding-bottom: 5em;
+    padding-bottom: 7em;
 }
 
 .event-container {
@@ -53,11 +53,12 @@
 
 .description-container {
     border-top: 1px solid rgb(233, 210, 210);
-    width: 70%;
+    width: 75%;
     padding: 1em;
     margin: auto;
 }
 
 .text-descrip {
+    word-wrap: word-break;
     font-size: 1rem;
 }
