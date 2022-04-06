@@ -1,5 +1,6 @@
 .container-panelEvent {
     height: 100vh;
+    width: auto;
     background-color: #000;
     padding-top: 2em;
     padding-bottom: 5em;

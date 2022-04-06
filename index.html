@@ -15,6 +15,7 @@
     ></script>
   </head>
   <body id="bgHeroSlide">
+    
     <!--HEADER Main Page-->
     <header class="header" id="mainHeader">
       <div>
@@ -56,171 +57,132 @@
       </div>
     </section>
 
-      <!--SIGN IN FORM-->
-      <section class="container modal_offcanvas none" id="newEventSection">
-        <form class="form-container" id="newEventForm">
-          <h2 class="form-title">Create Event</h2>
-          <fieldset>
-            <legend>Login Info</legend>
-            <div class="form-input_container">
-              <div>
-                <label class="form-label" for="eventName">Name</label>
-                <input
-                  class="form-input"
-                  name="eventName"
-                  type="text"
-                  placeholder="Event Name"
-                />
-              </div>
-            </div>
-            <div class="form-input_container">
-              <div>
-                <label class="form-label" for="eventEmail">Mail</label>
-                <input
-                  class="form-input"
-                  name="eventEmail"
-                  type="email"
-                  placeholder="Mail"
-                />
-              </div>
-            </div>
-          </fieldset>
-          <!--Radio for Categorys-->
-          <fieldset class="ml">
-            <legend>Category</legend>
-            <div class="form-input_container radio_container">
-              <div>
-                <label class="form-label" for="dance">Dance:</label>
-                <input
-                  class="form-input"
-                  type="radio"
-                  id="dance"
-                  name="category"
-                  value="dance"
-                />
-              </div>
-              <div>
-                <label class="form-label" for="sport">Sport:</label>
-                <input
-                  class="form-input"
-                  type="radio"
-                  id="sport"
-                  name="category"
-                  value="sport"
-                />
-              </div>
-              <div>
-                <label class="form-label" for="family">Family:</label>
-                <input
-                  class="form-input"
-                  type="radio"
-                  id="family"
-                  name="category"
-                  value="family"
-                />
-              </div>
-              <div>
-                <label class="form-label" for="other">Other:</label>
-                <input
-                  class="form-input"
-                  type="radio"
-                  id="other"
-                  name="category"
-                  value="other"
-                />
-              </div>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Event Settings</legend>
-            <div class="form-input_container">
-              <label class="form-label" for="dateOfEvent">Date</label>
-              <input
-                class="form-input input_date"
-                name="dateOfEvent"
-                type="date"
-                placeholder="Date of Event"
-              />
-            </div>
-            <div class="form-input_container">
-              <label class="form-label" for="totalTikets">Tikets</label>
-              <input
-                class="form-input input_number"
-                name="totalTikets"
-                type="number"
-                placeholder="0"
-              />
-            </div>
-            <div class="form-input_container">
-              <label class="form-label" for="cartel">Cartel</label>
+    <!--SIGN IN FORM-->
+    <section class="container modal_offcanvas none" id="newEventSection">
+      <form class="form-container" id="newEventForm">
+        <h2 class="form-title">Create Event</h2>
+        <fieldset>
+          <legend>Login Info</legend>
+          <div class="form-input_container">
+            <div>
+              <label class="form-label" for="eventName">Name</label>
               <input
                 class="form-input"
-                name="cartel"
+                name="eventName"
                 type="text"
-                placeholder="url to the img"
+                placeholder="Event Name"
               />
             </div>
-            <div class="form-input_container container_texarea">
-              <label class="form-label" for="description">Description</label>
-              <textarea
-                name="description"
-                maxlength="400"
-                minlength="100"
-                cols="25"
-                aria-expanded="true"
-                rows="8"
-              ></textarea>
-            </div>
-          </fieldset>
-          <div class="form-group_center">
-            <button class="btn btn-secundary" id="btnBackToAbout">Back</button>
-            <button class="btn btn-primary" id="btnCreateEvent">Continue</button>
           </div>
-        </form>
-      </section>
+          <div class="form-input_container">
+            <div>
+              <label class="form-label" for="eventEmail">Mail</label>
+              <input
+                class="form-input"
+                name="eventEmail"
+                type="email"
+                placeholder="Mail"
+              />
+            </div>
+          </div>
+        </fieldset>
+        <!--Radio for Categorys-->
+        <fieldset class="ml">
+          <legend>Category</legend>
+          <div class="form-input_container radio_container">
+            <div>
+              <label class="form-label" for="dance">Dance:</label>
+              <input
+                class="form-input"
+                type="radio"
+                id="dance"
+                name="category"
+                value="dance"
+              />
+            </div>
+            <div>
+              <label class="form-label" for="sport">Sport:</label>
+              <input
+                class="form-input"
+                type="radio"
+                id="sport"
+                name="category"
+                value="sport"
+              />
+            </div>
+            <div>
+              <label class="form-label" for="family">Family:</label>
+              <input
+                class="form-input"
+                type="radio"
+                id="family"
+                name="category"
+                value="family"
+              />
+            </div>
+            <div>
+              <label class="form-label" for="other">Other:</label>
+              <input
+                class="form-input"
+                type="radio"
+                id="other"
+                name="category"
+                value="other"
+              />
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Event Settings</legend>
+          <div class="form-input_container">
+            <label class="form-label" for="dateOfEvent">Date</label>
+            <input
+              class="form-input input_date"
+              name="dateOfEvent"
+              type="date"
+              placeholder="Date of Event"
+            />
+          </div>
+          <div class="form-input_container">
+            <label class="form-label" for="totalTikets">Tikets</label>
+            <input
+              class="form-input input_number"
+              name="totalTikets"
+              type="number"
+              placeholder="0"
+            />
+          </div>
+          <div class="form-input_container">
+            <label class="form-label" for="cartel">Cartel</label>
+            <input
+              class="form-input"
+              name="cartel"
+              type="text"
+              placeholder="url to the img"
+            />
+          </div>
+          <div class="form-input_container container_texarea">
+            <label class="form-label" for="description">Description</label>
+            <textarea
+              name="description"
+              maxlength="400"
+              minlength="100"
+              cols="25"
+              aria-expanded="true"
+              rows="8"
+            ></textarea>
+          </div>
+        </fieldset>
+        <div class="form-group_center">
+          <button class="btn btn-secundary" id="btnBackToAbout">Back</button>
+          <button class="btn btn-primary" id="btnCreateEvent">Continue</button>
+        </div>
+      </form>
+    </section>
 
     <!--Event Panel-->
     <section class="container-panelEvent none" id="eventPanelSection">
-      <div>
-        <p class="logo">PromoList</p>
-        <div class="fixed">
-          <button id="settings" class="btn btn-primary">Settings</button>
-          <button id="btnLogout" class="btn btn-secundary">LogOut</button>
-        </div>
-      </div>
-
-      <div class="event-container">
-        <h3 class="event-title">Guaguanco Festival 2022</h3>
-
-        <div class="panel-img_container">
-          <img
-            src="http://www.guaguancofestival.com/uploads/1/2/9/1/12916801/timba-poster-2022-new_orig.png"
-            alt=""
-          />
-        </div>
-
-        <div class="eventInfo-container">
-          <ul class="list list-colum">
-            <li>Event Name: Guaguanco Festival 2022</li>
-            <li>Category: Dance</li>
-            <li>Total Ticket: 100</li>
-            <li>Avalibres:35</li>
-            <li>Selled: 50</li>
-          </ul>
-        </div>
-
-        <div class="description-container">
-          <h4>Description:</h4>
-          <p class="text-descrip">
-            This year we will focus in the Festival on the consolidation of the
-            elements of the Cuban Rumba with all the participants, so that
-            everyone can return strengthened to all the concepts, fundamental
-            resources and joy that these Cuban dances produce; For this, we will
-            fill as much time as possible with opportunities to Timbiar with our
-            guest group from my hometown of Camagüey: RUMBATÁ
-          </p>
-        </div>
-      </div>
+     
     </section>
 
     <!--Event Panel CONFIGURATION-->
@@ -320,8 +282,6 @@
         </form>
       </div>
     </section>
-  
-
 
     <!--LOGIN FORM-->
     <section class="container modal_offcanvas none" id="loginSection">
@@ -329,32 +289,33 @@
         <fieldset>
           <legend><h2 class="form-title">Login</h2></legend>
           <div class="form-input_container">
-            <div>
-              <label class="form-label" for="userName/Mail">Name/Mail</label>
-              <input
-                class="form-input"
-                id="userName/Mail"
-                name="user"
-                type="text"
-                placeholder="Name/Mail"
-              />
-            </div>
+            <label class="form-label" for="userName/Mail">Name/Mail</label>
+            <input
+              class="form-input"
+              id="userName/Mail"
+              name="user"
+              type="text"
+              placeholder="Name/Mail"
+            />
+            <span id="msgLoginName"></span>
           </div>
           <div class="form-input_container">
-            <div>
-              <label class="form-label" for="eventPassword">Password</label>
-              <input
-                class="form-input"
-                id="eventPassword"
-                name="password"
-                type="password"
-                placeholder="Password"
-              />
-            </div>
+            <label class="form-label" for="eventPassword">Password</label>
+            <input
+              class="form-input"
+              id="eventPassword"
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
+            <span id="msgLoginPass"></span>
+
           </div>
         </fieldset>
         <div class="form-group_center">
-          <button class="btn btn-secundary" id="btnBackToAboutFromLogin">Back</button>
+          <button class="btn btn-secundary" id="btnBackToAboutFromLogin">
+            Back
+          </button>
           <button class="btn btn-primary" id="btnLogin">Continue</button>
         </div>
       </form>
@@ -381,7 +342,8 @@
     </footer>
 
     <div id="particles-js"></div>
-    <script src="js/main.js" type="module"></script>
+    <script src="js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="js/particles.js"></script>
   </body>
 </html>
