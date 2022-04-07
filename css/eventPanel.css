@@ -62,3 +62,15 @@
     word-wrap: word-break;
     font-size: 1rem;
 }
+
+.msgLogOut {
+    position: fixed;
+    width: 100%;
+    bottom: 50px;
+    text-align: right;
+    right: 20px;
+    display: flex;
+    justify-content: end;
+    font-weight: 800;
+   
+}

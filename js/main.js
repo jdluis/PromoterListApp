@@ -106,7 +106,6 @@ function randomPassword() {
   return "_" + Math.random().toString(36).substr(2, 9);
 }
 
-
 /********************************--LOGIN EVENT--*****************/
 //Funcion Logeo, falla el eventfound
 
@@ -116,35 +115,35 @@ function loginToEvent() {
 
   let user = loginForm.user.value;
   let password = loginForm.password.value;
+  messagesForm(msgLoginName, "", "none");
 
-    for (const event of events) {
-      if (event.eventName == user )   {
-        eventFound = event;       
-      } else {
-        return alert("Evento no encontrado vuelva a intentarlo")
-      }
+  for (const event of events) {
+    if (event.eventName == user) {
+      eventFound = event;
+    } else if (event.eventName != user) {
+      messagesForm(msgLoginName, "Event not Found", colorError);
     }
-    if (
-      eventFound.eventName == user &&
-      eventFound.password == password &&
-      eventLog == false
-    ) {
-      console.log(`Evento encontrado ${eventFound.eventName}`);
-      console.log("Bienvenido " + user);
-      eventLog = true;
-      try {
-        showEventPanel();
-        logOut(openSection); //Inicia la funcion
-      } catch (error) {
-        console.error(error);
-        // expected output: ReferenceError: nonExistentFunction is not defined
-        // Note - error messages will vary depending on browser
-      }
-    } else if (eventLog == true) {
-      console.log("Ya estas logeado");
-    } else {
-      console.log("No se ha podido logear, vuelva a intentarlo.");
-    }
+  }
+  if (
+    eventFound.eventName == user &&
+    eventFound.password == password &&
+    eventLog == false
+  ) {
+    console.log(`Evento encontrado ${eventFound.eventName}`);
+    messagesForm(
+      msgLoginPass,
+      `Evento encontrado: ${eventFound.eventName}`,
+      colorSuccess
+    );
+    eventLog = true;
+
+    showEventPanel();
+  } else if (eventLog == true) {
+    console.log("Ya estas logeado");
+  } else {
+    messagesForm(msgLoginPass, "Wrong Password, try again", colorError);
+  }
+  logOut(openSection); //Inicia la funcion
 }
 
 btnLogin.addEventListener("click", (e) => {
@@ -158,7 +157,7 @@ function logOut(openSection) {
     eventLog = false;
     openSection(btnLogout, aboutSection, eventPanelSection);
     openSection(btnLogout, mainHeader, eventPanelSection);
-    alert("Deslogeo Completado");
+    messagesForm(msgLogOut, "Log Out Completed", colorSuccess);
   });
 }
 
@@ -199,7 +198,7 @@ function openSection(btn, sectionToOpen, sectionToClose) {
   let eventPanelSection = document.getElementById("eventPanelSection");
   let eventPanelConfig = document.getElementById("eventPanelConfig");
   let btnLogout = document.getElementById("btnLogout");
-  let mainHeader = document.getElementById('mainHeader');
+  let mainHeader = document.getElementById("mainHeader");
 
   btn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -210,22 +209,21 @@ function openSection(btn, sectionToOpen, sectionToClose) {
     e.preventDefault();
     sectionToClose.classList.add("none");
   });
-};
+}
 
 /***************--MESSAGES ERROR & OTHERS --***********************/
-//Mensajes de Validacion
-function displayErrorOrSuccessMessage(message) {
-  signInErrorOrSuccessMessage.innerText = message;
-}
-let msgLoginName = document.getElementById('msgLoginName');
-let msgLoginPass = document.getElementById('msgLoginPass');
+//Variables Messages
+let colorError = "#FE4A49";
+let colorSuccess = "#0CCA4A";
 
-function messagesForm (label ,message, textColor) {
+function messagesForm(label, message, textColor) {
+  //DOM Variables ID.
+  let msgLoginName = document.getElementById("msgLoginName");
+  let msgLoginPass = document.getElementById("msgLoginPass");
+  let msgLogOut = document.getElementById("msgLogOut");
   label.style.color = textColor; //messageColor
-  label.innerText = message;
+  label.innerText = message; //message text
 }
-
-messagesForm(msgLoginName,"TU PUEDES CON TODO", "red");
 
 /*******************--HERO BACKGORUND SLIDER AUTO--*************/
 
@@ -257,13 +255,12 @@ function CambiarBG() {
   setInterval(changeBg, 3500);
 }
 
-
 /*************************--Load and Open Panel Event--************************/
 
-function showEventPanel() { 
+function showEventPanel() {
   openSection(btnLogin, eventPanelSection, loginSection);
   openSection(btnLogin, eventPanelSection, mainHeader);
-  
+
   eventPanelSection.innerHTML = `
   <div>
   <p class="logo">PromoList</p>
@@ -299,6 +296,7 @@ function showEventPanel() {
      ${eventFound.description}
     </p>
   </div>
+  <span class="msgLogOut" id="msgLogOut"></span>
 </div>
-  `
+  `;
 }
