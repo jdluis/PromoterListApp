@@ -1,11 +1,24 @@
 /**********************--CONSOLE PARA TESTING--**************/
 console.log("Testing App List PROM by jdluis");
-/**********************--VARIABLES DECLARATIONS--**************/
-let eventLog = false;
+/**********************--GLOBAL VARIABLES DECLARATIONS--**************/
 const testEvent = console.log("Event File Loaded");
 //Variables & Array
 const events = []; //contiene los eventos
 let eventFound;
+
+  //DOM--All BTN & Section.
+  let btnOpenFormNewEvent = document.getElementById("btnOpenFormNewEvent");
+  let newEventSection = document.getElementById("newEventSection");
+  let btnToLoginSection = document.getElementById("btnToLoginSection");
+  let btnBackToAbout = document.getElementById("btnBackToAbout");
+  let aboutSection = document.getElementById("aboutSection");
+  let loginSection = document.getElementById("loginSection");
+  let btnBackToAboutFromLogin = document.getElementById(
+    "btnBackToAboutFromLogin"
+  );
+  let eventPanelSection = document.getElementById("eventPanelSection");
+  let eventPanelConfig = document.getElementById("eventPanelConfig");
+  let mainHeader = document.getElementById("mainHeader");
 
 //*********************--INITIATIONS--**********************/
 
@@ -46,7 +59,9 @@ class Event {
     totalTickets,
     cartelOfEvent,
     description,
-    password
+    password,  
+    status
+
   ) {
     this.eventName = eventName;
     this.mail = mail;
@@ -56,6 +71,7 @@ class Event {
     this.cartelOfEvent = cartelOfEvent;
     this.description = description;
     this.password = randomPassword();
+    this.status = false;
     // this.promoters = promoters;
     // this.clients = clients; //¿DEBERIA PONERLO AQUI O POR FUERA?
   }
@@ -107,59 +123,64 @@ function randomPassword() {
 }
 
 /********************************--LOGIN EVENT--*****************/
-//Funcion Logeo, falla el eventfound
+//Funcion Logeo
+
 
 function loginToEvent() {
+
   let loginForm = document.getElementById("loginForm");
   let btnLogin = document.getElementById("btnLogin");
-
   let user = loginForm.user.value;
   let password = loginForm.password.value;
-  messagesForm(msgLoginName, "", "none");
 
+  
   for (const event of events) {
-    if (event.eventName == user) {
+    if (event.eventName == user && event.password == password ) {
       eventFound = event;
-    } else if (event.eventName != user) {
-      messagesForm(msgLoginName, "Event not Found", colorError);
-    }
+      messagesForm(
+        msgLoginPass,
+        `Evento encontrado: ${eventFound.eventName}`,
+        colorSuccess
+      );
+      eventFound.status = true;
+      
+      setTimeout (() => {
+        eventPanelSection.classList.remove("none");
+        mainHeader.classList.add("none");
+        loginSection.classList.add("none");
+        aboutSection.classList.add("none");
+        messagesForm(msgLoginPass, "", "none"); //restard messages
+      }, 2000);
+      loginForm.reset();
+      return;
+    }  
+  } 
+  messagesForm(msgLoginPass, "Event Name or Password are incorrect, try again", colorError);
   }
-  if (
-    eventFound.eventName == user &&
-    eventFound.password == password &&
-    eventLog == false
-  ) {
-    console.log(`Evento encontrado ${eventFound.eventName}`);
-    messagesForm(
-      msgLoginPass,
-      `Evento encontrado: ${eventFound.eventName}`,
-      colorSuccess
-    );
-    eventLog = true;
 
-    showEventPanel();
-  } else if (eventLog == true) {
-    console.log("Ya estas logeado");
-  } else {
-    messagesForm(msgLoginPass, "Wrong Password, try again", colorError);
-  }
-  logOut(openSection); //Inicia la funcion
-}
 
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
   loginToEvent();
+  showEvent(); //html Inner call
 });
 
+
 //Deslogeo Testeado
-function logOut(openSection) {
+function deslogeo () {
+  let btnLogout = document.getElementById("btnLogout");
+
   btnLogout.addEventListener("click", () => {
-    eventLog = false;
-    openSection(btnLogout, aboutSection, eventPanelSection);
-    openSection(btnLogout, mainHeader, eventPanelSection);
+    eventFound.value = false;
+    eventFound = undefined;
+    setTimeout (() => {
+      eventPanelSection.classList.add("none");
+      aboutSection.classList.remove("none");
+    }, 1000);
     messagesForm(msgLogOut, "Log Out Completed", colorSuccess);
   });
-}
+};
+
 
 /***************************CLASS PROMOTOR--*****************/
 
@@ -185,20 +206,6 @@ class Client {
 /*******************--OPEN AND CLOSE SECTION EVENTLISTENER--**************/
 
 function openSection(btn, sectionToOpen, sectionToClose) {
-  //DOM--All BTN & Section.
-  let btnOpenFormNewEvent = document.getElementById("btnOpenFormNewEvent");
-  let newEventSection = document.getElementById("newEventSection");
-  let btnToLoginSection = document.getElementById("btnToLoginSection");
-  let btnBackToAbout = document.getElementById("btnBackToAbout");
-  let aboutSection = document.getElementById("aboutSection");
-  let loginSection = document.getElementById("loginSection");
-  let btnBackToAboutFromLogin = document.getElementById(
-    "btnBackToAboutFromLogin"
-  );
-  let eventPanelSection = document.getElementById("eventPanelSection");
-  let eventPanelConfig = document.getElementById("eventPanelConfig");
-  let btnLogout = document.getElementById("btnLogout");
-  let mainHeader = document.getElementById("mainHeader");
 
   btn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -211,6 +218,52 @@ function openSection(btn, sectionToOpen, sectionToClose) {
   });
 }
 
+
+/*************************--Load Panel Event--************************/
+
+
+function showEvent() {
+
+  eventPanelSection.innerHTML = `
+  <div>
+  <p class="logo">PromoList</p>
+  <div class="fixed">
+    <button id="settings" class="btn btn-primary">Settings</button>
+    <button id="btnLogout" class="btn btn-secundary">LogOut</button>
+  </div>
+</div>
+
+<div class="event-container">
+  <h3 class="event-title">${eventFound.eventName}</h3>
+
+  <div class="panel-img_container">
+    <img
+      src="${eventFound.cartelOfEvent}"
+      alt=""
+    />
+  </div>
+
+  <div class="eventInfo-container">
+    <ul class="list list-colum">
+      <li>Event Name: ${eventFound.eventName}</li>
+      <li>Category: ${eventFound.category}</li>
+      <li>Total Ticket: ${eventFound.totalTickets}</li>
+      <li>Avalibres:${caclTicketsDifference ()}</li>
+      <li>Selled:${sellTickets ()}</li>
+    </ul>
+  </div>
+
+  <div class="description-container">
+    <h4>Description:</h4>
+    <p class="text-descrip">
+     ${eventFound.description}
+    </p>
+  </div>
+  <span class="msgLogOut" id="msgLogOut"></span>
+</div>
+  `;
+  deslogeo (); //activa la funcion del btn LogOut
+}
 /***************--MESSAGES ERROR & OTHERS --***********************/
 //Variables Messages
 let colorError = "#FE4A49";
@@ -241,9 +294,9 @@ function CambiarBG() {
   Cuando la funcion es llamada agrega el string del array al estilo de background de bgHeroSlide
   */
   function changeBg() {
-    if (i >= BGIMGS.length) {
-      i = 0;
-    }
+    //Operador Terniario
+     (i >= BGIMGS.length) ? i = 0 : 
+  
     bgSliderStyles.background =
       "linear-gradient(to bottom, rgba(18,42, 66, .65), rgba(18,42, 66, .65))," +
       BGIMGS[i];
@@ -255,48 +308,16 @@ function CambiarBG() {
   setInterval(changeBg, 3500);
 }
 
-/*************************--Load and Open Panel Event--************************/
+/********************--CALCULATIONS OF TICKETS DIFERRENCE--*******************/
 
-function showEventPanel() {
-  openSection(btnLogin, eventPanelSection, loginSection);
-  openSection(btnLogin, eventPanelSection, mainHeader);
+function caclTicketsDifference () {
+  const totalTickets = parseInt(eventFound.totalTickets);
+  let difference = totalTickets - sellTickets();
+  return difference;
+}
 
-  eventPanelSection.innerHTML = `
-  <div>
-  <p class="logo">PromoList</p>
-  <div class="fixed">
-    <button id="settings" class="btn btn-primary">Settings</button>
-    <button id="btnLogout" class="btn btn-secundary">LogOut</button>
-  </div>
-</div>
-
-<div class="event-container">
-  <h3 class="event-title">${eventFound.eventName}</h3>
-
-  <div class="panel-img_container">
-    <img
-      src="${eventFound.cartelOfEvent}"
-      alt=""
-    />
-  </div>
-
-  <div class="eventInfo-container">
-    <ul class="list list-colum">
-      <li>Event Name: ${eventFound.eventName}</li>
-      <li>Category: ${eventFound.category}</li>
-      <li>Total Ticket: ${eventFound.totalTickets}</li>
-      <li>Avalibres:${eventFound.totalTickets}</li>
-      <li>Selled:${eventFound.totalTickets}</li>
-    </ul>
-  </div>
-
-  <div class="description-container">
-    <h4>Description:</h4>
-    <p class="text-descrip">
-     ${eventFound.description}
-    </p>
-  </div>
-  <span class="msgLogOut" id="msgLogOut"></span>
-</div>
-  `;
+//ESTA FUNCION SERA INTRODUCIDA EN UN INPUT o por cada item cliente.
+function sellTickets () {
+  let sellTickets = 2;
+  return sellTickets;
 }
