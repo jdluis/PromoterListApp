@@ -1,38 +1,42 @@
-/**********************--CONSOLE PARA TESTING--**************/
+/*  -->>   CONSOLE PARA TESTING        <<--  */
 console.log("Testing App List PROM by jdluis");
-/**********************--GLOBAL VARIABLES DECLARATIONS--**************/
-const testEvent = console.log("Event File Loaded");
-//Variables & Array
+
+/*  -->> GLOBAL VARIABLES DECLARATIONS <<--  */
+
+//--> Array de objetos
 const events = []; //contiene los eventos
 let eventFound;
 let eventAlreadyExist;
 
-  //Variables Messages
-  let colorError = "#FE4A49";
-  let colorSuccess = "#0CCA4A";
+let colorError = "#FE4A49";
+let colorSuccess = "#0CCA4A";
+//--> DOM--All BTN & Section.
+let btnOpenFormNewEvent = document.getElementById("btnOpenFormNewEvent");
+let btnToLoginSection = document.getElementById("btnToLoginSection");
+let btnBackToAboutFromSingIn = document.getElementById("btnBackToAboutFromSingIn");
+let btnBackToAboutFromLogin = document.getElementById("btnBackToAboutFromLogin");
+let btnLogin = document.getElementById("btnLogin");
+let btnCreateEvent = document.getElementById("btnCreateEvent");
 
-  //DOM--All BTN & Section.
-  let btnOpenFormNewEvent = document.getElementById("btnOpenFormNewEvent");
-  let btnToLoginSection = document.getElementById("btnToLoginSection");
-  let btnBackToAboutFromSingIn = document.getElementById("btnBackToAboutFromSingIn");
-  let btnBackToAboutFromLogin = document.getElementById(
-    "btnBackToAboutFromLogin"
-  );
 
-  let sectionNewEvent = document.getElementById("sectionNewEvent");
-  let sectioAbout = document.getElementById("sectioAbout");
-  let sectionLogin = document.getElementById("sectionLogin");
-  let sectionEventPanel = document.getElementById("sectionEventPanel");
-  let sectionEventPanelConfig = document.getElementById("sectionEventPanelConfig");
-  let sectionMainHeader = document.getElementById("sectionMainHeader");
+//--> Sections
+let sectionNewEvent = document.getElementById("sectionNewEvent");
+let sectioAbout = document.getElementById("sectioAbout");
+let sectionLogin = document.getElementById("sectionLogin");
+let sectionEventPanel = document.getElementById("sectionEventPanel");
+let sectionEventPanelConfig = document.getElementById("sectionEventPanelConfig");
+let sectionMainHeader = document.getElementById("sectionMainHeader");
 
-//*********************--INITIATIONS--**********************/
+//--> Forms
+let loginForm = document.getElementById("loginForm");
+
+/*  -->>         INITIATIONS          <<--  */
 
 InitApp();
 
 function InitApp() {
   CambiarBG(); //AutoSlider for BG images
-  openSection(btnOpenFormNewEvent, sectionNewEvent, sectioAbout); //ID: form,sectionToOpen, sectionToClose)
+  openSection(btnOpenFormNewEvent, sectionNewEvent, sectioAbout);
   openSection(btnBackToAboutFromLogin, sectioAbout, sectionLogin);
   openSection(btnToLoginSection, sectionLogin, sectioAbout);
   resetMessage(); //Resetea el mensaje de error cuando le damos al btn back del login.
@@ -40,22 +44,9 @@ function InitApp() {
   allStorage(); //Cargar en el array el localStorage
 }
 
-/*********************--SAVE STORAGE--*****************/
 
-//Carga el contenido de todo el local Storage y lo guarda en el array admins
-function allStorage() {
-  let keys = Object.keys(localStorage),
-    i = keys.length;
+/*  -->>         CLASS          <<--  */
 
-  while (i--) {
-    events.push(JSON.parse(localStorage.getItem(keys[i])));
-  }
-  return events;
-}
-
-/*********************--CLASS EVENT--************************/
-
-//Main Class
 class Event {
   constructor(
     eventName,
@@ -65,9 +56,8 @@ class Event {
     totalTickets,
     cartelOfEvent,
     description,
-    password,  
+    password,
     status
-
   ) {
     this.eventName = eventName;
     this.mail = mail;
@@ -83,31 +73,41 @@ class Event {
   }
 }
 
-function randomPassword() {
-  //Funcion Copiada, intentar ENTENDER.
-  // Math.random should be unique because of its seeding algorithm.
-  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-  // after the decimal.
-  return "_" + Math.random().toString(36).substr(2, 9);
+class Promotor {
+  constructor(userName, password) {
+    this.userName = userName;
+    this.password = password;
+  }
 }
 
-/************************CREATION OF NEW EVENT--***********************/
+class Client {
+  constructor(fullName, email, country, phoneNumber, processStatus) {
+    this.fullName = fullName;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.country = country;
+    this.processStatus = processStatus;
+  }
+}
 
-//Event and Init create New Event.
+/*  -->>  EVENT: Sign In, Login, LogOut  <<--  */
+
+//--> Event and Init create New Event.
 function signInNewEvent() {
-  let btnCreateEvent = document.getElementById("btnCreateEvent");
   btnCreateEvent.addEventListener("click", (e) => {
     e.preventDefault();
     createNewEvent();
     loginToEventAfterSignIn();
 
-    (eventAlreadyExist == false) ?  showPassword() : console.log("No se mostro la contraseña");
+    eventAlreadyExist == false
+      ? showPassword()
+      : console.log("No se mostro la contraseña");
     showEvent(); //Muestra contraseña con un alert si el evento no existe.
     alert("Evento registrado correctamente"); //Temporal, sustituir por framework.
   });
-};
+}
 
-//New Object Event Creation
+//--> New Object Event Creation
 function createNewEvent() {
   let newEventForm = document.getElementById("newEventForm");
   let newEvent = new Event(
@@ -123,7 +123,7 @@ function createNewEvent() {
   if (events.find((element) => element.eventName == newEvent.eventName)) {
     console.log("Elige otro nombre para tu Evento");
     console.log("Este Admin Ya esta registrado, pruebe con otro nombre");
-     eventAlreadyExist = true;
+    eventAlreadyExist = true;
   } else {
     localStorage.setItem(newEvent.eventName, JSON.stringify(newEvent)); //para guardar en localStorge
     events.push(newEvent); //Esto es para guardar en array
@@ -131,27 +131,25 @@ function createNewEvent() {
       `Se ha registrado correctamente. Su Nombre para ingresar es: ${newEvent.eventName},su contraseña es ${newEvent.password}`
     );
     console.log("Se ha registrado correctamente.");
-     eventAlreadyExist = false;
+    eventAlreadyExist = false;
   }
-};
+}
 
-function showPassword () {
+function showPassword() {
   return alert(eventFound.password); ///SUSTITUOT POR FRAMEWORK
 }
 
-/********************************--LOGIN EVENT--*****************/
-//Funcion Logeo
-
-function loginToEventAfterSignIn () {
+//--> Loging after signIn
+function loginToEventAfterSignIn() {
   let newEventForm = document.getElementById("newEventForm");
   let user = newEventForm.eventName.value;
-  
+
   for (const event of events) {
-    if (event.eventName == user  ) {
+    if (event.eventName == user) {
       eventFound = event;
       eventFound.status = true;
-      
-      setTimeout (() => {
+
+      setTimeout(() => {
         sectionEventPanel.classList.remove("none");
         sectionMainHeader.classList.add("none");
         sectionLogin.classList.add("none");
@@ -161,19 +159,17 @@ function loginToEventAfterSignIn () {
       }, 2000);
       loginForm.reset();
       return;
-    }  
+    }
   }
 }
-function loginToEvent() {
 
-  let loginForm = document.getElementById("loginForm");
-  let btnLogin = document.getElementById("btnLogin");
+//--> Loging on formLogin
+function loginToEvent() {
   let user = loginForm.user.value;
   let password = loginForm.password.value;
 
-  
   for (const event of events) {
-    if (event.eventName == user && event.password == password ) {
+    if (event.eventName == user && event.password == password) {
       eventFound = event;
       messagesForm(
         msgLoginPass,
@@ -181,8 +177,8 @@ function loginToEvent() {
         colorSuccess
       );
       eventFound.status = true;
-      
-      setTimeout (() => {
+
+      setTimeout(() => {
         sectionEventPanel.classList.remove("none");
         sectionMainHeader.classList.add("none");
         sectionLogin.classList.add("none");
@@ -192,79 +188,39 @@ function loginToEvent() {
       }, 2000);
       loginForm.reset();
       return;
-    }  
-  } 
-  messagesForm(msgLoginPass, "Event Name or Password are incorrect, try again", colorError);
+    }
   }
+  messagesForm(
+    msgLoginPass,
+    "Event Name or Password are incorrect, try again",
+    colorError
+  );
+}
 
-  
-  
-  btnLogin.addEventListener("click", (e) => {
-    e.preventDefault();
+btnLogin.addEventListener("click", (e) => {
+  e.preventDefault();
   loginToEvent();
   showEvent(); //html Inner call
 });
 
-
-
-
-
-//Deslogeo Testeado
-function deslogeo () {
+//--> Deslogeo
+function deslogeo() {
   let btnLogout = document.getElementById("btnLogout");
 
   btnLogout.addEventListener("click", () => {
     eventFound.value = false;
     eventFound = undefined;
-    setTimeout (() => {
+    setTimeout(() => {
       sectionEventPanel.classList.add("none");
       sectioAbout.classList.remove("none");
       sectionMainHeader.classList.remove("none");
     }, 1000);
     messagesForm(msgLogOut, "Log Out Completed", colorSuccess);
   });
-};
-
-
-/***************************CLASS PROMOTOR--*****************/
-
-class Promotor {
-  constructor(userName, password) {
-    this.userName = userName;
-    this.password = password;
-  }
 }
 
-/*************************CLASS CLIENT--********************/
-
-class Client {
-  constructor(fullName, email, country, phoneNumber, processStatus) {
-    this.fullName = fullName;
-    this.email = email;
-    this.phoneNumber = phoneNumber;
-    this.country = country;
-    this.processStatus = processStatus;
-  }
-}
-
-/*******************--OPEN AND CLOSE SECTION EVENTLISTENER--**************/
-
-function openSection(btn, sectionToOpen, sectionToClose, funcionality) {
-  
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    sectionToOpen.classList.remove("none");
-    sectionToClose.classList.add("none");
-    funcionality;
-  });
-}
-
-
-/*************************--Load Panel Event--************************/
-
-
+//--> Modal Panel 
 function showEvent() {
-  
   sectionEventPanel.innerHTML = `
   <div>
   <p class="logo">PromoList</p>
@@ -289,8 +245,8 @@ function showEvent() {
   <li>Event Name: ${eventFound.eventName}</li>
   <li>Category: ${eventFound.category}</li>
   <li>Total Ticket: ${eventFound.totalTickets}</li>
-  <li>Avalibres:${caclTicketsDifference ()}</li>
-  <li>Selled:${sellTickets ()}</li>
+  <li>Avalibres:${caclTicketsDifference()}</li>
+  <li>Selled:${sellTickets()}</li>
   </ul>
   </div>
   
@@ -303,67 +259,101 @@ function showEvent() {
   <span class="msgLogOut" id="msgLogOut"></span>
   </div>
   `;
-  deslogeo (); //activa la funcion del btn LogOut
+  deslogeo(); //activa la funcion del btn LogOut
 }
-/***************--MESSAGES ERROR & OTHERS --***********************/
 
+/*  -->>  OPEN AND CLOSE SECTION EVENTLISTENER  <<--  */
 
+function openSection(btn, sectionToOpen, sectionToClose, funcionality) {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    sectionToOpen.classList.remove("none");
+    sectionToClose.classList.add("none");
+    funcionality;
+  });
+}
+
+/*  -->>   MESSAGES ERROR/SUCCESFULL   <<--  */
+//--> Show
 function messagesForm(label, message, textColor) {
-  //DOM Variables ID.
-  let msgLoginName = document.getElementById("msgLoginName");
-  let msgLoginPass = document.getElementById("msgLoginPass");
-  let msgLogOut = document.getElementById("msgLogOut");
+  //--> Messages
+
+let msgLoginName = document.getElementById("msgLoginName");
+let msgLoginPass = document.getElementById("msgLoginPass");
+let msgLogOut = document.getElementById("msgLogOut");
   label.style.color = textColor; //messageColor
   label.innerText = message; //message text
 }
-
-function resetMessage (){
-  btnBackToAboutFromLogin.addEventListener("click",() => {
+//--> Reset
+function resetMessage() {
+  btnBackToAboutFromLogin.addEventListener("click", () => {
     messagesForm(msgLoginPass, "", colorError);
-  })
-};
-
-/*******************--HERO BACKGORUND SLIDER AUTO--*************/
-
-function CambiarBG() {
-  const BGIMGS = [
-    "url(media/bg-family.png)",
-    "url(media/bg-sport.jpg)",
-    "url(media/bg-others.jpg)",
-    "url(media/bg-dance.jpg)",
-  ];
-
-  let bgSliderStyles = document.getElementById("bgHeroSlide").style;
-  let i = 0; //Contador
-  /*
-  Cuando la funcion es llamada agrega el string del array al estilo de background de bgHeroSlide
-  */
-  function changeBg() {
-    //Operador Terniario
-     (i >= BGIMGS.length) ? i = 0 : 
-  
-    bgSliderStyles.background =
-      "linear-gradient(to bottom, rgba(18,42, 66, .65), rgba(18,42, 66, .65))," +
-      BGIMGS[i];
-    bgSliderStyles.backgroundSize = "cover";
-    bgSliderStyles.backgroundRepeat = "no-repeat";
-
-    i++;
-  }
-  setInterval(changeBg, 3500);
+  });
 }
 
-/********************--CALCULATIONS OF TICKETS DIFERRENCE--*******************/
 
-function caclTicketsDifference () {
+/*  -->>  CALCULATIONS OF TICKETS DIFERRENCE  <<--  */
+
+//--> Diferencia entre tickets totales y vendidodos
+function caclTicketsDifference() {
   const totalTickets = parseInt(eventFound.totalTickets);
   let difference = totalTickets - sellTickets();
   return difference;
 }
 
-//ESTA FUNCION SERA INTRODUCIDA EN UN INPUT o por cada item cliente.
-function sellTickets () {
-  let sellTickets = 2;
+//--> Acumular los ticket vendidos acorde a los clientes totales (No finalizada)
+function sellTickets() {
   return sellTickets;
 }
 
+/*  -->>  RANDOM PASSWORD/ID  <<--  */
+//-> Create random serial
+function randomPassword() {
+  //Funcion Copiada, intentar ENTENDER.
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return "_" + Math.random().toString(36).substr(2, 9);
+}
+
+/*  -->>  SAVE STORAGE  <<--  */
+//--> Carga el contenido de todo el local Storage y lo guarda en el array admins
+function allStorage() {
+  let keys = Object.keys(localStorage),
+  i = keys.length;
+  
+  while (i--) {
+    events.push(JSON.parse(localStorage.getItem(keys[i])));
+  }
+  return events;
+}
+
+  /*  -->>  HERO BACKGORUND SLIDER AUTO  <<--  */
+  //--> Auto Bg images
+  function CambiarBG() {
+    const BGIMGS = [
+      "url(media/bg-family.png)",
+      "url(media/bg-sport.jpg)",
+      "url(media/bg-others.jpg)",
+      "url(media/bg-dance.jpg)",
+    ];
+  
+    let bgSliderStyles = document.getElementById("bgHeroSlide").style;
+    let i = 0; //Contador
+    /*
+    Cuando la funcion es llamada agrega el string del array al estilo de background de bgHeroSlide
+    */
+    function changeBg() {
+      //Operador Terniario
+      i >= BGIMGS.length
+        ? (i = 0)
+        : (bgSliderStyles.background =
+            "linear-gradient(to bottom, rgba(18,42, 66, .65), rgba(18,42, 66, .65))," +
+            BGIMGS[i]);
+      bgSliderStyles.backgroundSize = "cover";
+      bgSliderStyles.backgroundRepeat = "no-repeat";
+  
+      i++;
+    }
+    setInterval(changeBg, 3500);
+  }
