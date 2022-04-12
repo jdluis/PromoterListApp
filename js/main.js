@@ -97,13 +97,6 @@ function signInNewEvent() {
   btnCreateEvent.addEventListener("click", (e) => {
     e.preventDefault();
     createNewEvent();
-    loginToEventAfterSignIn();
-
-    eventAlreadyExist == false
-      ? showPassword()
-      : console.log("No se mostro la contraseña");
-    showEvent(); //Muestra contraseña con un alert si el evento no existe.
-    alert("Evento registrado correctamente"); //Temporal, sustituir por framework.
   });
 }
 
@@ -121,8 +114,7 @@ function createNewEvent() {
   );
 
   if (events.find((element) => element.eventName == newEvent.eventName)) {
-    console.log("Elige otro nombre para tu Evento");
-    console.log("Este Admin Ya esta registrado, pruebe con otro nombre");
+    console.log("Este Admin Ya esta registrado, pruebe con otro nombre");//Cambiar por libreria
     eventAlreadyExist = true;
   } else {
     localStorage.setItem(newEvent.eventName, JSON.stringify(newEvent)); //para guardar en localStorge
@@ -130,8 +122,14 @@ function createNewEvent() {
     console.log(
       `Se ha registrado correctamente. Su Nombre para ingresar es: ${newEvent.eventName},su contraseña es ${newEvent.password}`
     );
-    console.log("Se ha registrado correctamente.");
+    console.log("Se ha registrado correctamente."); //Cambiar por libreria
     eventAlreadyExist = false;
+    loginToEventAfterSignIn();
+    eventAlreadyExist == false
+      ? showPassword()
+      : console.log("No se mostro la contraseña");
+    showEvent(); //Muestra contraseña con un alert si el evento no existe. //Cambiar por libreria
+    alert("Evento registrado correctamente"); //Temporal, //Cambiar por libreria
   }
 }
 
