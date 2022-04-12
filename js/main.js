@@ -5,20 +5,26 @@ const testEvent = console.log("Event File Loaded");
 //Variables & Array
 const events = []; //contiene los eventos
 let eventFound;
+let eventAlreadyExist;
+
+  //Variables Messages
+  let colorError = "#FE4A49";
+  let colorSuccess = "#0CCA4A";
 
   //DOM--All BTN & Section.
   let btnOpenFormNewEvent = document.getElementById("btnOpenFormNewEvent");
-  let newEventSection = document.getElementById("newEventSection");
   let btnToLoginSection = document.getElementById("btnToLoginSection");
-  let btnBackToAbout = document.getElementById("btnBackToAbout");
-  let aboutSection = document.getElementById("aboutSection");
-  let loginSection = document.getElementById("loginSection");
+  let btnBackToAboutFromSingIn = document.getElementById("btnBackToAboutFromSingIn");
   let btnBackToAboutFromLogin = document.getElementById(
     "btnBackToAboutFromLogin"
   );
-  let eventPanelSection = document.getElementById("eventPanelSection");
-  let eventPanelConfig = document.getElementById("eventPanelConfig");
-  let mainHeader = document.getElementById("mainHeader");
+
+  let sectionNewEvent = document.getElementById("sectionNewEvent");
+  let sectioAbout = document.getElementById("sectioAbout");
+  let sectionLogin = document.getElementById("sectionLogin");
+  let sectionEventPanel = document.getElementById("sectionEventPanel");
+  let sectionEventPanelConfig = document.getElementById("sectionEventPanelConfig");
+  let sectionMainHeader = document.getElementById("sectionMainHeader");
 
 //*********************--INITIATIONS--**********************/
 
@@ -26,15 +32,15 @@ InitApp();
 
 function InitApp() {
   CambiarBG(); //AutoSlider for BG images
-  openSection(btnOpenFormNewEvent, newEventSection, aboutSection); //ID: form,sectionToOpen, sectionToClose)
-  openSection(btnBackToAbout, aboutSection, newEventSection);
-  openSection(btnBackToAboutFromLogin, aboutSection, loginSection);
-  openSection(btnToLoginSection, loginSection, aboutSection);
+  openSection(btnOpenFormNewEvent, sectionNewEvent, sectioAbout); //ID: form,sectionToOpen, sectionToClose)
+  openSection(btnBackToAboutFromLogin, sectioAbout, sectionLogin);
+  openSection(btnToLoginSection, sectionLogin, sectioAbout);
+  resetMessage(); //Resetea el mensaje de error cuando le damos al btn back del login.
   signInNewEvent();
   allStorage(); //Cargar en el array el localStorage
 }
 
-/********************************--SAVE STORAGE--*****************/
+/*********************--SAVE STORAGE--*****************/
 
 //Carga el contenido de todo el local Storage y lo guarda en el array admins
 function allStorage() {
@@ -77,6 +83,14 @@ class Event {
   }
 }
 
+function randomPassword() {
+  //Funcion Copiada, intentar ENTENDER.
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return "_" + Math.random().toString(36).substr(2, 9);
+}
+
 /************************CREATION OF NEW EVENT--***********************/
 
 //Event and Init create New Event.
@@ -85,8 +99,12 @@ function signInNewEvent() {
   btnCreateEvent.addEventListener("click", (e) => {
     e.preventDefault();
     createNewEvent();
+    loginToEvent();
+
+    (eventAlreadyExist == false) ?  showPassword() : console.log("No se mostro la contraseña");
+    showEvent(); //html Inner call
   });
-}
+};
 
 //New Object Event Creation
 function createNewEvent() {
@@ -104,6 +122,7 @@ function createNewEvent() {
   if (events.find((element) => element.eventName == newEvent.eventName)) {
     console.log("Elige otro nombre para tu Evento");
     console.log("Este Admin Ya esta registrado, pruebe con otro nombre");
+     eventAlreadyExist = true;
   } else {
     localStorage.setItem(newEvent.eventName, JSON.stringify(newEvent)); //para guardar en localStorge
     events.push(newEvent); //Esto es para guardar en array
@@ -111,15 +130,12 @@ function createNewEvent() {
       `Se ha registrado correctamente. Su Nombre para ingresar es: ${newEvent.eventName},su contraseña es ${newEvent.password}`
     );
     console.log("Se ha registrado correctamente.");
-    return true;
+     eventAlreadyExist = false;
   }
-}
-function randomPassword() {
-  //Funcion Copiada, intentar ENTENDER.
-  // Math.random should be unique because of its seeding algorithm.
-  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-  // after the decimal.
-  return "_" + Math.random().toString(36).substr(2, 9);
+};
+
+function showPassword () {
+  return alert(eventFound.password);
 }
 
 /********************************--LOGIN EVENT--*****************/
@@ -145,10 +161,11 @@ function loginToEvent() {
       eventFound.status = true;
       
       setTimeout (() => {
-        eventPanelSection.classList.remove("none");
-        mainHeader.classList.add("none");
-        loginSection.classList.add("none");
-        aboutSection.classList.add("none");
+        sectionEventPanel.classList.remove("none");
+        sectionMainHeader.classList.add("none");
+        sectionLogin.classList.add("none");
+        sectioAbout.classList.add("none");
+        sectionNewEvent.classList.add("none");
         messagesForm(msgLoginPass, "", "none"); //restard messages
       }, 2000);
       loginForm.reset();
@@ -158,12 +175,16 @@ function loginToEvent() {
   messagesForm(msgLoginPass, "Event Name or Password are incorrect, try again", colorError);
   }
 
-
-btnLogin.addEventListener("click", (e) => {
-  e.preventDefault();
+  
+  
+  btnLogin.addEventListener("click", (e) => {
+    e.preventDefault();
   loginToEvent();
   showEvent(); //html Inner call
 });
+
+
+
 
 
 //Deslogeo Testeado
@@ -174,8 +195,9 @@ function deslogeo () {
     eventFound.value = false;
     eventFound = undefined;
     setTimeout (() => {
-      eventPanelSection.classList.add("none");
-      aboutSection.classList.remove("none");
+      sectionEventPanel.classList.add("none");
+      sectioAbout.classList.remove("none");
+      sectionMainHeader.classList.remove("none");
     }, 1000);
     messagesForm(msgLogOut, "Log Out Completed", colorSuccess);
   });
@@ -205,16 +227,13 @@ class Client {
 
 /*******************--OPEN AND CLOSE SECTION EVENTLISTENER--**************/
 
-function openSection(btn, sectionToOpen, sectionToClose) {
-
+function openSection(btn, sectionToOpen, sectionToClose, funcionality) {
+  
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     sectionToOpen.classList.remove("none");
-  });
-
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
     sectionToClose.classList.add("none");
+    funcionality;
   });
 }
 
@@ -223,51 +242,49 @@ function openSection(btn, sectionToOpen, sectionToClose) {
 
 
 function showEvent() {
-
-  eventPanelSection.innerHTML = `
+  
+  sectionEventPanel.innerHTML = `
   <div>
   <p class="logo">PromoList</p>
   <div class="fixed">
     <button id="settings" class="btn btn-primary">Settings</button>
     <button id="btnLogout" class="btn btn-secundary">LogOut</button>
-  </div>
-</div>
-
-<div class="event-container">
-  <h3 class="event-title">${eventFound.eventName}</h3>
-
+    </div>
+    </div>
+    
+    <div class="event-container">
+    <h3 class="event-title">${eventFound.eventName}</h3>
+    
   <div class="panel-img_container">
-    <img
-      src="${eventFound.cartelOfEvent}"
-      alt=""
-    />
+  <img
+  src="${eventFound.cartelOfEvent}"
+  alt=""
+  />
   </div>
-
+  
   <div class="eventInfo-container">
-    <ul class="list list-colum">
-      <li>Event Name: ${eventFound.eventName}</li>
-      <li>Category: ${eventFound.category}</li>
-      <li>Total Ticket: ${eventFound.totalTickets}</li>
-      <li>Avalibres:${caclTicketsDifference ()}</li>
-      <li>Selled:${sellTickets ()}</li>
-    </ul>
+  <ul class="list list-colum">
+  <li>Event Name: ${eventFound.eventName}</li>
+  <li>Category: ${eventFound.category}</li>
+  <li>Total Ticket: ${eventFound.totalTickets}</li>
+  <li>Avalibres:${caclTicketsDifference ()}</li>
+  <li>Selled:${sellTickets ()}</li>
+  </ul>
   </div>
-
+  
   <div class="description-container">
-    <h4>Description:</h4>
-    <p class="text-descrip">
-     ${eventFound.description}
-    </p>
+  <h4>Description:</h4>
+  <p class="text-descrip">
+  ${eventFound.description}
+  </p>
   </div>
   <span class="msgLogOut" id="msgLogOut"></span>
-</div>
+  </div>
   `;
   deslogeo (); //activa la funcion del btn LogOut
 }
 /***************--MESSAGES ERROR & OTHERS --***********************/
-//Variables Messages
-let colorError = "#FE4A49";
-let colorSuccess = "#0CCA4A";
+
 
 function messagesForm(label, message, textColor) {
   //DOM Variables ID.
@@ -277,6 +294,12 @@ function messagesForm(label, message, textColor) {
   label.style.color = textColor; //messageColor
   label.innerText = message; //message text
 }
+
+function resetMessage (){
+  btnBackToAboutFromLogin.addEventListener("click",() => {
+    messagesForm(msgLoginPass, "", colorError);
+  })
+};
 
 /*******************--HERO BACKGORUND SLIDER AUTO--*************/
 
@@ -321,3 +344,4 @@ function sellTickets () {
   let sellTickets = 2;
   return sellTickets;
 }
+
