@@ -3,12 +3,16 @@
 @import './form.css';
 @import './buttons.css';
 @import './eventPanel.css';
+@import './eventsGalery.css';
 
 /* Z-INDEX Leyend:  */
 .btn {z-index: 2;}
 .configEventForm {z-index: 2;}
 .modal_offcanvas {z-index: 3;} 
 a {z-index: 4;} 
+.footer-container  {z-index: 4;}
+#galery_events {z-index: 3;}
+.nav-container {z-index: 3;}
 
 
 /*Social Media*/
@@ -114,6 +118,7 @@ a:hover {
   background-color: var(--color-text-primary);
   width: 100%;
   display: flex;
+  z-index: 4;
 }
 
 .list {
@@ -138,9 +143,10 @@ a:hover {
   background: linear-gradient(to bottom, rgba(18,42, 66, .65), rgba(18,42, 66, .65)), url(../media/bg-dance.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;  
 }
+
 
 
 /*Particles BG*/

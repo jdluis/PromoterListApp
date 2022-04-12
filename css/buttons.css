@@ -33,3 +33,17 @@
     color: rgb(255, 250, 240);
 }
 
+
+/*-->  LINKS  */
+.nav-container {
+    display: flex;
+    gap: 20px;
+}
+.links {
+    color: var(--color-secundary);
+}
+
+.links:hover {
+    color: var(--color-terciary);
+    font-weight: 800;
+}

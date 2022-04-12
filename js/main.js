@@ -27,6 +27,8 @@ let sectionEventPanel = document.getElementById("sectionEventPanel");
 let sectionEventPanelConfig = document.getElementById("sectionEventPanelConfig");
 let sectionMainHeader = document.getElementById("sectionMainHeader");
 
+let sectionAsideEventsContainer = document.getElementById('sectionAsideEventsContainer')
+
 //--> Forms
 let loginForm = document.getElementById("loginForm");
 
@@ -36,9 +38,17 @@ InitApp();
 
 function InitApp() {
   CambiarBG(); //AutoSlider for BG images
+
+  //abrir y cerrar secciones
   openSection(btnOpenFormNewEvent, sectionNewEvent, sectioAbout);
+  openSection(btnBackToAboutFromSingIn, sectioAbout, sectionNewEvent);
   openSection(btnBackToAboutFromLogin, sectioAbout, sectionLogin);
   openSection(btnToLoginSection, sectionLogin, sectioAbout);
+  openSection(btnToLoginSection,sectionLogin, sectionMainHeader);
+  openSection(btnBackToAboutFromLogin,sectionMainHeader, sectionLogin);
+  openSection(btnOpenFormNewEvent, sectionNewEvent, sectionMainHeader);
+  openSection(btnBackToAboutFromSingIn, sectionMainHeader, sectionNewEvent);
+  
   resetMessage(); //Resetea el mensaje de error cuando le damos al btn back del login.
   signInNewEvent();
   allStorage(); //Cargar en el array el localStorage
@@ -70,23 +80,6 @@ class Event {
     this.status = false;
     // this.promoters = promoters;
     // this.clients = clients; //¿DEBERIA PONERLO AQUI O POR FUERA?
-  }
-}
-
-class Promotor {
-  constructor(userName, password) {
-    this.userName = userName;
-    this.password = password;
-  }
-}
-
-class Client {
-  constructor(fullName, email, country, phoneNumber, processStatus) {
-    this.fullName = fullName;
-    this.email = email;
-    this.phoneNumber = phoneNumber;
-    this.country = country;
-    this.processStatus = processStatus;
   }
 }
 
@@ -260,6 +253,18 @@ function showEvent() {
   deslogeo(); //activa la funcion del btn LogOut
 }
 
+addEventToAside();
+function addEventToAside () {
+  events.forEach(element => {
+    console.log(element);
+    sectionAsideEventsContainer.innerHTML += `
+    <div class="flex-item">
+      <a><img class="thumbnail" src="${element.cartelOfEvent}" alt=""></a>
+    </div>
+    `
+  });
+}
+
 /*  -->>  OPEN AND CLOSE SECTION EVENTLISTENER  <<--  */
 
 function openSection(btn, sectionToOpen, sectionToClose, funcionality) {
@@ -301,6 +306,7 @@ function caclTicketsDifference() {
 
 //--> Acumular los ticket vendidos acorde a los clientes totales (No finalizada)
 function sellTickets() {
+  let sellTickets = 2; //provisional para pruebas
   return sellTickets;
 }
 
