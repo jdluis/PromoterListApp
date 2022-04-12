@@ -1,0 +1,49 @@
+.btn {
+    padding: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: 500ms;
+    border: none;
+    box-shadow: 2px 2px 2px 2px #000;
+}
+
+.btn-primary {
+    background-color: var(--color-terciary);
+    font-style: italic;
+    font-weight: 700;
+}
+
+.btn-primary:hover {
+    background-color: rgb(8, 238, 0);
+}
+.btn-secundary {
+    background-color: var(--color-secundary);
+}
+
+.btn-secundary:hover {
+    background-color: rgb(224, 17, 17);
+    color: rgb(255, 250, 240);
+}
+.btn-other {
+    background-color: var(--color-primary);
+}
+
+.btn-other:hover {
+    background-color: #000;
+    color: rgb(255, 250, 240);
+}
+
+
+/*-->  LINKS  */
+.nav-container {
+    display: flex;
+    gap: 20px;
+}
+.links {
+    color: var(--color-secundary);
+}
+
+.links:hover {
+    color: var(--color-terciary);
+    font-weight: 800;
+}

@@ -1,84 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Promotor List App</title>
 
-    <link rel="shortcut icon" href="media/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/tableList.css">
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="shortcut icon" href="media/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script
-    src="https://kit.fontawesome.com/3ffbeed2f4.js"
-    crossorigin="anonymous"
-  ></script>
-</head>
-<body onload="allStorage()">
-    <!--HEADER-->
-    <header>
-        <div>
-            <h1 id="headerTitle">Your Promotor List</h1>
-        </div>
+      src="https://kit.fontawesome.com/3ffbeed2f4.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body id="bgHeroSlide">
+    
+    <!--HEADER Main Page-->
+    <header class="header" id="sectionMainHeader">
+      <div>
+        <p class="h1">Promotor Event</p>
+        <!--CAMBIARA CON JS-->
+      </div>
+      <nav class="nav-container">
+        <a href="" class="links">Home</a>
+        <a href="" class="links">Events</a>
+        <a href="" id="btnOpenFormNewEvent" class="links">New</a>
+        <a href="" id="btnToLoginSection" class="links">LogIn</a>
+      </nav>
     </header>
 
-    <!--FORMULARIO DE LOGIN PARA LOS PROMOTORES O ADMINS-->
-    <main id="container">
-        <div class="form-container" id="singinContainer">
-            <h2 class="form-title">Sing In Your Event!</h2>
-            <form class="form" id="signinForm">
-                <label for="eventName">Event Name</label>
-                <input class="form__input" type="text" id="eventName" required>
-                <label for="adminName">User</label>
-                <input class="form__input" type="text" id="adminName" required>
-                <label for="adminMail">Mail</label>
-                <input class="form__input" type="email" id="adminMail" required>
-                <label for="adminPassword">Password</label>
-                <input class="form__input" type="password" id="adminPassword" required>
-                <button class="btn btn-on" type="submit" id="signInAdminBtn">Sign In</button>
-            </form>
-            <span id="signInErrorOrSuccessMessage"></span>
-            <a class="link btn btn-off" id="linkToLogin">You already have it? Click Here</a>
+    <!-- About-Main Page -->
+    <section class="container-about" id="sectioAbout">
+      <div>
+        <h2>New Event</h2>
+      </div>
+      <div>
+        <p>
+          Build your own Event without signing in and sharing it with your
+          friends and promoters.
+        </p>
+      </div>
+      
+      <div class="container-icons">
+        <div class="flex-item">
+          <i class="fa-solid fa-gauge-high"></i>
+          <h3>Fast</h3>
         </div>
-        
-        <div class="form-container none" id="loginContainer">
-            <h2 class="form-title">LOGIN</h2>
-            <form class="form" id="loginForm">
-                <label for="userName">UserName</label>
-                <input class="form__input" type="text" id="userName"required>
-                <label for="password">Password</label>
-                <input class="form__input" type="password" id="password" required>
-                <button class="btn btn-on" type="submit" id="submitLoginBtn">Login</button>
-            </form>
-            <span id="loginErrorOrSuccessMessage"></span>
-            <a class="link btn btn-off" id="linkToSingin">¿New User? Click Here</a>
+        <div class="flex-item">
+          <i class="fa-solid fa-handshake-simple"></i>
+          <h3>Easy</h3>
         </div>
-    </main>
+        <div class="flex-item">
+          <i class="fa-solid fa-shield"></i>
+          <h3>Safe</h3>
+        </div>
+      </div>
 
-      <!--Panel de ADMINISTRADOR una vez logeado-->
-    <div id="adminPanel">
-    </div>
+      <!--  hacer gris de imagenes en minuaturas de los eventos creados y boton Ver.  -->
+      <aside id="galery_events">
+        <h3>Published Events</h3>
+        <div class="flex-container" id="sectionAsideEventsContainer"></div>
+        </div>
+      </aside>
+    </section>
 
-    <!--Panel de Promotor una vez logeado-->
-    <section id="promotorPanel" class="none">
-        <div></div>
-          <!--FORMULARIO DE REGISTRO DE CLIENTES (solo sera visible una vez logeado un promotor o accediendo con el admin a una ficha de promotor)--> 
-    <div id="clientFormSubmit" class="none">
-        <h2>Add New Client</h2>
-        <form action="">
-            <input type="text" value="Name">
-            <input type="email">
-            <input type="number">
-            <button type="submit">Sign In</button>
+    <!--SIGN IN FORM-->
+    <section class="container modal_offcanvas none" id="sectionNewEvent">
+      <form class="form-container" id="newEventForm">
+        <h2 class="form-title">Create Event</h2>
+        <fieldset>
+          <legend>Login Info</legend>
+          <div class="form-input_container">
+            <div>
+              <label class="form-label" for="eventName">Name</label>
+              <input
+                class="form-input"
+                name="eventName"
+                type="text"
+                placeholder="Event Name"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-input_container">
+            <div>
+              <label class="form-label" for="eventEmail">Mail</label>
+              <input
+                class="form-input"
+                name="eventEmail"
+                type="email"
+                placeholder="Mail"
+                required
+              />
+            </div>
+          </div>
+        </fieldset>
+        <!--Radio for Categorys-->
+        <fieldset class="ml">
+          <legend>Category</legend>
+          <div class="form-input_container radio_container">
+            <div>
+              <label class="form-label" for="dance">Dance:</label>
+              <input
+                class="form-input"
+                type="radio"
+                id="dance"
+                name="category"
+                value="dance"
+              />
+            </div>
+            <div>
+              <label class="form-label" for="sport">Sport:</label>
+              <input
+                class="form-input"
+                type="radio"
+                id="sport"
+                name="category"
+                value="sport"
+              />
+            </div>
+            <div>
+              <label class="form-label" for="family">Family:</label>
+              <input
+                class="form-input"
+                type="radio"
+                id="family"
+                name="category"
+                value="family"
+              />
+            </div>
+            <div>
+              <label class="form-label" for="other">Other:</label>
+              <input
+                class="form-input"
+                type="radio"
+                id="other"
+                name="category"
+                value="other"
+              />
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Event Settings</legend>
+          <div class="form-input_container">
+            <label class="form-label" for="dateOfEvent">Date</label>
+            <input
+              class="form-input input_date"
+              name="dateOfEvent"
+              type="date"
+              placeholder="Date of Event"
+            />
+          </div>
+          <div class="form-input_container">
+            <label class="form-label" for="totalTikets">Tikets</label>
+            <input
+              class="form-input input_number"
+              name="totalTikets"
+              type="number"
+              placeholder="0"
+            />
+          </div>
+          <div class="form-input_container">
+            <label class="form-label" for="cartel">Cartel</label>
+            <input
+              class="form-input"
+              name="cartel"
+              type="text"
+              placeholder="url to the img"
+            />
+          </div>
+          <div class="form-input_container container_texarea">
+            <label class="form-label" for="description">Description</label>
+            <textarea
+              name="description"
+              maxlength="400"
+              minlength="100"
+              cols="25"
+              aria-expanded="true"
+              rows="8"
+            ></textarea>
+          </div>
+        </fieldset>
+        <div class="form-group_center">
+          <button class="btn btn-secundary" id="btnBackToAboutFromSingIn">Back</button>
+          <button class="btn btn-primary" id="btnCreateEvent">Continue</button>
+        </div>
+      </form>
+    </section>
+
+    <!--Event Panel-->
+    <section class="container-panelEvent none" id="sectionEventPanel">
+    </section>
+
+    <!--Event Panel CONFIGURATION-->
+    <section class="container-panelEvent none" id="sectionEventPanelConfig">
+      <div>
+        <p class="logo">PromoList</p>
+        <div class="fixed">
+          <button id="btnSaveConfig" class="btn btn-primary">Save</button>
+          <button id="logout" class="btn btn-secundary">LogOut</button>
+        </div>
+      </div>
+
+      <div class="event-container">
+        <h3 class="event-title">Guaguanco Festival 2022</h3>
+
+        <form class="form-container configEventForm" id="configEventForm">
+          <fieldset>
+            <legend>Login Info</legend>
+            <div class="form-input_container">
+              <div>
+                <input
+                  class="form-input"
+                  id="eventName"
+                  type="text"
+                  placeholder="Event Name"
+                />
+              </div>
+            </div>
+            <div class="form-input_container">
+              <div>
+                <input
+                  class="form-input"
+                  id="eventEmail"
+                  type="email"
+                  placeholder="Mail"
+                />
+              </div>
+            </div>
+            <div class="form-input_container">
+              <div>
+                <input
+                  class="form-input"
+                  id="userPassword"
+                  type="password"
+                  placeholder="New Password"
+                />
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Event Settings</legend>
+            <div class="form-input_container">
+              <label class="form-label" for="dateOfEvent">Date</label>
+              <input
+                class="form-input input_date"
+                id="dateOfEvent"
+                type="date"
+                placeholder="Date of Event"
+              />
+            </div>
+            <div class="form-input_container">
+              <label class="form-label" for="totalTikets">Tikets</label>
+              <input
+                class="form-input input_number"
+                id="totalTikets"
+                type="number"
+                placeholder="0"
+              />
+            </div>
+            <div class="form-input_container">
+              <label class="form-label" for="cartel">Cartel</label>
+              <input
+                class="form-input"
+                id="cartel"
+                type="text"
+                placeholder="url to the img"
+              />
+            </div>
+            <div class="form-input_container container_texarea">
+              <label class="form-label" for="description">Description</label>
+              <textarea
+                id="description"
+                maxlength="400"
+                minlength="100"
+                cols="25"
+                aria-expanded="true"
+                rows="8"
+              ></textarea>
+            </div>
+          </fieldset>
+          <div class="form-group_center">
+            <button class="btn btn-secundary" id="btnBackEventPanel">
+              Back
+            </button>
+            <button class="btn btn-primary" id="btnSaveConfig">Save</button>
+          </div>
         </form>
-    </div>
+      </div>
+    </section>
+
+    <!--LOGIN FORM-->
+    <section class="container modal_offcanvas none" id="sectionLogin">
+      <form class="form-container" id="loginForm">
+        <fieldset>
+          <legend><h2 class="form-title">Login</h2></legend>
+          <div class="form-input_container">
+            <label class="form-label" for="userName/Mail">Name/Mail</label>
+            <input
+              class="form-input"
+              id="userName/Mail"
+              name="user"
+              type="text"
+              placeholder="Name/Mail"
+            />
+            <span id="msgLoginName"></span>
+          </div>
+          <div class="form-input_container">
+            <label class="form-label" for="eventPassword">Password</label>
+            <input
+              class="form-input"
+              id="eventPassword"
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
+            <span id="msgLoginPass"></span>
+
+          </div>
+        </fieldset>
+        <div class="form-group_center">
+          <button class="btn btn-secundary" id="btnBackToAboutFromLogin">
+            Back
+          </button>
+          <button class="btn btn-primary" id="btnLogin">Continue</button>
+        </div>
+      </form>
     </section>
 
     <footer class="footer-container">
-        <h4>Copyright: jdluis.com</h4>
+      <ul class="list">
+        <li class="list_item">
+          Copyright:<a href="www.jdluis.com" target="_blank">jdluis.com</a>
+        </li>
+        <li>-</li>
+        <li class="list_item">2022</li>
+        <li class="list_item">
+          <a href="" target="_blank" style="color: #fff"
+            ><i class="fa-brands github fa-github"></i
+          ></a>
+        </li>
+        <li class="list_item">
+          <a href="" target="_blank" style="color: #fff"
+            ><i class="fa-brands linkedin fa-linkedin"></i
+          ></a>
+        </li>
+      </ul>
     </footer>
 
-    <script src="js/app.js"></script>
-</body>
+    <div id="particles-js"></div>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="js/particles.js"></script>
+  </body>
 </html>

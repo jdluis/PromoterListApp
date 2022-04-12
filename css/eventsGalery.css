@@ -1,0 +1,25 @@
+.flex-container {
+  position: relative;
+  display: flex;
+  gap: 5px;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 0 5em 0;
+  padding: 0;
+  width: auto;
+  z-index: 20;
+}
+
+
+.thumbnail {
+  width: 90px;
+  height: 140px;
+  background: #ccc;
+  overflow: hidden;
+  border: 1px solid #000;
+}
+
+.thumbnail img {
+  object-fit: cover;
+  object-position: center center;
+}

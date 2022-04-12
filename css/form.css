@@ -1,0 +1,89 @@
+
+.container {
+  margin: auto 0;
+}
+
+.modal_offcanvas {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color:  rgba(0, 0, 0, 0.803);
+}
+
+
+.form-container {
+  margin:10px auto 5px auto;
+  height: 98%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  box-shadow: 2px 1px 20px 1px var(--color-terciary);
+}
+
+
+
+fieldset {
+  border: none;
+  margin-left: 3em;
+}
+
+.form-group_center {
+ align-self: center;
+ margin-left: 0;
+}
+
+legend {
+  color: var(--color-terciary);
+  margin: -0.5em;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 2em;
+}
+
+.form-input_container {
+  display: flex;
+  text-align: left;
+  flex-wrap: wrap;
+  gap: 5px;
+  column-gap: 20px;
+  padding: 5px;
+}
+
+
+.container_texarea {
+ flex-direction: column;
+}
+
+
+.form-label {
+  text-align: left;
+}
+
+.form-input {
+  padding: 10px;
+}
+
+.input_number {
+ padding: 5px;
+ width: 60px;
+}
+
+.input_date {
+  width: auto;
+  padding: 4px;
+  margin-left: 19px;
+ }
+ 
+.radio_container {
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 5px;
+  padding: 10px;
+}
+
