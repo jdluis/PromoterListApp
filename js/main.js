@@ -99,10 +99,11 @@ function signInNewEvent() {
   btnCreateEvent.addEventListener("click", (e) => {
     e.preventDefault();
     createNewEvent();
-    loginToEvent();
+    loginToEventAfterSignIn();
 
     (eventAlreadyExist == false) ?  showPassword() : console.log("No se mostro la contraseña");
-    showEvent(); //html Inner call
+    showEvent(); //Muestra contraseña con un alert si el evento no existe.
+    alert("Evento registrado correctamente"); //Temporal, sustituir por framework.
   });
 };
 
@@ -135,13 +136,34 @@ function createNewEvent() {
 };
 
 function showPassword () {
-  return alert(eventFound.password);
+  return alert(eventFound.password); ///SUSTITUOT POR FRAMEWORK
 }
 
 /********************************--LOGIN EVENT--*****************/
 //Funcion Logeo
 
-
+function loginToEventAfterSignIn () {
+  let newEventForm = document.getElementById("newEventForm");
+  let user = newEventForm.eventName.value;
+  
+  for (const event of events) {
+    if (event.eventName == user  ) {
+      eventFound = event;
+      eventFound.status = true;
+      
+      setTimeout (() => {
+        sectionEventPanel.classList.remove("none");
+        sectionMainHeader.classList.add("none");
+        sectionLogin.classList.add("none");
+        sectioAbout.classList.add("none");
+        sectionNewEvent.classList.add("none");
+        messagesForm(msgLoginPass, "", "none"); //restard messages
+      }, 2000);
+      loginForm.reset();
+      return;
+    }  
+  }
+}
 function loginToEvent() {
 
   let loginForm = document.getElementById("loginForm");
