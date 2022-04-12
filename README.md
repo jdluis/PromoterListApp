@@ -15,16 +15,20 @@ In this example case, the intention is to create said app in relation to a festi
 - Status of the new client to review by the Admin.
 - Table with: Full Name, email, phone number, status (Pending, Denied or Confirmed).
 
-## Version Alpha:
+##AlphaVersion:
 
-- Allows to register new admins correctly
+- Allows to register new events correctly
 - You can connect without problems when loading the new local Storage
 - Disconnect correct
 - It does not allow to register with the same name
 - Does not allow you to connect if you are already connected
 - Added error and confirmation messages.
-- The Administrator Panel (Alpha) is displayed when logging in.
+- It is shown when logging in the Event Configuration Panel (Alpha)
+- Event gallery section
 
+
+## Version 1.2
+- Sign up for the event (for the next version)
 
 
 ### TESTING/LOG:
@@ -77,13 +81,18 @@ En este caso de ejemplo se pretende crear dicha app en relación con un festival
 
 ## Version Alpha:
 
-- Permite registrar nuevos admins correctamente
+- Permite registrar nuevos eventos correctamente
 - Puedes conectarte sin problemas al cargar el nuevo local Storage
 - Desconectarte correcto
 - No permite registrarse con mismo nombre
 - No permite que te conectes si ya lo estás
 - Se añadieron mensajes de error y de confirmación. 
-- Se muestra al logear el Panel de Administrador (Alpha)
+- Se muestra al logear el Panel de configuracion de evento (Alpha)
+- Seccion galeria de eventos
+
+
+## Version 1.2
+- Apuntarse al evento (para version siguiente)
 
 
 
