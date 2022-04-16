@@ -258,8 +258,15 @@ function addEventToAside () {
   events.forEach(element => {
     console.log(element);
     sectionAsideEventsContainer.innerHTML += `
-    <div class="flex-item">
-      <a><img class="thumbnail" src="${element.cartelOfEvent}" alt=""></a>
+    <div class="gallery_container">
+      <div class="gallery-item">
+        <div class="image"> 
+            <img src="${element.cartelOfEvent}" alt="cartel ${element.eventName}">
+        </div>
+        <div class="text"> 
+          <p>${element.eventName} <br> ${element.date.split('-')[2]}/${element.date.split('-')[1]}/${element.date.split('-')[0]}</p> 
+        </div>
+      </div>  
     </div>
     `
   });
@@ -356,7 +363,6 @@ function allStorage() {
             BGIMGS[i]);
       bgSliderStyles.backgroundSize = "cover";
       bgSliderStyles.backgroundRepeat = "no-repeat";
-  
       i++;
     }
     setInterval(changeBg, 3500);
