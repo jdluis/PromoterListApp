@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import './home.css';
 @import './tableList.css';
 @import './form.css';
-@import './buttons.css';
+@import './btn&Nav.css';
 @import './eventPanel.css';
 @import './eventsGalery.css';
 
@@ -11,13 +12,10 @@
 .modal_offcanvas {z-index: 3;} 
 a {z-index: 4;} 
 .footer-container  {z-index: 4;}
-#galery_events {z-index: 3;}
+.gallery_container  {z-index: 3;}
 .nav-container {z-index: 3;}
 
-
 /*Social Media*/
-
-
 .github:hover {
   color: rgb(0, 0, 0);
   cursor: pointer;
@@ -41,28 +39,10 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font-size: 16px;
   color: var(--color-text-secundary);
-  
-}
-
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; 
-  padding: 0 10px;
-}
-
-.container-about {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 80%;
-  margin: auto;
-  text-align: center;
 }
 
 .none {
-  display: none;
+  display: none !important;
 }
 
 .center {
@@ -75,15 +55,18 @@ header {
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: calc(4rem + 1.5vw);
 }
 
 h2 {
-  font-size: 3rem;
+  font-size: calc(3rem + 1.5vw);
 }
 
+h3 {
+  font-size: calc(1.5rem + 1.5vw);
+}
 p {
-  font-size: 1.5rem;
+  font-size: calc(16px + 1.5vw);
 }
 
 a {
@@ -95,7 +78,7 @@ a:hover {
 }
 
 
-
+/*Icons*/
 .container-icons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -123,7 +106,9 @@ a:hover {
 
 .list {
   display: flex;
+  flex-direction: row;
   list-style: none;
+  gap:calc(2px + 1vw);
   justify-content: space-around;
   flex-wrap: nowrap;
 }
@@ -136,6 +121,10 @@ a:hover {
   color: var(--color-terciary);
 }
 
+.header {
+  display: flex;
+  justify-content: space-around;
+}
 /***********  SPECIFIC STYLES ********/
 
 /* HERO-SLIDE-BG */
@@ -143,8 +132,9 @@ a:hover {
   background: linear-gradient(to bottom, rgba(18,42, 66, .65), rgba(18,42, 66, .65)), url(../media/bg-dance.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
+  background-position: center;
   overflow-x: hidden;  
+  height: 100vh;
 }
 
 
@@ -153,7 +143,7 @@ a:hover {
 #particles-js {
   position: absolute;
   top: 0;
-  width: 100%;
-  height: 100%;
-  max-height: 99%;
+  width: 90%;
+  height: 100vh;
+  overflow: hidden;
 }
