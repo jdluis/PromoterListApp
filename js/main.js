@@ -17,17 +17,21 @@ let btnBackToAboutFromSingIn = document.getElementById("btnBackToAboutFromSingIn
 let btnBackToAboutFromLogin = document.getElementById("btnBackToAboutFromLogin");
 let btnLogin = document.getElementById("btnLogin");
 let btnCreateEvent = document.getElementById("btnCreateEvent");
+let btnNavEvents = document.getElementById("btnNavEvents");
+let btnNavHome = document.getElementById("btnNavHome");
+let btnBackOfSectionEvents = document.getElementById("btnBackOfSectionEvents");
 
 
 //--> Sections
+let  bgHeroSlideContainer = document.getElementById('bgHeroSlide');
 let sectionNewEvent = document.getElementById("sectionNewEvent");
-let sectioAbout = document.getElementById("sectioAbout");
+let sectionHome = document.getElementById("sectionHome");
 let sectionLogin = document.getElementById("sectionLogin");
 let sectionEventPanel = document.getElementById("sectionEventPanel");
 let sectionEventPanelConfig = document.getElementById("sectionEventPanelConfig");
 let sectionMainHeader = document.getElementById("sectionMainHeader");
-
-let sectionAsideEventsContainer = document.getElementById('sectionAsideEventsContainer')
+let sectionEvents = document.getElementById("sectionEvents");
+let eventsGallery = document.getElementById('eventsGallery');
 
 //--> Forms
 let loginForm = document.getElementById("loginForm");
@@ -40,19 +44,23 @@ function InitApp() {
   CambiarBG(); //AutoSlider for BG images
 
   //abrir y cerrar secciones
-  openSection(btnOpenFormNewEvent, sectionNewEvent, sectioAbout);
-  openSection(btnBackToAboutFromSingIn, sectioAbout, sectionNewEvent);
-  openSection(btnBackToAboutFromLogin, sectioAbout, sectionLogin);
-  openSection(btnToLoginSection, sectionLogin, sectioAbout);
-  openSection(btnToLoginSection,sectionLogin, sectionMainHeader);
-  openSection(btnBackToAboutFromLogin,sectionMainHeader, sectionLogin);
-  openSection(btnOpenFormNewEvent, sectionNewEvent, sectionMainHeader);
+  openSection(btnOpenFormNewEvent, sectionNewEvent, sectionHome,sectionMainHeader);
+  openSection(btnToLoginSection, sectionLogin, sectionHome,sectionMainHeader);
+  openSection(btnNavEvents, sectionEvents, sectionHome,sectionMainHeader);
+  openSection(btnBackToAboutFromSingIn, sectionHome, sectionNewEvent);
+  openSection(btnBackToAboutFromLogin, sectionHome, sectionLogin);
   openSection(btnBackToAboutFromSingIn, sectionMainHeader, sectionNewEvent);
-  
+  openSection(btnBackToAboutFromLogin,sectionMainHeader, sectionLogin);
+  openSection(btnBackOfSectionEvents, sectionHome, sectionEvents);
+  openSection(btnBackOfSectionEvents, sectionMainHeader, sectionEvents);
+
   resetMessage(); //Resetea el mensaje de error cuando le damos al btn back del login.
   signInNewEvent();
-  allStorage(); //Cargar en el array el localStorage
+
+  //Cargar en el array el localStorage
+  allStorage(); 
 }
+
 
 
 /*  -->>         CLASS          <<--  */
@@ -144,7 +152,7 @@ function loginToEventAfterSignIn() {
         sectionEventPanel.classList.remove("none");
         sectionMainHeader.classList.add("none");
         sectionLogin.classList.add("none");
-        sectioAbout.classList.add("none");
+        sectionHome.classList.add("none");
         sectionNewEvent.classList.add("none");
         messagesForm(msgLoginPass, "", "none"); //restard messages
       }, 2000);
@@ -173,8 +181,9 @@ function loginToEvent() {
         sectionEventPanel.classList.remove("none");
         sectionMainHeader.classList.add("none");
         sectionLogin.classList.add("none");
-        sectioAbout.classList.add("none");
+        sectionHome.classList.add("none");
         sectionNewEvent.classList.add("none");
+        bgHeroSlideContainer.classList.add("none");
         messagesForm(msgLoginPass, "", "none"); //restard messages
       }, 2000);
       loginForm.reset();
@@ -203,8 +212,9 @@ function deslogeo() {
     eventFound = undefined;
     setTimeout(() => {
       sectionEventPanel.classList.add("none");
-      sectioAbout.classList.remove("none");
+      sectionHome.classList.remove("none");
       sectionMainHeader.classList.remove("none");
+      bgHeroSlideContainer.classList.remove("none");
     }, 1000);
     messagesForm(msgLogOut, "Log Out Completed", colorSuccess);
   });
@@ -253,34 +263,99 @@ function showEvent() {
   deslogeo(); //activa la funcion del btn LogOut
 }
 
-addEventToAside();
-function addEventToAside () {
+//Añade los eventos a la section eventos
+addEventToSectionEvents();
+function addEventToSectionEvents () {
   events.forEach(element => {
     console.log(element);
-    sectionAsideEventsContainer.innerHTML += `
+    eventsGallery.innerHTML += `
     <div class="gallery_container">
       <div class="gallery-item">
         <div class="image"> 
             <img src="${element.cartelOfEvent}" alt="cartel ${element.eventName}">
         </div>
         <div class="text"> 
-          <p>${element.eventName} <br> ${element.date.split('-')[2]}/${element.date.split('-')[1]}/${element.date.split('-')[0]}</p> 
+        <div class="ticket-container">
+        <div class="ticket-name__container ticket-item">
+          <div class="ticket__name">
+            <p>${element.eventName}</p>
+          </div>
+        </div>
+        <div class="ticket-text__container ticket-item">
+          <div class="ticket__description">
+            <p>
+            ${element.description}cartelOfEvent
+            </p>
+          </div>
+          <div class="ticket__dateOfEvent">
+            <p>Date of Event: ${element.eventName} <br> ${element.date.split('-')[2]}/${element.date.split('-')[1]}/${element.date.split('-')[0]}</p>
+          </div>
+          <div class="ticket__id">
+            <p>Tickets Avalibles: ${element.totalTickets}</p>
+          </div>
+        </div>
+        <div class="ticket-email__container ticket-item">
+          <div class="ticket__email">
+            <p>Contact: ${element.mail}</p>
+          </div>
+        </div>
+      </div>  
         </div>
       </div>  
     </div>
     `
   });
+};
+    
+    
+
+/*              -->>    DATES    <<--           */
+//Devuelve la fecha actual en un formato comparable.
+function ActualFullDate () {
+  let nowDate = new Date;
+  let nowDateDay = nowDate.getDate();
+  let nowDateMonth = nowDate.getMonth() + 1;
+  let nowDateYear = nowDate.getFullYear();
+  let fullDate = nowDateYear + nowDateMonth + nowDateDay;
+  return fullDate;  
 }
 
+//MIRAR COMO PUEDO COMPARAR LAS DOS FECHAS
+/* let regex = /(\d+)/g;
+//Crea un nuevo array con los eventos que no superen la fecha actual
+function lookdatesevents () { 
+  let newArray = [];
+  for (const event of events) {
+    let resumeDateForCompare =  Number(event.date.match(regex)[0])+Number(event.date.match(regex)[1])+Number(event.date.match(regex)[2]);
+    if (ActualFullDate() > resumeDateForCompare){
+      resumeDateForCompare == undefined ? newArray.splice[event] : newArray.push[event];
+    }
+  }
+  return newArray;
+}
+ */
 /*  -->>  OPEN AND CLOSE SECTION EVENTLISTENER  <<--  */
 
-function openSection(btn, sectionToOpen, sectionToClose, funcionality) {
+function openSection(btn, sectionToOpen, sectionToClose, sectionToCloseOptional, funcionality) {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
+    funcionality;
     sectionToOpen.classList.remove("none");
     sectionToClose.classList.add("none");
-    funcionality;
+
+    try {
+      sectionToCloseOptional.classList.add("none");
+    } catch (error) {
+      return console.log(error + ": " + '%cValor sectionToCloseOptional no definida en la llamada.', 'color: green;');
+    }
   });
+}
+
+function closeAllSections () {
+  const SECTIONS = Array.from(document.querySelectorAll("section"));
+  for (const section of SECTIONS) {
+    section.classList.add("none");
+  }
 }
 
 /*  -->>   MESSAGES ERROR/SUCCESFULL   <<--  */

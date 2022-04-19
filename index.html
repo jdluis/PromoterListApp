@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="shortcut icon" href="media/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <script src="https://kit.fontawesome.com/3ffbeed2f4.js" crossorigin="anonymous"></script>  </head>
+    <script
+      src="https://kit.fontawesome.com/3ffbeed2f4.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
   <body>
+    
+
     <div id="bgHeroSlide">
-      
+      <!--NONE PROVISIONAL-->
       <!--HEADER Main Page-->
       <header class="header" id="sectionMainHeader">
         <div>
@@ -20,216 +26,227 @@
           <!--CAMBIARA CON JS-->
         </div>
         <nav class="nav-container">
-          <a id="nav-home" class="links">Home</a>
-          <a id="nav-events" class="links">Events</a>
-          <a id="btnOpenFormNewEvent" class="links">New</a>
-          <a id="btnToLoginSection" class="links">LogIn</a>
+          <a id="btnNavHome" class="links">HOME</a>
+          <a id="btnNavEvents" class="links">EVENTS</a>
+          <a id="btnOpenFormNewEvent" class="links animated__pulse">NEW</a>
+          <a id="btnToLoginSection" class="links">LOGIN</a>
         </nav>
       </header>
-      
-      <!-- About-Main Page -->
-      <section class="container-about" id="sectioAbout">
-        <div>
+
+      <!-- Home Section -->
+      <section class="container-about" id="sectionHome">
+        <div class="about-item">
           <h2>New Event</h2>
         </div>
-        <div>
+        <div class="about-item">
           <p>
             Build your own Event without signing in and sharing it with your
             friends and promoters.
           </p>
         </div>
-        
+
         <div class="container-icons">
           <div class="flex-item">
             <h3>Fast</h3>
-            <i style="color: var(--color-primary);" class="fas fa-tachometer-alt fa-2x"></i>
+            <i
+              style="color: var(--color-terciary)"
+              class="fas fa-tachometer-alt fa-2x"
+            ></i>
           </div>
           <div class="flex-item">
             <h3>Easy</h3>
-            <i style="color: var(--color-secundary);" class="fab fa-angellist fa-2x"></i>
+            <i
+              style="color: var(--color-terciary)"
+              class="fab fa-angellist fa-2x"
+            ></i>
           </div>
           <div class="flex-item">
             <h3>Safe</h3>
-            <i style="color: var(--color-terciary);" class="fas fa-user-shield fa-2x"></i>
+            <i
+              style="color: var(--color-terciary)"
+              class="fas fa-user-shield fa-2x"
+            ></i>
           </div>
         </div>
-        
-        <!--  hacer gris de imagenes en minuaturas de los eventos creados y boton Ver.  -->
-        <h3>Published Events</h3>
-        <aside class="container-grid" id="sectionAsideEventsContainer">
-          
-      </aside>
-    </section>
-    
-    <!--SIGN IN FORM-->
-    <section class="container modal_offcanvas none" id="sectionNewEvent">
-      <form class="form-container" id="newEventForm">
-        <h2 class="form-title">Create Event</h2>
-        <fieldset>
-          <legend>Login Info</legend>
-          <div class="form-input_container">
-            <div>
-              <label class="form-label" for="eventName">Name</label>
-              <input
-              class="form-input"
-              name="eventName"
-              type="text"
-              placeholder="Event Name"
-              required
-              />
+      </section>
+
+      <!-- Section Events -->
+      <section id="sectionEvents" class="none">
+        <button class="btn" id="btnBackOfSectionEvents">Back</button>
+        <h2 class="center">Published Events</h2>
+        <aside class="container-grid" id="eventsGallery"></aside>
+      </section>
+
+      <!--SIGN IN FORM-->
+      <section class="container modal_offcanvas none" id="sectionNewEvent">
+        <form class="form-container" id="newEventForm">
+          <h2 class="form-title">Create Event</h2>
+          <fieldset>
+            <legend>Login Info</legend>
+            <div class="form-input_container">
+              <div>
+                <label class="form-label" for="eventName">Name</label>
+                <input
+                  class="form-input"
+                  name="eventName"
+                  type="text"
+                  placeholder="Event Name"
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <div class="form-input_container">
-            <div>
-              <label class="form-label" for="eventEmail">Mail</label>
-              <input
-              class="form-input"
-              name="eventEmail"
-              type="email"
-              placeholder="Mail"
-              required
-              />
+            <div class="form-input_container">
+              <div>
+                <label class="form-label" for="eventEmail">Mail</label>
+                <input
+                  class="form-input"
+                  name="eventEmail"
+                  type="email"
+                  placeholder="Mail"
+                  required
+                />
+              </div>
             </div>
-          </div>
-        </fieldset>
-        <!--Radio for Categorys-->
-        <fieldset class="ml">
-          <legend>Category</legend>
-          <div class="form-input_container radio_container">
-            <div>
-              <label class="form-label" for="dance">Dance:</label>
-              <input
-              class="form-input"
-              type="radio"
-              id="dance"
-              name="category"
-              value="dance"
-              />
+          </fieldset>
+          <!--Radio for Categorys-->
+          <fieldset class="ml">
+            <legend>Category</legend>
+            <div class="form-input_container radio_container">
+              <div>
+                <label class="form-label" for="dance">Dance:</label>
+                <input
+                  class="form-input"
+                  type="radio"
+                  id="dance"
+                  name="category"
+                  value="dance"
+                />
+              </div>
+              <div>
+                <label class="form-label" for="sport">Sport:</label>
+                <input
+                  class="form-input"
+                  type="radio"
+                  id="sport"
+                  name="category"
+                  value="sport"
+                />
+              </div>
+              <div>
+                <label class="form-label" for="family">Family:</label>
+                <input
+                  class="form-input"
+                  type="radio"
+                  id="family"
+                  name="category"
+                  value="family"
+                />
+              </div>
+              <div>
+                <label class="form-label" for="other">Other:</label>
+                <input
+                  class="form-input"
+                  type="radio"
+                  id="other"
+                  name="category"
+                  value="other"
+                />
+              </div>
             </div>
-            <div>
-              <label class="form-label" for="sport">Sport:</label>
+          </fieldset>
+          <fieldset>
+            <legend>Event Settings</legend>
+            <div class="form-input_container">
+              <label class="form-label" for="dateOfEvent">Date</label>
               <input
-              class="form-input"
-              type="radio"
-              id="sport"
-                name="category"
-                value="sport"
-              />
-            </div>
-            <div>
-              <label class="form-label" for="family">Family:</label>
-              <input
-              class="form-input"
-              type="radio"
-              id="family"
-              name="category"
-              value="family"
-              />
-            </div>
-            <div>
-              <label class="form-label" for="other">Other:</label>
-              <input
-              class="form-input"
-              type="radio"
-              id="other"
-              name="category"
-              value="other"
-              />
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Event Settings</legend>
-          <div class="form-input_container">
-            <label class="form-label" for="dateOfEvent">Date</label>
-            <input
-            class="form-input input_date"
-            name="dateOfEvent"
-            type="date"
-              placeholder="Date of Event"
+                class="form-input input_date"
+                name="dateOfEvent"
+                type="date"
+                placeholder="Date of Event"
               />
             </div>
             <div class="form-input_container">
               <label class="form-label" for="totalTikets">Tikets</label>
               <input
-              class="form-input input_number"
-              name="totalTikets"
-              type="number"
-              placeholder="0"
+                class="form-input input_number"
+                name="totalTikets"
+                type="number"
+                placeholder="0"
               />
             </div>
             <div class="form-input_container">
               <label class="form-label" for="cartel">Cartel</label>
-            <input
-              class="form-input"
-              name="cartel"
-              type="text"
-              placeholder="url to the img"
+              <input
+                class="form-input"
+                name="cartel"
+                type="text"
+                placeholder="url to the img"
               />
             </div>
             <div class="form-input_container container_texarea">
               <label class="form-label" for="description">Description</label>
               <textarea
-              name="description"
-              maxlength="400"
-              minlength="100"
-              cols="25"
-              aria-expanded="true"
-              rows="8"
+                name="description"
+                maxlength="400"
+                minlength="100"
+                cols="25"
+                aria-expanded="true"
+                rows="8"
               ></textarea>
             </div>
           </fieldset>
-        <div class="form-group_center">
-          <button class="btn btn-secundary" id="btnBackToAboutFromSingIn">Back</button>
-          <button class="btn btn-primary" id="btnCreateEvent">Continue</button>
-        </div>
-      </form>
-    </section>
-    <!--LOGIN FORM-->
-    <section class="container modal_offcanvas none" id="sectionLogin">
-      <form class="form-container" id="loginForm">
-        <fieldset>
-          <legend><h2 class="form-title">Login</h2></legend>
-          <div class="form-input_container">
-            <label class="form-label" for="userName/Mail">Name/Mail</label>
-            <input
-              class="form-input"
-              id="userName/Mail"
-              name="user"
-              type="text"
-              placeholder="Name/Mail"
-            />
-            <span id="msgLoginName"></span>
+          <div class="form-group_center">
+            <button class="btn btn-secundary" id="btnBackToAboutFromSingIn">
+              Back
+            </button>
+            <button class="btn btn-primary" id="btnCreateEvent">
+              Continue
+            </button>
           </div>
-          <div class="form-input_container">
-            <label class="form-label" for="eventPassword">Password</label>
-            <input
-              class="form-input"
-              id="eventPassword"
-              name="password"
-              type="password"
-              placeholder="Password"
-            />
-            <span id="msgLoginPass"></span>
-  
+        </form>
+      </section>
+      <!--LOGIN FORM-->
+      <section class="container modal_offcanvas none" id="sectionLogin">
+        <form class="form-container" id="loginForm">
+          <fieldset>
+            <legend><h2 class="form-title">Login</h2></legend>
+            <div class="form-input_container">
+              <label class="form-label" for="userName/Mail">Name/Mail</label>
+              <input
+                class="form-input"
+                id="userName/Mail"
+                name="user"
+                type="text"
+                placeholder="Name/Mail"
+              />
+              <span id="msgLoginName"></span>
+            </div>
+            <div class="form-input_container">
+              <label class="form-label" for="eventPassword">Password</label>
+              <input
+                class="form-input"
+                id="eventPassword"
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
+              <span id="msgLoginPass"></span>
+            </div>
+          </fieldset>
+          <div class="form-group_center">
+            <button class="btn btn-secundary" id="btnBackToAboutFromLogin">
+              Back
+            </button>
+            <button class="btn btn-primary" id="btnLogin">Continue</button>
           </div>
-        </fieldset>
-        <div class="form-group_center">
-          <button class="btn btn-secundary" id="btnBackToAboutFromLogin">
-            Back
-          </button>
-          <button class="btn btn-primary" id="btnLogin">Continue</button>
-        </div>
-      </form>
-    </section>
-  
+        </form>
+      </section>
+    </div>
+    <!--Finish BG-Change-->
 
-  </div> <!--Finish BG-Change-->
-  
     <!--Event Panel-->
-    <section class="container-panelEvent none" id="sectionEventPanel">
-    </section>
-    
+    <section class="container-panelEvent none" id="sectionEventPanel"></section>
+
     <!--Event Panel CONFIGURATION-->
     <section class="container-panelEvent none" id="sectionEventPanelConfig">
       <div>
@@ -348,6 +365,7 @@
     </footer>
 
     <div id="particles-js"></div>
+    <script src="js/fetch.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="js/particles.js"></script>
