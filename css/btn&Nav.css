@@ -16,6 +16,7 @@
 .btn-primary:hover {
     background-color: rgb(8, 238, 0);
 }
+
 .btn-secundary {
     background-color: var(--color-secundary);
 }
@@ -24,6 +25,7 @@
     background-color: rgb(224, 17, 17);
     color: rgb(255, 250, 240);
 }
+
 .btn-other {
     background-color: var(--color-primary);
 }
@@ -37,13 +39,46 @@
 /*-->  LINKS  */
 .nav-container {
     display: flex;
-    gap: 20px;
+    gap: calc(16px + 1.4vw);
 }
+
 .links {
     color: var(--color-secundary);
+    transition: 600ms;
+    font-size: calc(12px + 1.2vw);
 }
 
 .links:hover {
+    animation-play-state: paused;
     color: var(--color-terciary);
     font-weight: 800;
+    cursor: pointer;
+    transform: scale(1.3);
+}
+
+
+.links:active {
+    color: var(--color-terciary);
+}
+
+.animated__pulse {
+    animation: pulseInfinite 2s infinite linear;
+}
+
+@keyframes pulseInfinite {
+    0% {
+        transform: scale(1.1);
+        font-weight: 600;
+    }
+
+    50% {
+        transform: scale(1.3);
+        font-weight: 700;
+    }
+
+    100% {
+        transform: scale(1.5);
+        color: var(--color-terciary);
+        font-weight: 800;
+    }
 }
