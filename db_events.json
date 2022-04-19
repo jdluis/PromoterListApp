@@ -1,0 +1,33 @@
+[
+    {
+        "eventName":"Guaguanco",
+        "mail":"guaguanco@gmail.com",
+        "date":"2022-05-20",
+        "category":"dance",
+        "totalTickets":"200",
+        "cartelOfEvent":"https://res.cloudinary.com/latindancecalendar/image/fetch/w_350,h_350/https%3A%2F%2Flatindancecalendar.com%2Fdancecal%2Fwp-content%2Fuploads%2Flinks.png",
+        "description":"This year we will focus in the Festival on the consolidation of the elements of the Cuban Rumba with all the participants, so that everyone can return strengthened to all the concepts, fundamental resources and joy that these Cuban dances produce; For this, we will fill as much time as possible with opportunities to Timbiar with our guest group from my hometown of Camagüey: RUMBATÁ",
+        "password":"_x6hiplar6",
+        "status":false
+    },
+    {
+        "eventName":"WorldBallet",
+        "mail":"josedanieldeluis@gmail.com",
+        "date":"2022-04-27",
+        "category":"dance",
+        "totalTickets":"40",
+        "cartelOfEvent":"https://d1csarkz8obe9u.cloudfront.net/posterpreviews/purple-ballet-event-poster-design-template-ca06485e825bf74a7322f91ffd927279_screen.jpg?ts=1636981070",
+        "description":"Un evento de música electrónica que se celebra en Ámsterdam. Durante cinco días la capital se llena de vida gracias a los sonidos de la música dance.La ciudad entera se convierte en un enorme festival de dance y puedes disfrutar de eventos en todos los rincones, desde bares y cafeterías hasta las salas más grandes de Ámsterdam.",
+        "password":"_99b4qlprm",
+        "status":false
+    },
+    {
+        "eventName":"Bachata",
+        "mail":"bachata@gmail.com",
+        "date":"2022-04-20",
+        "category":"dance",
+        "totalTickets":"30",
+        "cartelOfEvent":"https://picvs-2.vpackage.net/1836/1268_1632592466.jpg",
+        "description":"Bienvenidos a Fever Bachata World Congress 2022 🔥   Prepárate para uno de los mejores eventos del 2022 con los mejores artistas, los mejores DJs, los mejores camaras...   4 días de evento con talleres, formaciones, fiestas en la piscina y en la playa, competición, shows, sociales y muchísimas mas sorpresas.... en un espectacular hotel.","password":"_byw4r8q52"
+    }
+]
