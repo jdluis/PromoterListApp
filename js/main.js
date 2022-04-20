@@ -2,6 +2,7 @@
 console.log("Testing App List PROM by jdluis");
 
 /*  -->> GLOBAL VARIABLES DECLARATIONS <<--  */
+ 
 
 //--> Array de objetos
 const events = []; //contiene los eventos
@@ -38,6 +39,16 @@ let loginForm = document.getElementById("loginForm");
 
 /*  -->>         INITIATIONS          <<--  */
 
+// Connection to local API: db_events.json
+const requestDefaultEvents = async () => {
+ await fetch('./db_events.json')
+    .then( (res) =>  res.json() )
+    .then( (data) => {
+        data.forEach(event => {
+          saveInLocalStorage(event);
+          });
+    })};
+
 InitApp();
 
 function InitApp() {
@@ -55,6 +66,7 @@ function InitApp() {
   openSection(btnBackOfSectionEvents, sectionMainHeader, sectionEvents);
 
   resetMessage(); //Resetea el mensaje de error cuando le damos al btn back del login.
+  requestDefaultEvents();
   signInNewEvent();
 
   //Cargar en el array el localStorage
@@ -118,7 +130,7 @@ function createNewEvent() {
     console.log("Este Admin Ya esta registrado, pruebe con otro nombre");//Cambiar por libreria
     eventAlreadyExist = true;
   } else {
-    localStorage.setItem(newEvent.eventName, JSON.stringify(newEvent)); //para guardar en localStorge
+    saveInLocalStorage(newEvent);
     events.push(newEvent); //Esto es para guardar en array
     console.log(
       `Se ha registrado correctamente. Su Nombre para ingresar es: ${newEvent.eventName},su contraseña es ${newEvent.password}`
@@ -267,7 +279,6 @@ function showEvent() {
 addEventToSectionEvents();
 function addEventToSectionEvents () {
   events.forEach(element => {
-    console.log(element);
     eventsGallery.innerHTML += `
     <div class="gallery_container">
       <div class="gallery-item">
@@ -442,3 +453,14 @@ function allStorage() {
     }
     setInterval(changeBg, 3500);
   }
+
+
+ 
+
+    
+    
+
+
+    function saveInLocalStorage (arrayObJ) {
+      localStorage.setItem(arrayObJ.eventName, JSON.stringify(arrayObJ));
+    }
