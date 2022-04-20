@@ -75,7 +75,6 @@ const requestDefaultEvents = async () => {
     
     requestDefaultEvents();
     //Cargar en el array el localStorage
-    resetMessage(); //Resetea el mensaje de error cuando le damos al btn back del login.
 }
 
 /*  -->>         CLASS          <<--  */
@@ -101,8 +100,6 @@ class Event {
     this.description = description;
     this.password = randomPassword();
     this.status = false;
-    // this.promoters = promoters;
-    // this.clients = clients; //¿DEBERIA PONERLO AQUI O POR FUERA?
   }
 }
 
@@ -124,28 +121,19 @@ class Event {
   );
 
   if (events.find((element) => element.eventName == newEvent.eventName)) {
-    console.log("Este Admin Ya esta registrado, pruebe con otro nombre"); //Cambiar por libreria
+    callAlerty ("","Este Admin Ya esta registrado, pruebe con otro nombre","error",'OK')
     eventAlreadyExist = true;
   } else {
     saveInLocalStorage(newEvent);
     events.push(newEvent); //Esto es para guardar en array
-    console.log(
-      `Se ha registrado correctamente. Su Nombre para ingresar es: ${newEvent.eventName},su contraseña es ${newEvent.password}`
-    );
-    console.log("Se ha registrado correctamente."); //Cambiar por libreria
+    callAlerty (`Gracias ${newEvent.eventName}`,`Su contraseña es '${newEvent.password}', no olvide guardarla.`,"success",'Continua')
     eventAlreadyExist = false;
     loginToEventAfterSignIn();
-    eventAlreadyExist == false ? showPassword(): console.log("No se mostro la contraseña");
     showEvent(); //Muestra contraseña con un alert si el evento no existe. //Cambiar por libreria
     bgHeroSlideContainer.classList.add("none");
-    alert("Evento registrado correctamente"); //Temporal, //Cambiar por libreria
-  }
-});
-
-
-function showPassword() {
-  return alert(eventFound.password); ///SUSTITUOT POR FRAMEWORK
+    callToast("Registro Completado Correctamente")
 }
+});
 
 //--> Loging after signIn
 function loginToEventAfterSignIn() {
@@ -163,7 +151,6 @@ function loginToEventAfterSignIn() {
         sectionLogin.classList.add("none");
         sectionHome.classList.add("none");
         sectionNewEvent.classList.add("none");
-        messagesForm(msgLoginPass, "", "none"); //restard messages
       }, 2000);
       loginForm.reset();
       return;
@@ -179,11 +166,7 @@ function loginToEvent() {
   for (const event of events) {
     if (event.eventName == user && event.password == password) {
       eventFound = event;
-      messagesForm(
-        msgLoginPass,
-        `Evento encontrado: ${eventFound.eventName}`,
-        colorSuccess
-      );
+      callToast (`Event Found: ${eventFound.eventName}`);
       eventFound.status = true;
 
       setTimeout(() => {
@@ -193,17 +176,13 @@ function loginToEvent() {
         sectionHome.classList.add("none");
         sectionNewEvent.classList.add("none");
         bgHeroSlideContainer.classList.add("none");
-        messagesForm(msgLoginPass, "", "none"); //restard messages
       }, 2000);
       loginForm.reset();
       return;
     }
   }
-  messagesForm(
-    msgLoginPass,
-    "Event Name or Password are incorrect, try again",
-    colorError
-  );
+  callAlerty("", "Event Name or Password are incorrect, try again",
+  "error", "Retry");
 }
 
 btnLogin.addEventListener("click", (e) => {
@@ -225,7 +204,7 @@ function deslogeo() {
       sectionMainHeader.classList.remove("none");
       bgHeroSlideContainer.classList.remove("none");
     }, 1000);
-    messagesForm(msgLogOut, "Log Out Completed", colorSuccess);
+    callToast("Log Out Completed")
   });
 }
 
@@ -279,7 +258,7 @@ function addEventToSectionEvents() {
     eventsGallery.innerHTML += `
     <div class="gallery_container">
       <div class="gallery-item">
-        <div class="image"> 
+        <div class="image" id="goToTheEventPage"> 
             <img src="${element.cartelOfEvent}" alt="cartel ${
       element.eventName
     }">
@@ -378,21 +357,35 @@ function closeAllSections() {
 }
 
 /*  -->>   MESSAGES ERROR/SUCCESFULL   <<--  */
-//--> Show
-function messagesForm(label, message, textColor) {
-  //--> Messages
 
-  let msgLoginName = document.getElementById("msgLoginName");
-  let msgLoginPass = document.getElementById("msgLoginPass");
-  let msgLogOut = document.getElementById("msgLogOut");
-  label.style.color = textColor; //messageColor
-  label.innerText = message; //message text
+//--> Toastify library
+
+function callToast (message) {
+  Toastify({
+    text: message,
+    duration: 3000,
+    destination: "https://github.com/apvarun/toastify-js",
+    newWindow: true,
+    close: true,
+    gravity: "bottom", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right,var(--color-secundary), var(--color-terciary))",
+      color: "var(--color-primary)",
+    },
+    onClick: function(){} // Callback after click
+  }).showToast();    
 }
-//--> Reset
-function resetMessage() {
-  btnBackToAboutFromLogin.addEventListener("click", () => {
-    messagesForm(msgLoginPass, "", colorError);
-  });
+
+//--> SweetAlert library
+function callAlerty (title,text,icono,confirmBtn) {
+  Swal.fire({
+    title: title,
+    text: text,
+    icon: icono,
+    confirmButtonText: confirmBtn,
+  })
 }
 
 /*  -->>  CALCULATIONS OF TICKETS DIFERRENCE  <<--  */
@@ -404,9 +397,9 @@ function caclTicketsDifference() {
   return difference;
 }
 
-//--> Acumular los ticket vendidos acorde a los clientes totales (No finalizada)
+//--> Acumular los ticket vendidos acorde a los clientes totales.
 function sellTickets() {
-  let sellTickets = 2; //provisional para pruebas
+  let sellTickets = 2; //provisional hasta aprender base de datos
   return sellTickets;
 }
 
@@ -438,7 +431,7 @@ function saveInLocalStorage(arrayObJ) {
 
 /*  -->>  HERO BACKGORUND SLIDER AUTO  <<--  */
 //--> Auto Bg images
-function CambiarBG() {
+function CambiarBG()  {
   const BGIMGS = [
     "url(media/bg-family.png)",
     "url(media/bg-sport.jpg)",
@@ -464,3 +457,4 @@ function CambiarBG() {
   }
   setInterval(changeBg, 3500);
 }
+
