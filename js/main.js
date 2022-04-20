@@ -2,7 +2,6 @@
 console.log("Testing App List PROM by jdluis");
 
 /*  -->> GLOBAL VARIABLES DECLARATIONS <<--  */
- 
 
 //--> Array de objetos
 const events = []; //contiene los eventos
@@ -14,25 +13,30 @@ let colorSuccess = "#0CCA4A";
 //--> DOM--All BTN & Section.
 let btnOpenFormNewEvent = document.getElementById("btnOpenFormNewEvent");
 let btnToLoginSection = document.getElementById("btnToLoginSection");
-let btnBackToAboutFromSingIn = document.getElementById("btnBackToAboutFromSingIn");
-let btnBackToAboutFromLogin = document.getElementById("btnBackToAboutFromLogin");
+let btnBackToAboutFromSingIn = document.getElementById(
+  "btnBackToAboutFromSingIn"
+);
+let btnBackToAboutFromLogin = document.getElementById(
+  "btnBackToAboutFromLogin"
+);
 let btnLogin = document.getElementById("btnLogin");
 let btnCreateEvent = document.getElementById("btnCreateEvent");
 let btnNavEvents = document.getElementById("btnNavEvents");
 let btnNavHome = document.getElementById("btnNavHome");
 let btnBackOfSectionEvents = document.getElementById("btnBackOfSectionEvents");
 
-
 //--> Sections
-let  bgHeroSlideContainer = document.getElementById('bgHeroSlide');
+let bgHeroSlideContainer = document.getElementById("bgHeroSlide");
 let sectionNewEvent = document.getElementById("sectionNewEvent");
 let sectionHome = document.getElementById("sectionHome");
 let sectionLogin = document.getElementById("sectionLogin");
 let sectionEventPanel = document.getElementById("sectionEventPanel");
-let sectionEventPanelConfig = document.getElementById("sectionEventPanelConfig");
+let sectionEventPanelConfig = document.getElementById(
+  "sectionEventPanelConfig"
+);
 let sectionMainHeader = document.getElementById("sectionMainHeader");
 let sectionEvents = document.getElementById("sectionEvents");
-let eventsGallery = document.getElementById('eventsGallery');
+let eventsGallery = document.getElementById("eventsGallery");
 
 //--> Forms
 let loginForm = document.getElementById("loginForm");
@@ -41,39 +45,38 @@ let loginForm = document.getElementById("loginForm");
 
 // Connection to local API: db_events.json
 const requestDefaultEvents = async () => {
- await fetch('./db_events.json')
-    .then( (res) =>  res.json() )
-    .then( (data) => {
-        data.forEach(event => {
-          saveInLocalStorage(event);
-          });
-    })};
-
-InitApp();
-
-function InitApp() {
-  CambiarBG(); //AutoSlider for BG images
-
-  //abrir y cerrar secciones
-  openSection(btnOpenFormNewEvent, sectionNewEvent, sectionHome,sectionMainHeader);
-  openSection(btnToLoginSection, sectionLogin, sectionHome,sectionMainHeader);
-  openSection(btnNavEvents, sectionEvents, sectionHome,sectionMainHeader);
-  openSection(btnBackToAboutFromSingIn, sectionHome, sectionNewEvent);
-  openSection(btnBackToAboutFromLogin, sectionHome, sectionLogin);
-  openSection(btnBackToAboutFromSingIn, sectionMainHeader, sectionNewEvent);
-  openSection(btnBackToAboutFromLogin,sectionMainHeader, sectionLogin);
-  openSection(btnBackOfSectionEvents, sectionHome, sectionEvents);
-  openSection(btnBackOfSectionEvents, sectionMainHeader, sectionEvents);
-
-  resetMessage(); //Resetea el mensaje de error cuando le damos al btn back del login.
-  requestDefaultEvents();
-  signInNewEvent();
-
-  //Cargar en el array el localStorage
-  allStorage(); 
+  await fetch("./db_events.json")
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach((event) => {
+        saveInLocalStorage(event);
+      });
+    });
+    //De esta manera esperamos que se cargue la api y luego ejecutamos la carga de todo el local al array
+    pushLocalStorageToArray(); 
+    addEventToSectionEvents();
+  };
+  
+  InitApp();
+  
+  function InitApp() {
+    CambiarBG(); //AutoSlider for BG images
+    
+    //abrir y cerrar secciones
+    openSection(btnOpenFormNewEvent,sectionNewEvent,sectionHome,sectionMainHeader);
+    openSection(btnToLoginSection, sectionLogin, sectionHome, sectionMainHeader);
+    openSection(btnNavEvents, sectionEvents, sectionHome, sectionMainHeader);
+    openSection(btnBackToAboutFromSingIn, sectionHome, sectionNewEvent);
+    openSection(btnBackToAboutFromLogin, sectionHome, sectionLogin);
+    openSection(btnBackToAboutFromSingIn, sectionMainHeader, sectionNewEvent);
+    openSection(btnBackToAboutFromLogin, sectionMainHeader, sectionLogin);
+    openSection(btnBackOfSectionEvents, sectionHome, sectionEvents);
+    openSection(btnBackOfSectionEvents, sectionMainHeader, sectionEvents);
+    
+    requestDefaultEvents();
+    //Cargar en el array el localStorage
+    resetMessage(); //Resetea el mensaje de error cuando le damos al btn back del login.
 }
-
-
 
 /*  -->>         CLASS          <<--  */
 
@@ -105,18 +108,12 @@ class Event {
 
 /*  -->>  EVENT: Sign In, Login, LogOut  <<--  */
 
-//--> Event and Init create New Event.
-function signInNewEvent() {
+//--> New Object Event Creation
+
   btnCreateEvent.addEventListener("click", (e) => {
     e.preventDefault();
-    createNewEvent();
-  });
-}
-
-//--> New Object Event Creation
-function createNewEvent() {
-  let newEventForm = document.getElementById("newEventForm");
-  let newEvent = new Event(
+    let newEventForm = document.getElementById("newEventForm");
+    let newEvent = new Event(
     newEventForm.eventName.value,
     newEventForm.eventEmail.value,
     newEventForm.category.value,
@@ -127,7 +124,7 @@ function createNewEvent() {
   );
 
   if (events.find((element) => element.eventName == newEvent.eventName)) {
-    console.log("Este Admin Ya esta registrado, pruebe con otro nombre");//Cambiar por libreria
+    console.log("Este Admin Ya esta registrado, pruebe con otro nombre"); //Cambiar por libreria
     eventAlreadyExist = true;
   } else {
     saveInLocalStorage(newEvent);
@@ -138,13 +135,13 @@ function createNewEvent() {
     console.log("Se ha registrado correctamente."); //Cambiar por libreria
     eventAlreadyExist = false;
     loginToEventAfterSignIn();
-    eventAlreadyExist == false
-      ? showPassword()
-      : console.log("No se mostro la contraseña");
+    eventAlreadyExist == false ? showPassword(): console.log("No se mostro la contraseña");
     showEvent(); //Muestra contraseña con un alert si el evento no existe. //Cambiar por libreria
+    bgHeroSlideContainer.classList.add("none");
     alert("Evento registrado correctamente"); //Temporal, //Cambiar por libreria
   }
-}
+});
+
 
 function showPassword() {
   return alert(eventFound.password); ///SUSTITUOT POR FRAMEWORK
@@ -232,7 +229,7 @@ function deslogeo() {
   });
 }
 
-//--> Modal Panel 
+//--> Modal Panel
 function showEvent() {
   sectionEventPanel.innerHTML = `
   <div>
@@ -276,14 +273,16 @@ function showEvent() {
 }
 
 //Añade los eventos a la section eventos
-addEventToSectionEvents();
-function addEventToSectionEvents () {
-  events.forEach(element => {
+
+function addEventToSectionEvents() {
+  events.forEach((element) => {
     eventsGallery.innerHTML += `
     <div class="gallery_container">
       <div class="gallery-item">
         <div class="image"> 
-            <img src="${element.cartelOfEvent}" alt="cartel ${element.eventName}">
+            <img src="${element.cartelOfEvent}" alt="cartel ${
+      element.eventName
+    }">
         </div>
         <div class="text"> 
         <div class="ticket-container">
@@ -299,7 +298,9 @@ function addEventToSectionEvents () {
             </p>
           </div>
           <div class="ticket__dateOfEvent">
-            <p>Date of Event: ${element.eventName} <br> ${element.date.split('-')[2]}/${element.date.split('-')[1]}/${element.date.split('-')[0]}</p>
+            <p>Date of Event: ${element.eventName} <br> ${
+      element.date.split("-")[2]
+    }/${element.date.split("-")[1]}/${element.date.split("-")[0]}</p>
           </div>
           <div class="ticket__id">
             <p>Tickets Avalibles: ${element.totalTickets}</p>
@@ -314,40 +315,42 @@ function addEventToSectionEvents () {
         </div>
       </div>  
     </div>
-    `
+    `;
   });
-};
-    
-    
+}
 
 /*              -->>    DATES    <<--           */
 //Devuelve la fecha actual en un formato comparable.
-function ActualFullDate () {
-  let nowDate = new Date;
+function ActualFullDate() {
+  let nowDate = new Date();
   let nowDateDay = nowDate.getDate();
   let nowDateMonth = nowDate.getMonth() + 1;
   let nowDateYear = nowDate.getFullYear();
   let fullDate = nowDateYear + nowDateMonth + nowDateDay;
-  return fullDate;  
+  return fullDate;
 }
 
 //MIRAR COMO PUEDO COMPARAR LAS DOS FECHAS
-/* let regex = /(\d+)/g;
+ let regex = /(\d+)/g;
 //Crea un nuevo array con los eventos que no superen la fecha actual
 function lookdatesevents () { 
-  let newArray = [];
+  const newArray = [];
   for (const event of events) {
     let resumeDateForCompare =  Number(event.date.match(regex)[0])+Number(event.date.match(regex)[1])+Number(event.date.match(regex)[2]);
-    if (ActualFullDate() > resumeDateForCompare){
-      resumeDateForCompare == undefined ? newArray.splice[event] : newArray.push[event];
-    }
+    let actualEvents = events.filter((event), ActualFullDate() > resumeDateForCompare);
   }
-  return newArray;
+  return actualEvents;
 }
- */
+ 
 /*  -->>  OPEN AND CLOSE SECTION EVENTLISTENER  <<--  */
 
-function openSection(btn, sectionToOpen, sectionToClose, sectionToCloseOptional, funcionality) {
+function openSection(
+  btn,
+  sectionToOpen,
+  sectionToClose,
+  sectionToCloseOptional,
+  funcionality
+) {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     funcionality;
@@ -357,12 +360,17 @@ function openSection(btn, sectionToOpen, sectionToClose, sectionToCloseOptional,
     try {
       sectionToCloseOptional.classList.add("none");
     } catch (error) {
-      return console.log(error + ": " + '%cValor sectionToCloseOptional no definida en la llamada.', 'color: green;');
+      return console.log(
+        error +
+          ": " +
+          "%cValor sectionToCloseOptional no definida en la llamada.",
+        "color: green;"
+      );
     }
   });
 }
 
-function closeAllSections () {
+function closeAllSections() {
   const SECTIONS = Array.from(document.querySelectorAll("section"));
   for (const section of SECTIONS) {
     section.classList.add("none");
@@ -374,9 +382,9 @@ function closeAllSections () {
 function messagesForm(label, message, textColor) {
   //--> Messages
 
-let msgLoginName = document.getElementById("msgLoginName");
-let msgLoginPass = document.getElementById("msgLoginPass");
-let msgLogOut = document.getElementById("msgLogOut");
+  let msgLoginName = document.getElementById("msgLoginName");
+  let msgLoginPass = document.getElementById("msgLoginPass");
+  let msgLogOut = document.getElementById("msgLogOut");
   label.style.color = textColor; //messageColor
   label.innerText = message; //message text
 }
@@ -386,7 +394,6 @@ function resetMessage() {
     messagesForm(msgLoginPass, "", colorError);
   });
 }
-
 
 /*  -->>  CALCULATIONS OF TICKETS DIFERRENCE  <<--  */
 
@@ -414,53 +421,46 @@ function randomPassword() {
 }
 
 /*  -->>  SAVE STORAGE  <<--  */
-//--> Carga el contenido de todo el local Storage y lo guarda en el array admins
-function allStorage() {
+//--> Carga el contenido de todo el local Storage y lo guarda en el array events
+function pushLocalStorageToArray() {
   let keys = Object.keys(localStorage),
-  i = keys.length;
-  
-  while (i--) {
-    events.push(JSON.parse(localStorage.getItem(keys[i])));
-  }
+    i = keys.length;
+
+      while (i--) {
+        events.push(JSON.parse(localStorage.getItem(keys[i])));
+      }
   return events;
 }
 
-  /*  -->>  HERO BACKGORUND SLIDER AUTO  <<--  */
-  //--> Auto Bg images
-  function CambiarBG() {
-    const BGIMGS = [
-      "url(media/bg-family.png)",
-      "url(media/bg-sport.jpg)",
-      "url(media/bg-others.jpg)",
-      "url(media/bg-dance.jpg)",
-    ];
-  
-    let bgSliderStyles = document.getElementById("bgHeroSlide").style;
-    let i = 0; //Contador
-    /*
+function saveInLocalStorage(arrayObJ) {
+  localStorage.setItem(arrayObJ.eventName, JSON.stringify(arrayObJ));
+}
+
+/*  -->>  HERO BACKGORUND SLIDER AUTO  <<--  */
+//--> Auto Bg images
+function CambiarBG() {
+  const BGIMGS = [
+    "url(media/bg-family.png)",
+    "url(media/bg-sport.jpg)",
+    "url(media/bg-others.jpg)",
+    "url(media/bg-dance.jpg)",
+  ];
+
+  let bgSliderStyles = document.getElementById("bgHeroSlide").style;
+  let i = 0; //Contador
+  /*
     Cuando la funcion es llamada agrega el string del array al estilo de background de bgHeroSlide
     */
-    function changeBg() {
-      //Operador Terniario
-      i >= BGIMGS.length
-        ? (i = 0)
-        : (bgSliderStyles.background =
-            "linear-gradient(to bottom, rgba(18,42, 66, .65), rgba(18,42, 66, .65))," +
-            BGIMGS[i]);
-      bgSliderStyles.backgroundSize = "cover";
-      bgSliderStyles.backgroundRepeat = "no-repeat";
-      i++;
-    }
-    setInterval(changeBg, 3500);
+  function changeBg() {
+    //Operador Terniario
+    i >= BGIMGS.length
+      ? (i = 0)
+      : (bgSliderStyles.background =
+          "linear-gradient(to bottom, rgba(18,42, 66, .65), rgba(18,42, 66, .65))," +
+          BGIMGS[i]);
+    bgSliderStyles.backgroundSize = "cover";
+    bgSliderStyles.backgroundRepeat = "no-repeat";
+    i++;
   }
-
-
- 
-
-    
-    
-
-
-    function saveInLocalStorage (arrayObJ) {
-      localStorage.setItem(arrayObJ.eventName, JSON.stringify(arrayObJ));
-    }
+  setInterval(changeBg, 3500);
+}
