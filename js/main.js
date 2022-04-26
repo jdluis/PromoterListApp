@@ -25,6 +25,8 @@ let btnNavEvents = document.getElementById("btnNavEvents");
 let btnNavHome = document.getElementById("btnNavHome");
 let btnBackOfSectionEvents = document.getElementById("btnBackOfSectionEvents");
 
+let goToTheEventPage = document.getElementById("goToTheEventPage");
+
 //--> Sections
 let bgHeroSlideContainer = document.getElementById("bgHeroSlide");
 let sectionNewEvent = document.getElementById("sectionNewEvent");
@@ -39,7 +41,14 @@ let sectionEvents = document.getElementById("sectionEvents");
 let eventsGallery = document.getElementById("eventsGallery");
 
 //--> Forms
-let loginForm = document.getElementById("loginForm");
+const loginForm = document.getElementById("loginForm");
+const newEventForm = document.getElementById("newEventForm");
+let errorMessageValidationLogIng = document.getElementById("errorLogIn");
+let errorMessageValidationSignIn = document.getElementById("errorSignIn");
+let statusValidationForm_String = false;
+let statusValidationForm_Mail = false;
+let statusValidationForm_Url = false;
+let checkIfValidationIsOk;
 
 /*  -->>         INITIATIONS          <<--  */
 
@@ -61,7 +70,6 @@ const requestDefaultEvents = async () => {
   
   function InitApp() {
     CambiarBG(); //AutoSlider for BG images
-    
     //abrir y cerrar secciones
     openSection(btnOpenFormNewEvent,sectionNewEvent,sectionHome,sectionMainHeader);
     openSection(btnToLoginSection, sectionLogin, sectionHome, sectionMainHeader);
@@ -73,8 +81,14 @@ const requestDefaultEvents = async () => {
     openSection(btnBackOfSectionEvents, sectionHome, sectionEvents);
     openSection(btnBackOfSectionEvents, sectionMainHeader, sectionEvents);
     
+    //Validaciones
+    statusOnChange();
+    validationString ();
+    validationMail ();
+    validationUrl ();
+
+    //Cargar API Local db_events.json
     requestDefaultEvents();
-    //Cargar en el array el localStorage
 }
 
 /*  -->>         CLASS          <<--  */
@@ -109,7 +123,6 @@ class Event {
 
   btnCreateEvent.addEventListener("click", (e) => {
     e.preventDefault();
-    let newEventForm = document.getElementById("newEventForm");
     let newEvent = new Event(
     newEventForm.eventName.value,
     newEventForm.eventEmail.value,
@@ -123,7 +136,7 @@ class Event {
   if (events.find((element) => element.eventName == newEvent.eventName)) {
     callAlerty ("","Este Admin Ya esta registrado, pruebe con otro nombre","error",'OK')
     eventAlreadyExist = true;
-  } else {
+  } else if (checkIfValidationIsOk == 3) {
     saveInLocalStorage(newEvent);
     events.push(newEvent); //Esto es para guardar en array
     callAlerty (`Gracias ${newEvent.eventName}`,`Su contraseña es '${newEvent.password}', no olvide guardarla.`,"success",'Continua')
@@ -165,6 +178,7 @@ function loginToEvent() {
 
   for (const event of events) {
     if (event.eventName == user && event.password == password) {
+      errorMessageValidationLogIng.innerHTML = "";
       eventFound = event;
       callToast (`Event Found: ${eventFound.eventName}`);
       eventFound.status = true;
@@ -178,6 +192,7 @@ function loginToEvent() {
         bgHeroSlideContainer.classList.add("none");
       }, 2000);
       loginForm.reset();
+      showEvent(); //html Inner call
       return;
     }
   }
@@ -188,7 +203,6 @@ function loginToEvent() {
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
   loginToEvent();
-  showEvent(); //html Inner call
 });
 
 //--> Deslogeo
@@ -387,6 +401,104 @@ function callAlerty (title,text,icono,confirmBtn) {
     confirmButtonText: confirmBtn,
   })
 }
+
+/*  -->>  FORM VALIDATIONS  <<--  */
+ 
+ function validationString () {
+   let user = newEventForm.eventName;
+   user.addEventListener("change", () => {
+    if (user.value.replace(/\s+/g, '').length == 0 || user.value == null) {
+      errorMessageValidationSignIn.innerHTML = "";
+      errorMessageValidationSignIn.innerHTML += "Please Introduce a name";
+      user.classList.add("inputStatusOff");
+      return statusValidationForm_String = false;
+    } else if (user.value.length < 3 || user.value.length > 30) {
+      errorMessageValidationSignIn.innerHTML = "";
+      errorMessageValidationSignIn.innerHTML += "Name cant not be more than 30 or less than 3";
+      user.classList.add("inputStatusOff");
+      return statusValidationForm_String = false;
+    } else {
+      errorMessageValidationSignIn.innerHTML = "";
+      user.classList.remove("inputStatusOff");
+      user.classList.add("inputStatusOk");
+      statusValidationForm_String = true;
+    }
+   });
+   return statusValidationForm_String;
+ }
+
+
+function validationMail () {
+  let email = newEventForm.eventEmail;
+  email.addEventListener("change", () => {
+   if (email.value.replace(/\s+/g, '').length == 0 || email.value == null) {
+     errorMessageValidationSignIn.innerHTML = "";
+     email.classList.add("inputStatusOff");
+     errorMessageValidationSignIn.innerHTML += "Please Introduce a Mail";
+     return statusValidationForm_Mail = false;
+   } else if (email.value.length < 5 || email.value.length > 40) {
+     errorMessageValidationSignIn.innerHTML = "";
+     errorMessageValidationSignIn.innerHTML += "Mail cant not be more than 40 or less than 5";
+     email.classList.add("inputStatusOff");
+     return statusValidationForm_Mail = false;
+    } else if (!email.value.includes("@") || !email.value.includes(".")) {
+    errorMessageValidationSignIn.innerHTML = "";
+    errorMessageValidationSignIn.innerHTML += "Mail no valido";
+    email.classList.add("inputStatusOff");
+    return statusValidationForm_Mail = false;
+   } else { 
+     errorMessageValidationSignIn.innerHTML = "";
+     email.classList.remove("inputStatusOff");
+     email.classList.add("inputStatusOk");
+     return statusValidationForm_Mail = true;
+   }
+  });
+  return statusValidationForm_Mail;
+}
+
+
+function validationUrl () {
+  let url = newEventForm.cartel;
+  url.addEventListener("change", () => {
+   if (url.value.replace(/\s+/g, '').length == 0 || url.value == null) {
+     errorMessageValidationSignIn.innerHTML = "";
+     url.classList.add("inputStatusOff"); 
+     errorMessageValidationSignIn.innerHTML += "Please Introduce a Url";
+     return statusValidationForm_Url = false;
+   } else if (url.value.length < 10 || url.value.length > 100) {
+     errorMessageValidationSignIn.innerHTML = "";
+     errorMessageValidationSignIn.innerHTML += "Url cant not be more than 100 or less than 10";
+     url.classList.add("inputStatusOff"); 
+     return statusValidationForm_Url = false;
+    } else {
+     errorMessageValidationSignIn.innerHTML = "";
+     url.classList.remove("inputStatusOff"); 
+     url.classList.add("inputStatusOk"); 
+     return statusValidationForm_Url = true;
+   }
+  });
+  return statusValidationForm_Url;
+}
+
+/* function validationTexarea () {
+  inputTexarea.addEventListener("change", function (event) {
+    if (inputTexarea.value == "") {
+      alert("¡Se esperaba una descripcion!");
+    } else {
+      alert("PROBANDO TEXAREA");
+    }
+  })
+}; */
+
+function statusOnChange () {
+  let url = newEventForm.cartel;
+  url.addEventListener("change", () => {
+  checkIfValidationIsOk = statusValidationForm_String + statusValidationForm_Mail + statusValidationForm_Url;
+});
+return checkIfValidationIsOk;
+};
+
+
 
 /*  -->>  CALCULATIONS OF TICKETS DIFERRENCE  <<--  */
 

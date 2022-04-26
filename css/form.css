@@ -1,3 +1,14 @@
+:root {
+  --statusColorOk:rgb(14, 226, 14);
+  --statusColorOff:rgb(226, 14, 14); 
+}
+
+.error {
+  color: red;
+  margin: 1em auto;
+  font-weight: 600;
+  text-shadow:5px 4px 5px 2px;
+}
 
 .container {
   margin: auto 0;
@@ -86,4 +97,8 @@ legend {
   margin: 5px;
   padding: 10px;
 }
+
+
+.inputStatusOk {border: 2px solid var(--statusColorOk);}
+.inputStatusOff {border: 2px solid var(--statusColorOff);}
 

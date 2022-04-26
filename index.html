@@ -88,7 +88,7 @@
                   class="form-input"
                   name="eventName"
                   type="text"
-                  placeholder="Event Name"
+                  placeholder="EventName"
                   required
                 />
               </div>
@@ -177,13 +177,14 @@
               <input
                 class="form-input"
                 name="cartel"
-                type="text"
+                type="url"
                 placeholder="url to the img"
               />
             </div>
             <div class="form-input_container container_texarea">
               <label class="form-label" for="description">Description</label>
               <textarea
+                id="desciptionEvent"
                 name="description"
                 maxlength="400"
                 minlength="100"
@@ -193,6 +194,7 @@
               ></textarea>
             </div>
           </fieldset>
+          <div class="error" id="errorSignIn"></div>
           <div class="form-group_center">
             <button class="btn btn-secundary" id="btnBackToAboutFromSingIn">
               Back
@@ -205,19 +207,18 @@
       </section>
       <!--LOGIN FORM-->
       <section class="container modal_offcanvas none" id="sectionLogin">
-        <form class="form-container" id="loginForm">
+        <form class="form-container" id="loginForm" action="/" method="GET">
           <fieldset>
             <legend><h2 class="form-title">Login</h2></legend>
             <div class="form-input_container">
-              <label class="form-label" for="userName/Mail">Name/Mail</label>
+              <label class="form-label" for="eventName">Name</label>
               <input
                 class="form-input"
-                id="userName/Mail"
+                id="eventName"
                 name="user"
                 type="text"
-                placeholder="Name/Mail"
+                placeholder="Name"
               />
-              <span id="msgLoginName"></span>
             </div>
             <div class="form-input_container">
               <label class="form-label" for="eventPassword">Password</label>
@@ -228,14 +229,14 @@
                 type="password"
                 placeholder="Password"
               />
-              <span id="msgLoginPass"></span>
+              <div id="errorLogIn"></div>
             </div>
           </fieldset>
           <div class="form-group_center">
             <button class="btn btn-secundary" id="btnBackToAboutFromLogin">
               Back
             </button>
-            <button class="btn btn-primary" id="btnLogin">Continue</button>
+            <button type="submit" class="btn btn-primary" id="btnLogin">Continue</button>
           </div>
         </form>
       </section>
