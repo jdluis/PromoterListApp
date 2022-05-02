@@ -243,6 +243,64 @@
     </div>
     <!--Finish BG-Change-->
 
+    <!--SETTINGS FORM-->
+    <section class="container modal_offcanvas none" id="sectionEventSettings">
+      <form class="form-container" id="settingsEventForm">
+        <h2 class="form-title">Update Event</h2>
+        <fieldset>
+          <div class="form-input_container">
+            <div>
+              <label class="form-label" for="setEventName">New Name</label>
+              <input
+                class="form-input"
+                name="setEventName"
+                type="text"
+                placeholder="EventName"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-input_container">
+            <div>
+              <label class="form-label" for="setEventEmail">New Mail</label>
+              <input
+                class="form-input"
+                name="setEventEmail"
+                type="email"
+                placeholder="Mail"
+                required
+              />
+            </div>
+          </div>
+        </fieldset>
+        
+        <fieldset>
+          <div class="form-input_container container_texarea">
+            <label class="form-label" for="setDescription">Change Description</label>
+            <textarea
+              id="setDesciptionEvent"
+              name="setDescription"
+              maxlength="400"
+              minlength="100"
+              cols="25"
+              aria-expanded="true"
+              rows="8"
+            ></textarea>
+          </div>
+        </fieldset>
+        <div class="error" id="errorSignIn"></div>
+        <div class="form-group_center">
+          <button class="btn btn-secundary" id="btnBackToEventFromSettings">
+            Back
+          </button>
+          <button class="btn btn-primary" id="btnEventSettings">
+            Change
+          </button>
+        </div>
+      </form>
+    </section>
+    <!--FINISH SETTINGS FORM-->
+
     <!--Event Panel-->
     <section class="container-panelEvent none" id="sectionEventPanel"></section>
 

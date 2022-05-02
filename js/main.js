@@ -1,5 +1,6 @@
 /*  -->>   CONSOLE PARA TESTING        <<--  */
 console.log("Testing App List PROM by jdluis");
+// LOS NOMBRES TEST SIGNIFICAN CODIGO DE PRUEBA O SIN TERMINAR, PUEDO BUSCARLO CON CONTROL F
 
 /*  -->> GLOBAL VARIABLES DECLARATIONS <<--  */
 
@@ -25,7 +26,7 @@ let btnNavEvents = document.getElementById("btnNavEvents");
 let btnNavHome = document.getElementById("btnNavHome");
 let btnBackOfSectionEvents = document.getElementById("btnBackOfSectionEvents");
 
-let goToTheEventPage = document.getElementById("goToTheEventPage");
+let goToTheEventPage;
 
 //--> Sections
 let bgHeroSlideContainer = document.getElementById("bgHeroSlide");
@@ -39,15 +40,18 @@ let sectionEventPanelConfig = document.getElementById(
 let sectionMainHeader = document.getElementById("sectionMainHeader");
 let sectionEvents = document.getElementById("sectionEvents");
 let eventsGallery = document.getElementById("eventsGallery");
+let sectionEventSettings = document.getElementById("sectionEventSettings");
 
 //--> Forms
 const loginForm = document.getElementById("loginForm");
 const newEventForm = document.getElementById("newEventForm");
+const settingsEventForm = document.getElementById("settingsEventForm");
 let errorMessageValidationLogIng = document.getElementById("errorLogIn");
 let errorMessageValidationSignIn = document.getElementById("errorSignIn");
 let statusValidationForm_String = false;
 let statusValidationForm_Mail = false;
 let statusValidationForm_Url = false;
+let statusValidationForm_Texarea = false;
 let checkIfValidationIsOk;
 
 /*  -->>         INITIATIONS          <<--  */
@@ -86,6 +90,7 @@ const requestDefaultEvents = async () => {
     validationString ();
     validationMail ();
     validationUrl ();
+    validationTexarea ();
 
     //Cargar API Local db_events.json
     requestDefaultEvents();
@@ -115,9 +120,17 @@ class Event {
     this.password = randomPassword();
     this.status = false;
   }
+
+  get eventName () {
+    return this.eventName;
+  }
+
+  set eventName (eventName) {
+    this.eventName = eventName;
+  }
 }
 
-/*  -->>  EVENT: Sign In, Login, LogOut  <<--  */
+/*  -->>  EVENT: Sign In, Login, LogOut, Settings  <<--  */
 
 //--> New Object Event Creation
 
@@ -136,7 +149,7 @@ class Event {
   if (events.find((element) => element.eventName == newEvent.eventName)) {
     callAlerty ("","Este Admin Ya esta registrado, pruebe con otro nombre","error",'OK')
     eventAlreadyExist = true;
-  } else if (checkIfValidationIsOk == 3) {
+  } else if (checkIfValidationIsOk == 4) {
     saveInLocalStorage(newEvent);
     events.push(newEvent); //Esto es para guardar en array
     callAlerty (`Gracias ${newEvent.eventName}`,`Su contraseña es '${newEvent.password}', no olvide guardarla.`,"success",'Continua')
@@ -272,7 +285,7 @@ function addEventToSectionEvents() {
     eventsGallery.innerHTML += `
     <div class="gallery_container">
       <div class="gallery-item">
-        <div class="image" id="goToTheEventPage"> 
+        <div class="image" onclick="OnClickEventCard ()">  
             <img src="${element.cartelOfEvent}" alt="cartel ${
       element.eventName
     }">
@@ -310,7 +323,30 @@ function addEventToSectionEvents() {
     </div>
     `;
   });
+  
 }
+//--> Abre un Alerty para simular la redireccion a la pagina de venta. TEST
+function OnClickEventCard () {
+   callAlerty ("","Redirigiendo a la pagina de venta","success",'OK')
+}
+
+//--> Settings Logic and Form
+function updateEvent () {
+  btnSettings.addEventListener("click", () => {
+    sectionEventSettings.classList.remove("none");
+      let changeName = settingsEventForm.setEventName.value;
+      let changeMail = settingsEventForm.setEventEmail.value;
+      let btnSettings = document.getElementById("settings");
+      let btnBackToEventFromSettings = document.getElementById("btnBackToEventFromSettings");
+      
+      btnBackToEventFromSettings.addEventListener("click", () => {
+        sectionEventSettings.classList.add("none");
+      });
+      eventFound.eventName = changeName;
+      eventFound.eventEmail = changeMail;
+  });
+}
+
 
 /*              -->>    DATES    <<--           */
 //Devuelve la fecha actual en un formato comparable.
@@ -323,8 +359,7 @@ function ActualFullDate() {
   return fullDate;
 }
 
-//MIRAR COMO PUEDO COMPARAR LAS DOS FECHAS
- let regex = /(\d+)/g;
+let regex = /(\d+)/g; 
 //Crea un nuevo array con los eventos que no superen la fecha actual
 function lookdatesevents () { 
   const newArray = [];
@@ -480,20 +515,28 @@ function validationUrl () {
   return statusValidationForm_Url;
 }
 
-/* function validationTexarea () {
-  inputTexarea.addEventListener("change", function (event) {
-    if (inputTexarea.value == "") {
-      alert("¡Se esperaba una descripcion!");
+ function validationTexarea () {
+   let inputTexarea = newEventForm.description;
+  inputTexarea.addEventListener("change", () => {
+    if (inputTexarea.value.replace(/\s+/g, '').length == 0 || inputTexarea.value == null) {
+      errorMessageValidationSignIn.innerHTML = "";
+      inputTexarea.classList.add("inputStatusOff"); 
+      errorMessageValidationSignIn.innerHTML += "Please Introduce a description";
+      return statusValidationForm_Texarea = false;
     } else {
-      alert("PROBANDO TEXAREA");
+      errorMessageValidationSignIn.innerHTML = "";
+      inputTexarea.classList.remove("inputStatusOff"); 
+      inputTexarea.classList.add("inputStatusOk"); 
+      return statusValidationForm_Texarea = true;
     }
-  })
-}; */
+  });
+  return statusValidationForm_Texarea
+}; 
 
 function statusOnChange () {
   let url = newEventForm.cartel;
   url.addEventListener("change", () => {
-  checkIfValidationIsOk = statusValidationForm_String + statusValidationForm_Mail + statusValidationForm_Url;
+  checkIfValidationIsOk = statusValidationForm_String + statusValidationForm_Mail + statusValidationForm_Url + statusValidationForm_Texarea;
 });
 return checkIfValidationIsOk;
 };
@@ -518,10 +561,7 @@ function sellTickets() {
 /*  -->>  RANDOM PASSWORD/ID  <<--  */
 //-> Create random serial
 function randomPassword() {
-  //Funcion Copiada, intentar ENTENDER.
-  // Math.random should be unique because of its seeding algorithm.
-  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-  // after the decimal.
+  //Funcion Copiada, genera una clave random
   return "_" + Math.random().toString(36).substr(2, 9);
 }
 
