@@ -26,6 +26,16 @@
     color: rgb(255, 250, 240);
 }
 
+.btn-delete {
+    background-color: rgb(224, 17, 17);
+    color: rgb(255, 250, 240);
+}
+
+.btn-delete:hover {
+    background-color: rgb(86, 47, 47);
+    color: rgb(255, 250, 240);
+}
+
 .btn-other {
     background-color: var(--color-primary);
 }

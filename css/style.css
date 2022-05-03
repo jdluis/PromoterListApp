@@ -21,9 +21,11 @@ a {z-index: 4;}
   cursor: pointer;
 }
 
+
 .linkedin:hover {
   color: blue;
   cursor: pointer;
+  justify-content: left;
 }
 
 /*Variables*/

@@ -12,9 +12,10 @@
 
 
 .gallery-item {
+  --heightEvent: calc(300px + 40vh);
   width: 100%;
   max-width: 500px;
-  height: 100%;
+  height: var(--heightEvent);
   position: relative;
   transition: 2s;
   margin: auto;
@@ -61,7 +62,7 @@
   opacity:1;
   animation: move-down .3s linear;
   width:100%;
-  background-color: rgba(0, 0, 0, 0.673);
+  background-color: rgba(0, 0, 0, 0.736);
   overflow: hidden;
   translate: 100px;
 }
@@ -71,23 +72,25 @@
 @keyframes move-down{
   
   0%{
-    top:0%;
+    left:100%;
   }
   50%{
-    top:35%;
+    left:80%;
   }
   100%{
-    top:50%;
+    left:50%;
   }
 }
 
 
 .ticket-container {
+  --heightEventInfo: calc(var(--heightEvent) - 10px);
     display: flex;
     flex-direction: column;
     padding: .4em;
+    padding-right: 50px;
     width: auto;
-    height: auto;
+    height: var(--heightEventInfo);
 }
 
 
@@ -95,7 +98,7 @@
 .ticket-text__container {
   padding: 1em;
   width: auto;
-  height: auto;
+  height: 100%;
 }
 
 
