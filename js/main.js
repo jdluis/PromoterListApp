@@ -25,6 +25,7 @@ let btnCreateEvent = document.getElementById("btnCreateEvent");
 let btnNavEvents = document.getElementById("btnNavEvents");
 let btnNavHome = document.getElementById("btnNavHome");
 let btnBackOfSectionEvents = document.getElementById("btnBackOfSectionEvents");
+let btnEventSettings = document.getElementById("btnEventSettings");
 
 let goToTheEventPage;
 
@@ -110,23 +111,39 @@ class Event {
     password,
     status
   ) {
-    this.eventName = eventName;
-    this.mail = mail;
+    this._eventName = eventName;
+    this._mail = mail;
     this.date = date;
     this.category = category;
     this.totalTickets = totalTickets;
     this.cartelOfEvent = cartelOfEvent;
-    this.description = description;
+    this._description = description;
     this.password = randomPassword();
     this.status = false;
   }
 
   get eventName () {
-    return this.eventName;
+    return this._eventName;
   }
 
   set eventName (eventName) {
-    this.eventName = eventName;
+    this._eventName = eventName;
+  }
+
+  get mail () {
+    return this._mail;
+  }
+
+  set mail (mail) {
+    this._mail = mail;
+  }
+
+  get description () {
+    return this._description;
+  }
+
+  set description (description) {
+    this._description = description;
   }
 }
 
@@ -276,6 +293,7 @@ function showEvent() {
   </div>
   `;
   deslogeo(); //activa la funcion del btn LogOut
+  updateEvent ();
 }
 
 //Añade los eventos a la section eventos
@@ -323,7 +341,6 @@ function addEventToSectionEvents() {
     </div>
     `;
   });
-  
 }
 //--> Abre un Alerty para simular la redireccion a la pagina de venta. TEST
 function OnClickEventCard () {
@@ -332,19 +349,33 @@ function OnClickEventCard () {
 
 //--> Settings Logic and Form
 function updateEvent () {
+  let btnSettings = document.getElementById("settings");
   btnSettings.addEventListener("click", () => {
     sectionEventSettings.classList.remove("none");
       let changeName = settingsEventForm.setEventName.value;
       let changeMail = settingsEventForm.setEventEmail.value;
-      let btnSettings = document.getElementById("settings");
+      let changeDescription = settingsEventForm.setDescription.value;
       let btnBackToEventFromSettings = document.getElementById("btnBackToEventFromSettings");
       
       btnBackToEventFromSettings.addEventListener("click", () => {
         sectionEventSettings.classList.add("none");
       });
-      eventFound.eventName = changeName;
-      eventFound.eventEmail = changeMail;
+
+      btnEventSettings.addEventListener ("click", (e)=> {
+        e.preventDefault();
+        eventFound.eventName = changeName;
+        eventFound.mail = changeMail;
+        eventFound.description = changeDescription;
+
+        saveInLocalStorage(eventFound); //guarda un nuevo objeto con los cambios realizados
+        
+      }) 
   });
+}
+
+//--> Delete all Events From Array: events
+function deleteEvent () {
+ return events.length = 0
 }
 
 
