@@ -258,6 +258,7 @@ function showEvent() {
   <div>
   <p class="logo">PromoList</p>
   <div class="fixed">
+    <button id="deleteEvent" class="btn btn-delete">Delete</button>
     <button id="settings" class="btn btn-primary">Settings</button>
     <button id="btnLogout" class="btn btn-secundary">LogOut</button>
     </div>
@@ -350,32 +351,45 @@ function OnClickEventCard () {
 //--> Settings Logic and Form
 function updateEvent () {
   let btnSettings = document.getElementById("settings");
+  let btnDeleteEvent = document.getElementById("deleteEvent");
+  let eventNameOfEventFound = eventFound.eventName;
+  
+  btnDeleteEvent.addEventListener("click", (e) => {
+    e.preventDefault();
+    deleteEventFromLocalStg (eventNameOfEventFound);
+    callAlertyReload("Event Deleted", `${eventNameOfEventFound}.`, "success",'Reload Page...');
+  });
+
   btnSettings.addEventListener("click", () => {
     sectionEventSettings.classList.remove("none");
       let changeName = settingsEventForm.setEventName.value;
       let changeMail = settingsEventForm.setEventEmail.value;
       let changeDescription = settingsEventForm.setDescription.value;
       let btnBackToEventFromSettings = document.getElementById("btnBackToEventFromSettings");
-      
+
       btnBackToEventFromSettings.addEventListener("click", () => {
         sectionEventSettings.classList.add("none");
       });
 
       btnEventSettings.addEventListener ("click", (e)=> {
+        deleteEventFromLocalStg (eventNameOfEventFound)
         e.preventDefault();
         eventFound.eventName = changeName;
         eventFound.mail = changeMail;
         eventFound.description = changeDescription;
-
         saveInLocalStorage(eventFound); //guarda un nuevo objeto con los cambios realizados
-        
-      }) 
+        callAlertyReload("Update Completed", `${changeName} is the new name of the event.`, "success",'Loading...');
+      });
   });
 }
 
 //--> Delete all Events From Array: events
 function deleteEvent () {
  return events.length = 0
+}
+
+function deleteEventFromLocalStg (keyOBJ) {
+  localStorage.removeItem(keyOBJ);
 }
 
 
@@ -465,6 +479,19 @@ function callAlerty (title,text,icono,confirmBtn) {
     text: text,
     icon: icono,
     confirmButtonText: confirmBtn,
+  }).then (() => {
+    location.reload();
+  })
+}
+//--> SweetAlert with then condition to reload
+function callAlertyReload (title,text,icono,confirmBtn) {
+  Swal.fire({
+    title: title,
+    text: text,
+    icon: icono,
+    confirmButtonText: confirmBtn,
+  }).then (() => {
+    location.reload();
   })
 }
 
