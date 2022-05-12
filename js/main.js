@@ -153,6 +153,7 @@ class Event {
 
   btnCreateEvent.addEventListener("click", (e) => {
     e.preventDefault();
+    console.log("working");
     let newEvent = new Event(
     newEventForm.eventName.value,
     newEventForm.eventEmail.value,
@@ -166,7 +167,7 @@ class Event {
   if (events.find((element) => element.eventName == newEvent.eventName)) {
     callAlerty ("","Este Admin Ya esta registrado, pruebe con otro nombre","error",'OK')
     eventAlreadyExist = true;
-  } else if (checkIfValidationIsOk == 4) {
+  } else if (checkIfValidationIsOk == 2 || checkIfValidationIsOk == 3 || checkIfValidationIsOk == 4 ) {
     saveInLocalStorage(newEvent);
     events.push(newEvent); //Esto es para guardar en array
     callAlerty (`Gracias ${newEvent.eventName}`,`Su contraseña es '${newEvent.password}', no olvide guardarla.`,"success",'Continua')
@@ -175,6 +176,8 @@ class Event {
     showEvent(); //Muestra contraseña con un alert si el evento no existe. //Cambiar por libreria
     bgHeroSlideContainer.classList.add("none");
     callToast("Registro Completado Correctamente")
+} else {
+  callAlerty ("","Ha surgido un problema, vuelva a intentarlo","error",'OK')
 }
 });
 
@@ -558,9 +561,9 @@ function validationUrl () {
      url.classList.add("inputStatusOff"); 
      errorMessageValidationSignIn.innerHTML += "Please Introduce a Url";
      return statusValidationForm_Url = false;
-   } else if (url.value.length < 10 || url.value.length > 100) {
+   } else if (url.value.length < 10 || url.value.length > 300) {
      errorMessageValidationSignIn.innerHTML = "";
-     errorMessageValidationSignIn.innerHTML += "Url cant not be more than 100 or less than 10";
+     errorMessageValidationSignIn.innerHTML += "Url cant not be more than 300 or less than 10";
      url.classList.add("inputStatusOff"); 
      return statusValidationForm_Url = false;
     } else {
@@ -592,7 +595,7 @@ function validationUrl () {
 }; 
 
 function statusOnChange () {
-  let url = newEventForm.cartel;
+  let url = newEventForm;
   url.addEventListener("change", () => {
   checkIfValidationIsOk = statusValidationForm_String + statusValidationForm_Mail + statusValidationForm_Url + statusValidationForm_Texarea;
 });
