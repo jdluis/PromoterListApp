@@ -87,7 +87,6 @@ const requestDefaultEvents = async () => {
     openSection(btnBackOfSectionEvents, sectionMainHeader, sectionEvents);
     
     //Validaciones
-    statusOnChange();
     validationString ();
     validationMail ();
     validationUrl ();
@@ -517,6 +516,7 @@ function callAlertyReload (title,text,icono,confirmBtn) {
       errorMessageValidationSignIn.innerHTML = "";
       user.classList.remove("inputStatusOff");
       user.classList.add("inputStatusOk");
+      statusCalc ();
       statusValidationForm_String = true;
     }
    });
@@ -546,8 +546,10 @@ function validationMail () {
      errorMessageValidationSignIn.innerHTML = "";
      email.classList.remove("inputStatusOff");
      email.classList.add("inputStatusOk");
+     statusCalc ();
      return statusValidationForm_Mail = true;
    }
+   
   });
   return statusValidationForm_Mail;
 }
@@ -570,8 +572,10 @@ function validationUrl () {
      errorMessageValidationSignIn.innerHTML = "";
      url.classList.remove("inputStatusOff"); 
      url.classList.add("inputStatusOk"); 
+     statusCalc ();
      return statusValidationForm_Url = true;
    }
+ 
   });
   return statusValidationForm_Url;
 }
@@ -588,19 +592,18 @@ function validationUrl () {
       errorMessageValidationSignIn.innerHTML = "";
       inputTexarea.classList.remove("inputStatusOff"); 
       inputTexarea.classList.add("inputStatusOk"); 
+      statusCalc ();
       return statusValidationForm_Texarea = true;
     }
-  });
+    });
   return statusValidationForm_Texarea
 }; 
 
-function statusOnChange () {
-  let url = newEventForm;
-  url.addEventListener("change", () => {
+function statusCalc () {
   checkIfValidationIsOk = statusValidationForm_String + statusValidationForm_Mail + statusValidationForm_Url + statusValidationForm_Texarea;
-});
-return checkIfValidationIsOk;
-};
+  return console.log(checkIfValidationIsOk);
+}
+
 
 
 
