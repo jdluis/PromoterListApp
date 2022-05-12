@@ -53,7 +53,7 @@ let statusValidationForm_String = false;
 let statusValidationForm_Mail = false;
 let statusValidationForm_Url = false;
 let statusValidationForm_Texarea = false;
-let checkIfValidationIsOk = true; //TEMPORALMENTE TRUE, hasta solucionar validacion con status.
+let checkIfValidationIsOk;
 
 /*  -->>         INITIATIONS          <<--  */
 
@@ -87,7 +87,6 @@ const requestDefaultEvents = async () => {
     openSection(btnBackOfSectionEvents, sectionMainHeader, sectionEvents);
     
     //Validaciones
-    /* statusOnChange(); TEMPORALMENTE DESACTIVADO*/ 
     validationString ();
     validationMail ();
     validationUrl ();
@@ -167,7 +166,7 @@ class Event {
   if (events.find((element) => element.eventName == newEvent.eventName)) {
     callAlerty ("","Este Admin Ya esta registrado, pruebe con otro nombre","error",'OK')
     eventAlreadyExist = true;
-  } else if (checkIfValidationIsOk) {
+  } else if (checkIfValidationIsOk == 2 || checkIfValidationIsOk == 3 || checkIfValidationIsOk == 4 ) {
     saveInLocalStorage(newEvent);
     events.push(newEvent); //Esto es para guardar en array
     callAlerty (`Gracias ${newEvent.eventName}`,`Su contraseña es '${newEvent.password}', no olvide guardarla.`,"success",'Continua')
@@ -517,6 +516,7 @@ function callAlertyReload (title,text,icono,confirmBtn) {
       errorMessageValidationSignIn.innerHTML = "";
       user.classList.remove("inputStatusOff");
       user.classList.add("inputStatusOk");
+      statusCalc ();
       statusValidationForm_String = true;
     }
    });
@@ -546,8 +546,10 @@ function validationMail () {
      errorMessageValidationSignIn.innerHTML = "";
      email.classList.remove("inputStatusOff");
      email.classList.add("inputStatusOk");
+     statusCalc ();
      return statusValidationForm_Mail = true;
    }
+   
   });
   return statusValidationForm_Mail;
 }
@@ -570,8 +572,10 @@ function validationUrl () {
      errorMessageValidationSignIn.innerHTML = "";
      url.classList.remove("inputStatusOff"); 
      url.classList.add("inputStatusOk"); 
+     statusCalc ();
      return statusValidationForm_Url = true;
    }
+ 
   });
   return statusValidationForm_Url;
 }
@@ -588,16 +592,18 @@ function validationUrl () {
       errorMessageValidationSignIn.innerHTML = "";
       inputTexarea.classList.remove("inputStatusOff"); 
       inputTexarea.classList.add("inputStatusOk"); 
+      statusCalc ();
       return statusValidationForm_Texarea = true;
     }
-  });
+    });
   return statusValidationForm_Texarea
 }; 
 
-/* function statusOnChange () { PROBLEMAS EN LA FUNCION LOGICA.
+function statusCalc () {
   checkIfValidationIsOk = statusValidationForm_String + statusValidationForm_Mail + statusValidationForm_Url + statusValidationForm_Texarea;
-return checkIfValidationIsOk;
-}; */
+  return console.log(checkIfValidationIsOk);
+}
+
 
 
 
