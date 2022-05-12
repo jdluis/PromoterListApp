@@ -53,7 +53,7 @@ let statusValidationForm_String = false;
 let statusValidationForm_Mail = false;
 let statusValidationForm_Url = false;
 let statusValidationForm_Texarea = false;
-let checkIfValidationIsOk;
+let checkIfValidationIsOk = true; //TEMPORALMENTE TRUE, hasta solucionar validacion con status.
 
 /*  -->>         INITIATIONS          <<--  */
 
@@ -87,7 +87,7 @@ const requestDefaultEvents = async () => {
     openSection(btnBackOfSectionEvents, sectionMainHeader, sectionEvents);
     
     //Validaciones
-    statusOnChange();
+    /* statusOnChange(); TEMPORALMENTE DESACTIVADO*/ 
     validationString ();
     validationMail ();
     validationUrl ();
@@ -167,7 +167,7 @@ class Event {
   if (events.find((element) => element.eventName == newEvent.eventName)) {
     callAlerty ("","Este Admin Ya esta registrado, pruebe con otro nombre","error",'OK')
     eventAlreadyExist = true;
-  } else if (checkIfValidationIsOk == 2 || checkIfValidationIsOk == 3 || checkIfValidationIsOk == 4 ) {
+  } else if (checkIfValidationIsOk) {
     saveInLocalStorage(newEvent);
     events.push(newEvent); //Esto es para guardar en array
     callAlerty (`Gracias ${newEvent.eventName}`,`Su contraseña es '${newEvent.password}', no olvide guardarla.`,"success",'Continua')
@@ -594,13 +594,10 @@ function validationUrl () {
   return statusValidationForm_Texarea
 }; 
 
-function statusOnChange () {
-  let url = newEventForm;
-  url.addEventListener("change", () => {
+/* function statusOnChange () { PROBLEMAS EN LA FUNCION LOGICA.
   checkIfValidationIsOk = statusValidationForm_String + statusValidationForm_Mail + statusValidationForm_Url + statusValidationForm_Texarea;
-});
 return checkIfValidationIsOk;
-};
+}; */
 
 
 
