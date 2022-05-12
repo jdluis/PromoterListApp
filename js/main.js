@@ -481,8 +481,6 @@ function callAlerty (title,text,icono,confirmBtn) {
     text: text,
     icon: icono,
     confirmButtonText: confirmBtn,
-  }).then (() => {
-    location.reload();
   })
 }
 //--> SweetAlert with then condition to reload
